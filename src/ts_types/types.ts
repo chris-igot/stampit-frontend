@@ -1,17 +1,18 @@
 export interface PostType {
-    id: number | string;
+    id: string;
     image: string;
     stamps: StampType[];
 }
 
 export interface StampType {
-    id: number | string;
+    id: string;
     image: string;
     x: number;
     y: number;
 }
 
 export interface ProfileType {
+    id: string;
     name: string;
     image: string;
     title: string;
