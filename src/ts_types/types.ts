@@ -2,6 +2,7 @@ export interface PostType {
     id: string;
     image: string;
     stamps: StampType[];
+    createdAt: string;
 }
 
 export interface StampType {
