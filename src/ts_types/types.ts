@@ -1,5 +1,6 @@
 export interface PostType {
     id: string;
+    profile: string;
     image: string;
     stamps: StampType[];
     createdAt: string;

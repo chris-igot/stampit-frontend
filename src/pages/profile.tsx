@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import ImageSquare from "../components/imageSquare";
 import { OutputType, PostType, ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
@@ -71,7 +71,9 @@ export default function Profile(props: PropsType) {
             </div>
             <div className="profile-photos">
                 {posts.map((post) => (
-                    <ImageSquare key={post.id} image={post.image} />
+                    <Link key={post.id} to={"/post?id=" + post.id}>
+                        <ImageSquare image={post.image} />
+                    </Link>
                 ))}
             </div>
         </div>

@@ -8,6 +8,7 @@ import Register from "./pages/register";
 import Profile from "./pages/profile";
 import PostNew from "./pages/postNew";
 import Public from "./pages/public";
+import Post from "./pages/post";
 
 function App() {
     useEffect(() => {
@@ -17,8 +18,23 @@ function App() {
         <Router>
             <Menu />
             <Routes>
-                <Route path="/home" element={<Profile home={true} />} />
-                <Route path="/profile" element={<Profile home={false} />} />
+                <Route
+                    path="/home"
+                    element={
+                        <React.Fragment>
+                            <Profile home={true} />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/profile"
+                    element={
+                        <React.Fragment>
+                            <Profile home={false} />
+                        </React.Fragment>
+                    }
+                />
+                <Route path="/post" element={<Post />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/public" element={<Public />} />

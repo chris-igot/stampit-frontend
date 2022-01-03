@@ -8,12 +8,16 @@ function Menu(props: PropsType) {
     const navigate = useNavigate();
     return (
         <nav>
-            <Link to="/home">home </Link>
-            <Link to="/login">login </Link>
+            <Link replace={true} to="/home">
+                home{" "}
+            </Link>
+            <Link replace={true} to="/login">
+                login{" "}
+            </Link>
             <Link to="/register">register </Link>
             <Link to="/public">public </Link>
             <Link to="/profile">profile</Link>
-            <Link to="/upload">upload</Link>
+            <Link to="/upload">upload</Link>vv
             <Link
                 to="/login"
                 onClick={() => {

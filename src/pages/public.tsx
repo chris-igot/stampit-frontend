@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ImageSquare from "../components/imageSquare";
 import { OutputType, PostType } from "../ts_types/types";
 import getData from "../utilities/getData";
@@ -30,7 +30,9 @@ export default function Public() {
         <div>
             <div className="public-photos">
                 {posts.map((post) => (
-                    <ImageSquare key={post.id} image={post.image} />
+                    <Link key={post.id} to={"/post?id=" + post.id}>
+                        <ImageSquare image={post.image} />
+                    </Link>
                 ))}
             </div>
         </div>
