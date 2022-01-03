@@ -18,22 +18,8 @@ function App() {
         <Router>
             <Menu />
             <Routes>
-                <Route
-                    path="/home"
-                    element={
-                        <React.Fragment>
-                            <Profile home={true} />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/profile"
-                    element={
-                        <React.Fragment>
-                            <Profile home={false} />
-                        </React.Fragment>
-                    }
-                />
+                <Route path="/home" element={<Profile home={true} />} />
+                <Route path="/profile" element={<Profile home={false} />} />
                 <Route path="/post" element={<Post />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
