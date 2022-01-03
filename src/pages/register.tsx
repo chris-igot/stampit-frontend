@@ -26,7 +26,7 @@ export default function Register() {
         });
     }
     return (
-        <div>
+        <div className="page">
             <Form route="/api/register">
                 <Input name="username" />
                 <Input name="email" type="email" />

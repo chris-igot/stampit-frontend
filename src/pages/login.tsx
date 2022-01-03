@@ -26,7 +26,7 @@ export default function Login() {
         });
     }
     return (
-        <div>
+        <div className="page">
             <Form route="/api/login">
                 <Input name="email" type="email" />
                 <Input name="password" type="password" />

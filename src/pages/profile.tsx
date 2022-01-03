@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import ImageSquare from "../components/imageSquare";
+import Image from "../components/image";
 import { OutputType, PostType, ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
@@ -19,17 +19,26 @@ export default function Profile(props: PropsType) {
         bio: "",
     });
     const [posts, setPosts] = useState<PostType[]>([]);
+    const [amFollowing, setAmFollowing] = useState(false);
 
     useEffect(() => {
         let profileRoute = "";
         let postsRoute = "";
-        if ("home" in props ? props.home : false) {
+        const id = searchParams.get("id");
+        if (props.home) {
             profileRoute = "/api/home";
             postsRoute = "/api/posts/self";
         } else {
-            profileRoute = `/api/profile?id=${searchParams.get("id")}`;
-            postsRoute = `/api/posts/user?id=${searchParams.get("id")}`;
+            profileRoute = "/api/profile?id=" + id;
+            postsRoute = "/api/posts/user?id=" + id;
+            getData("/api/profile/amfollowing?id=" + id).then((output) => {
+                const data = output as OutputType;
+                if (data.status === 200) {
+                    setAmFollowing(data.json as boolean);
+                }
+            });
         }
+
         getData(profileRoute).then((output) => {
             const data = output as OutputType;
             switch (data.status) {
@@ -60,19 +69,30 @@ export default function Profile(props: PropsType) {
         });
     }, []);
     return (
-        <div>
-            <div className="profile-header">
-                <ImageSquare image={profile.image} />
-                <div className="stuff">{profile.name}</div>
-                <div className="info">
-                    <h6>{profile.title}</h6>
-                    <p>{profile.bio}</p>
+        <div className="page">
+            <div className="profile__header">
+                <Image
+                    class="profile__header--imageself"
+                    image={profile.image}
+                />
+                <div className="profile__header--stuff">
+                    {!props.home && (
+                        <p>{amFollowing ? "following" : "not following"}</p>
+                    )}
+                </div>
+                <div className="profile__header--info">
+                    <h5 className="profile__header--name">{profile.name}</h5>
+                    <h6 className="profile__header--title">{profile.title}</h6>
+                    <p className="profile__header--bio">{profile.bio}</p>
                 </div>
             </div>
-            <div className="profile-photos">
+            <div className="profile__images">
                 {posts.map((post) => (
                     <Link key={post.id} to={"/post?id=" + post.id}>
-                        <ImageSquare image={post.image} />
+                        <Image
+                            class="profile__images--image"
+                            image={post.image}
+                        />
                     </Link>
                 ))}
             </div>

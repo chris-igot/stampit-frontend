@@ -23,7 +23,7 @@ export default function PostNew() {
         });
     }
     return (
-        <div>
+        <div className="page">
             <Form route="/api/login">
                 <Input name="file" type="file" />
                 <button

@@ -1,24 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
 import React from "react";
-import getData from "./utilities/getData";
 interface PropsType {
     children?: React.ReactNode;
 }
 function Menu(props: PropsType) {
     const navigate = useNavigate();
     return (
-        <nav>
-            <Link to="/home" reloadDocument>
-                home{" "}
-            </Link>
-            <Link to="/login" reloadDocument>
-                login{" "}
-            </Link>
-            <Link to="/register">register </Link>
-            <Link to="/public">public </Link>
-            <Link to="/profile">profile</Link>
-            <Link to="/upload">upload</Link>
+        <nav className="navigation">
             <Link
+                className="navigation__link navigation__home"
+                to="/home"
+                reloadDocument
+            >
+                stckIt
+            </Link>
+            <Link className="navigation__link" to="/public">
+                public
+            </Link>
+            <Link className="navigation__link" to="/profile">
+                profile
+            </Link>
+            <Link className="navigation__link" to="/upload">
+                upload
+            </Link>
+            <Link
+                className="navigation__link"
                 to="/login"
                 onClick={() => {
                     fetch("/api/logout");

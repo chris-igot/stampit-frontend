@@ -1,0 +1,31 @@
+@import "colors";
+
+$overall-width: 60%;
+
+body {
+    background-color: $black;
+}
+
+#root {
+    width: $overall-width;
+    margin: auto;
+}
+
+$nav-space: 3rem;
+
+.navigation {
+    position: fixed;
+    height: $nav-space;
+    width: $overall-width;
+}
+
+.page {
+    width: 100%;
+}
+
+.page::before {
+    position: static;
+    display: block;
+    height: $nav-space;
+    content: "";
+}
