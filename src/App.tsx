@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import logo from "./logo.svg";
-import "./App.scss";
+import "./styles/App.scss";
 import Menu from "./menu";
 import Login from "./pages/login";
 import Register from "./pages/register";
