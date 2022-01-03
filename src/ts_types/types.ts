@@ -19,3 +19,9 @@ export interface ProfileType {
     title: string;
     bio: string;
 }
+
+export interface OutputType {
+    status: number;
+    error?: string;
+    json?: Object;
+}

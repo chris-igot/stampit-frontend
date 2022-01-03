@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ImageSquare from "../components/imageSquare";
-import { PostType, ProfileType } from "../ts_types/types";
+import { OutputType, PostType, ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 interface PropsType {
@@ -30,17 +30,33 @@ export default function Profile(props: PropsType) {
             profileRoute = `/api/profile?id=${searchParams.get("id")}`;
             postsRoute = `/api/posts/user?id=${searchParams.get("id")}`;
         }
-        getData(profileRoute, navigate).then((profile) => {
-            console.log(profile);
-            setProfile(profile);
+        getData(profileRoute).then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
+                case 200:
+                    console.log(data.json);
+                    setProfile(data.json as ProfileType);
+                    break;
+                default:
+                    navigate("/login");
+                    break;
+            }
         });
-        getData(postsRoute, navigate).then((posts) => {
-            console.log(posts);
-            setPosts(
-                (posts as PostType[]).sort((a, b) =>
-                    b.createdAt.localeCompare(a.createdAt)
-                )
-            );
+        getData(postsRoute).then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
+                case 200:
+                    console.log(data.json);
+                    setPosts(
+                        (data.json as PostType[]).sort((a, b) =>
+                            b.createdAt.localeCompare(a.createdAt)
+                        )
+                    );
+                    break;
+                default:
+                    navigate("/login");
+                    return;
+            }
         });
     }, []);
     return (

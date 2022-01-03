@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ImageSquare from "../components/imageSquare";
-import { PostType } from "../ts_types/types";
+import { OutputType, PostType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 export default function Public() {
@@ -9,13 +9,21 @@ export default function Public() {
     const [posts, setPosts] = useState<PostType[]>([]);
 
     useEffect(() => {
-        getData("/api/public", navigate).then((posts) => {
-            console.log(posts);
-            setPosts(
-                (posts as PostType[]).sort((a, b) =>
-                    b.createdAt.localeCompare(a.createdAt)
-                )
-            );
+        getData("/api/public").then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
+                case 200:
+                    console.log(data.json);
+                    setPosts(
+                        (data.json as PostType[]).sort((a, b) =>
+                            b.createdAt.localeCompare(a.createdAt)
+                        )
+                    );
+                    break;
+                default:
+                    navigate("/login");
+                    return;
+            }
         });
     }, []);
     return (
