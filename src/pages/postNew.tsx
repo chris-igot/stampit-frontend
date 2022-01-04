@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Form from "../components/form/form";
 import Input from "../components/form/input";
 import { OutputType } from "../ts_types/types";
 import convertInputToFormData from "../utilities/convertInputToFormData";
@@ -24,7 +23,7 @@ export default function PostNew() {
     }
     return (
         <div className="page">
-            <Form route="/api/login">
+            <form action="" method="post">
                 <Input name="file" type="file" />
                 <button
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,7 +33,7 @@ export default function PostNew() {
                 >
                     Post!
                 </button>
-            </Form>
+            </form>
         </div>
     );
 }

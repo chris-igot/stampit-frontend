@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Form from "../components/form/form";
 import Input from "../components/form/input";
 import { OutputType } from "../ts_types/types";
 import convertInputToFormData from "../utilities/convertInputToFormData";
@@ -27,7 +26,7 @@ export default function Register() {
     }
     return (
         <div className="page">
-            <Form route="/api/register">
+            <form action="" method="post">
                 <Input name="username" />
                 <Input name="email" type="email" />
                 <Input name="password" type="password" />
@@ -44,7 +43,7 @@ export default function Register() {
                 >
                     Register
                 </button>
-            </Form>
+            </form>
         </div>
     );
 }
