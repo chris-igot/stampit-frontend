@@ -31,7 +31,10 @@ export default function Public() {
             <div className="public__images">
                 {posts.map((post) => (
                     <Link key={post.id} to={"/post?id=" + post.id}>
-                        <Image image={post.image} />
+                        <Image
+                            class="public__images--image"
+                            image={post.image}
+                        />
                     </Link>
                 ))}
             </div>

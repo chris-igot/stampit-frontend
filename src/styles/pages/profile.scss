@@ -1,0 +1,85 @@
+@import "../common/colors";
+
+%header-common {
+    display: inline-block;
+}
+
+.profile__header {
+    margin-top: 0.2rem;
+    color: $white;
+
+    &::after {
+        display: block;
+        width: 98%;
+        margin: auto;
+
+        content: "";
+        border-bottom: 1px solid $white;
+    }
+
+    &--imageself {
+        @extend %header-common;
+        width: 20%;
+
+        box-shadow: 0 0 5px 1px $white;
+
+        & img {
+            height: 100%;
+            width: 100%;
+
+            object-fit: cover;
+            -o-object-fit: cover;
+        }
+    }
+
+    &--stuff {
+        @extend %header-common;
+        width: 80%;
+    }
+
+    &--info {
+        // width: 100%;
+        margin: 0.2rem 0 0.2rem 0;
+        padding: 0.2rem;
+    }
+
+    &--name,
+    &--title,
+    &--bio {
+        margin: 0;
+    }
+}
+
+.profile__images {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-top: 0.5rem;
+
+    &--image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10rem;
+        width: 10rem;
+        margin: 1px;
+
+        overflow: hidden;
+
+        background-color: $blue;
+        transition-duration: 0.2s;
+
+        &:hover {
+            opacity: 0.75;
+        }
+
+        & img {
+            height: 100%;
+            width: 100%;
+
+            object-fit: cover;
+            -o-object-fit: cover;
+            background-color: #ffffff;
+        }
+    }
+}

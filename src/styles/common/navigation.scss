@@ -1,0 +1,24 @@
+@use "sass:color";
+@import "colors";
+
+.navigation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: $darkblue;
+
+    &__link {
+        color: $white;
+        &:hover {
+            color: scale-color($white, $lightness: -20%);
+        }
+    }
+
+    &__home {
+        transform: rotate(-2.5deg);
+        font-size: 24px;
+        font-family: "Trocchi", serif;
+        font-weight: 700;
+    }
+}

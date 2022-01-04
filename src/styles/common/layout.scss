@@ -15,6 +15,7 @@ $nav-space: 3rem;
 
 .navigation {
     position: fixed;
+    z-index: 9001;
     height: $nav-space;
     width: $overall-width;
 }

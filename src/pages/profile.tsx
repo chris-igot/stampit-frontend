@@ -8,7 +8,7 @@ interface PropsType {
     home?: boolean;
 }
 
-export default function Profile(props: PropsType) {
+export default function Profile(props: PropsType = { home: false }) {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [profile, setProfile] = useState<ProfileType>({

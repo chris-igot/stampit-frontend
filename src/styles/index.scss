@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Trocchi&display=swap");
-@import "normalize";
-@import "colors";
-@import "layout";
+@import "common/normalize";
+@import "common/colors";
+@import "common/layout";
 
-@import "navigation";
-@import "profile";
+@import "common/navigation";
+@import "pages/profile";
+@import "pages/public";
+@import "pages/post";
