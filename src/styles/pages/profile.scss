@@ -1,0 +1,141 @@
+%header-common {
+    display: inline-block;
+}
+
+.profile__header {
+    color: $white;
+
+    &::after {
+        display: block;
+        width: 98%;
+        margin: auto;
+
+        content: "";
+        border-bottom: 1px solid $white;
+    }
+
+    &--imageself {
+        @extend %header-common;
+        width: 20%;
+
+        box-shadow: 0 0 5px 1px $white;
+
+        & img {
+            height: 100%;
+            width: 100%;
+
+            object-fit: cover;
+            -o-object-fit: cover;
+        }
+
+        &.editable {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover:before {
+                position: absolute;
+                margin: auto;
+                content: "change";
+
+                text-shadow: 1px 1px 1px gray;
+                font-weight: 300;
+                color: $white;
+            }
+        }
+    }
+
+    &--stuff {
+        @extend %header-common;
+        width: 80%;
+    }
+
+    &--info {
+        width: $overall-width;
+        margin: 0.2rem 0 0.2rem 0;
+        padding: 0.2rem;
+
+        & .editable {
+            cursor: pointer;
+            &:hover > *:after {
+                color: white;
+            }
+
+            & > *:after {
+                font-weight: 500;
+                font-size: 0.5rem;
+                content: " edit";
+                color: gray;
+            }
+        }
+    }
+
+    &--name,
+    &--title,
+    &--bio {
+        margin: 0;
+    }
+
+    %profile-update-form-fields {
+        display: block;
+        width: 60%;
+        margin-bottom: 0.5rem;
+
+        border: 0;
+        border-radius: 3px;
+        outline: 0;
+
+        &:hover {
+            outline: 1px solid $white;
+        }
+
+        &:focus {
+            outline: 2px solid $white;
+        }
+    }
+
+    & input {
+        @extend %profile-update-form-fields;
+    }
+
+    & textarea {
+        @extend %profile-update-form-fields;
+        resize: none;
+    }
+}
+
+.profile__images {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-top: 0.5rem;
+
+    &--image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10rem;
+        width: 10rem;
+        margin: 1px;
+
+        overflow: hidden;
+
+        background-color: $blue;
+        transition-duration: 0.2s;
+
+        &:hover {
+            opacity: 0.75;
+        }
+
+        & img {
+            height: 100%;
+            width: 100%;
+
+            object-fit: cover;
+            -o-object-fit: cover;
+            background-color: #ffffff;
+        }
+    }
+}

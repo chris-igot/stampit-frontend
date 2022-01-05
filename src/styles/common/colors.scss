@@ -1,0 +1,43 @@
+$darkblue: #14213d;
+//oxford blue
+$blue: #24406b;
+//dark cornflower blue
+$white: #f0f9f9;
+//old lace
+$red: #e63946;
+//imperial red
+$black: #000814;
+//rich black FOGRA 29
+$yellow: #ffc300;
+//mikado yellow
+
+$colors: (
+    darkblue: $darkblue,
+    //oxford blue
+    blue: $blue,
+    //dark cornflower blue
+    white: $white,
+    //old lace
+    red: $red,
+    //imperial red
+    black: $black,
+    //rich black FOGRA 29
+    yellow: $yellow,
+    //mikado yellow
+);
+
+@mixin gencolorclasses($attr) {
+    @each $name, $hex in $colors {
+        &-#{$name} {
+            #{$attr}: $hex;
+        }
+    }
+}
+
+.bg {
+    @include gencolorclasses("background-color");
+}
+
+.text {
+    @include gencolorclasses("color");
+}

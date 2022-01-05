@@ -1,7 +1,9 @@
 export interface PostType {
     id: string;
+    profile: string;
     image: string;
     stamps: StampType[];
+    createdAt: string;
 }
 
 export interface StampType {
@@ -17,4 +19,10 @@ export interface ProfileType {
     image: string;
     title: string;
     bio: string;
+}
+
+export interface OutputType {
+    status: number;
+    error?: string;
+    json?: Object;
 }

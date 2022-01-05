@@ -1,0 +1,31 @@
+.public__images {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.public__images--image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    width: 10rem;
+    margin: 1px;
+
+    overflow: hidden;
+
+    background-color: $blue;
+    transition-duration: 0.2s;
+
+    &:hover {
+        opacity: 0.5;
+    }
+
+    & img {
+        height: 100%;
+        width: 100%;
+
+        object-fit: cover;
+        -o-object-fit: cover;
+        background-color: #ffffff;
+    }
+}

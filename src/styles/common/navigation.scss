@@ -1,0 +1,16 @@
+@use "sass:color";
+
+.navigation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: $darkblue;
+
+    &__link {
+        color: $white;
+        &:hover {
+            color: scale-color($white, $lightness: -20%);
+        }
+    }
+}
