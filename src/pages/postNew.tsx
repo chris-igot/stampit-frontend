@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../components/form/input";
+import InputText from "../components/form/textInput";
 import { OutputType } from "../ts_types/types";
 import convertInputToFormData from "../utilities/convertInputToFormData";
 import postForm from "../utilities/postForm";
@@ -24,7 +24,7 @@ export default function PostNew() {
     return (
         <div className="page">
             <form action="" method="post">
-                <Input name="file" type="file" />
+                <input type="file" name="file" id="file" />
                 <button
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.preventDefault();

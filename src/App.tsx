@@ -1,5 +1,15 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link,
+    matchRoutes,
+    useLocation,
+    Location,
+    useRoutes,
+    RouteObject,
+} from "react-router-dom";
 import logo from "./logo.svg";
 import "./styles/App.scss";
 import Menu from "./menu";
@@ -11,21 +21,81 @@ import Public from "./pages/public";
 import Post from "./pages/post";
 
 function App() {
+    // const loc = useLocation();
+
     useEffect(() => {
-        console.log((process.env as any).REACT_APP_SERVER_PATH);
+        // console.log(
+        //     matchRoutes([{ path: "/login" }, { path: "/register" }], loc)
+        // );
     }, []);
     return (
         <Router>
-            <Menu />
+            {/* <Menu /> */}
             <Routes>
-                <Route path="/home" element={<Profile home={true} />} />
-                <Route path="/profile" element={<Profile home={false} />} />
-                <Route path="/post" element={<Post />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/public" element={<Public />} />
-                <Route path="/profile" element={<div></div>} />
-                <Route path="/upload" element={<PostNew />} />
+                <Route path="/" element={<Profile home={true} />} />
+                <Route
+                    path="/home"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <Profile home={true} />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/profile"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <Profile home={false} />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/post"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <Post />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/login"
+                    element={
+                        <React.Fragment>
+                            {/* <Menu /> */}
+                            <Login />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/register"
+                    element={
+                        <React.Fragment>
+                            {/* <Menu /> */}
+                            <Register />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/public"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <Public />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/upload"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <PostNew />
+                        </React.Fragment>
+                    }
+                />
             </Routes>
         </Router>
     );

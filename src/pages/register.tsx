@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import Input from "../components/form/input";
+import { Link, useNavigate } from "react-router-dom";
+import InputText from "../components/form/textInput";
 import { OutputType } from "../ts_types/types";
 import convertInputToFormData from "../utilities/convertInputToFormData";
 import postForm from "../utilities/postForm";
@@ -25,16 +25,21 @@ export default function Register() {
         });
     }
     return (
-        <div className="page">
-            <form action="" method="post">
-                <Input name="username" />
-                <Input name="email" type="email" />
-                <Input name="password" type="password" />
-                <Input
+        <div className="page modal">
+            <form className="logreg__form" action="" method="post">
+                <p className="logo--large" />
+                <h4>Register</h4>
+                <InputText name="username" />
+                <InputText name="email" type="email" />
+                <InputText name="password" type="password" />
+                <InputText
                     name="passwordConfirm"
                     type="password"
                     label="password confirmation"
                 />
+                <p>
+                    Go back to <Link to={"/login"}>Login</Link> page
+                </p>
                 <button
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.preventDefault();

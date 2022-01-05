@@ -7,9 +7,7 @@ function Menu(props: PropsType) {
     const navigate = useNavigate();
     return (
         <nav className="navigation">
-            <Link className="navigation__link navigation__home" to="/public">
-                stckIt
-            </Link>
+            <Link className="navigation__link logo" to="/public"></Link>
             <Link className="navigation__link" to="/home" reloadDocument>
                 home
             </Link>
