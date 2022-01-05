@@ -1,0 +1,80 @@
+@use "sass:list";
+
+.form__input {
+    &--text {
+        $field-width: 12rem;
+        $input-padding: 0.7rem, 0.2rem, 0.2rem, 0.2rem;
+        $field-color: $white;
+        $border-color: gray;
+        $text-field-color: $black;
+        $text-label-color: $black;
+        $text-smalllabel-color: $black;
+
+        position: relative;
+        margin: auto auto 0.5rem auto;
+
+        %form-input-text-common {
+            position: absolute;
+
+            transition-duration: 0.15s;
+
+            font-size: 1rem;
+        }
+
+        %form-input-text-smalllabel {
+            top: 0.1rem;
+            left: 0.2rem;
+
+            font-size: 0.6rem;
+            color: $text-smalllabel-color;
+        }
+
+        &.notblank > label {
+            @extend %form-input-text-smalllabel;
+        }
+
+        &:after {
+            display: block;
+            width: $field-width;
+            height: 2.2rem;
+
+            content: "";
+        }
+
+        & > input {
+            @extend %form-input-text-common;
+            padding: nth($input-padding, 1) nth($input-padding, 2)
+                nth($input-padding, 3) nth($input-padding, 4);
+            width: calc(
+                #{$field-width - nth($input-padding, 2) - nth($input-padding, 4) -
+                    #{2px}}
+            );
+
+            border: 1px solid $border-color;
+            border-radius: 5px;
+            outline: 0;
+            background-color: $field-color;
+            color: $text-field-color;
+
+            &:hover {
+                box-shadow: 0 0 0 1px $border-color;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 2px $border-color;
+            }
+
+            &:focus + label {
+                @extend %form-input-text-smalllabel;
+            }
+        }
+
+        & > label {
+            @extend %form-input-text-common;
+            top: calc(50% - 0.65rem);
+            left: 0.6rem;
+
+            color: $text-label-color;
+        }
+    }
+}

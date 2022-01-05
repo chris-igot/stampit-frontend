@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Trocchi&display=swap");
 @import "common/normalize";
+@import "common/logotext.scss";
 @import "common/colors";
 @import "common/layout";
 
+@import "components/forminput";
+
 @import "common/navigation";
+@import "pages/loginregistration";
 @import "pages/profile";
 @import "pages/public";
 @import "pages/post";

@@ -1,11 +1,8 @@
-@import "../common/colors";
-
 %header-common {
     display: inline-block;
 }
 
 .profile__header {
-    margin-top: 0.2rem;
     color: $white;
 
     &::after {
@@ -38,9 +35,20 @@
     }
 
     &--info {
-        // width: 100%;
+        width: $overall-width;
         margin: 0.2rem 0 0.2rem 0;
         padding: 0.2rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:hover > .profile__header--title:after,
+        &:hover > .profile__header--bio:after {
+            font-weight: 500;
+            font-size: 0.5rem;
+            content: " edit";
+        }
     }
 
     &--name,

@@ -1,8 +1,8 @@
-@import "colors";
-
-$overall-width: 60%;
+$overall-width: 500px;
+$overall-modal-background-color: gray;
 
 body {
+    // background-image: url("https://picsum.photos/200/300");
     background-color: $black;
 }
 
@@ -28,5 +28,17 @@ $nav-space: 3rem;
     position: static;
     display: block;
     height: $nav-space;
+    margin-bottom: 0.2rem;
     content: "";
+}
+
+.modal {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    height: 100%;
+
+    background-color: rgba($color: $white, $alpha: 0.5);
 }

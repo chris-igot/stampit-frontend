@@ -1,0 +1,27 @@
+@mixin logo-common {
+    transform: rotate(-2.5deg);
+
+    margin: 0;
+
+    font-family: "Trocchi", serif;
+    font-weight: 700;
+
+    &:before {
+        content: "stckIt";
+    }
+}
+
+.logo {
+    @include logo-common;
+    font-size: 24px;
+
+    &--small {
+        @include logo-common;
+        font-size: 16px;
+    }
+
+    &--large {
+        @include logo-common;
+        font-size: 32px;
+    }
+}
