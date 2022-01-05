@@ -27,6 +27,24 @@
             object-fit: cover;
             -o-object-fit: cover;
         }
+
+        &.editable {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover:before {
+                position: absolute;
+                margin: auto;
+                content: "change";
+
+                text-shadow: 1px 1px 1px gray;
+                font-weight: 300;
+                color: $white;
+            }
+        }
     }
 
     &--stuff {
@@ -39,15 +57,18 @@
         margin: 0.2rem 0 0.2rem 0;
         padding: 0.2rem;
 
-        &:hover {
+        & .editable {
             cursor: pointer;
-        }
+            &:hover > *:after {
+                color: white;
+            }
 
-        &:hover > .profile__header--title:after,
-        &:hover > .profile__header--bio:after {
-            font-weight: 500;
-            font-size: 0.5rem;
-            content: " edit";
+            & > *:after {
+                font-weight: 500;
+                font-size: 0.5rem;
+                content: " edit";
+                color: gray;
+            }
         }
     }
 
@@ -55,6 +76,33 @@
     &--title,
     &--bio {
         margin: 0;
+    }
+
+    %profile-update-form-fields {
+        display: block;
+        width: 60%;
+        margin-bottom: 0.5rem;
+
+        border: 0;
+        border-radius: 3px;
+        outline: 0;
+
+        &:hover {
+            outline: 1px solid $white;
+        }
+
+        &:focus {
+            outline: 2px solid $white;
+        }
+    }
+
+    & input {
+        @extend %profile-update-form-fields;
+    }
+
+    & textarea {
+        @extend %profile-update-form-fields;
+        resize: none;
     }
 }
 

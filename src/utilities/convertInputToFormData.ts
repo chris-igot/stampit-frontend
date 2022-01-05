@@ -2,7 +2,7 @@ export default function convertInputToFormData(
     e: React.MouseEvent<HTMLButtonElement>
 ): FormData {
     const inputs = e.currentTarget.parentNode?.querySelectorAll(
-        "input"
+        "input,textarea"
     ) as unknown as HTMLInputElement[];
 
     let data = new FormData();
