@@ -1,17 +1,5 @@
 import React, { useEffect } from "react";
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link,
-    matchRoutes,
-    useLocation,
-    Location,
-    useRoutes,
-    RouteObject,
-} from "react-router-dom";
-import logo from "./logo.svg";
-import "./styles/App.scss";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Menu from "./menu";
 import Login from "./pages/login";
 import Register from "./pages/register";
