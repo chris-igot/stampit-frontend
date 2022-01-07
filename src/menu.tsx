@@ -18,7 +18,9 @@ function Menu(props: PropsType) {
                 className="navigation__link"
                 to="/login"
                 onClick={() => {
-                    fetch("/api/logout");
+                    fetch("/api/logout").then(() => {
+                        navigate("/login");
+                    });
                 }}
             >
                 logout
