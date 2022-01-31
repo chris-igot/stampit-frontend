@@ -1,14 +1,16 @@
+@use "sass:map";
 @use "sass:list";
+@use "../common/colors";
 
 .form__input {
-    &--text {
+    &-text {
         $field-width: 12rem;
-        $input-padding: 0.7rem, 0.2rem, 0.2rem, 0.2rem;
-        $field-color: $white;
-        $border-color: gray;
-        $text-field-color: $black;
-        $text-label-color: $black;
-        $text-smalllabel-color: $black;
+        $input-padding: 0.7rem, 0.5rem, 0.2rem, 0.5rem;
+        $field-color: map.get(colors.$colors, "c-white");
+        $border-color: map.get(colors.$colors, "c-gray");
+        $text-field-color: map.get(colors.$colors, "c-black");
+        $text-label-color: map.get(colors.$colors, "c-black");
+        $text-smalllabel-color: map.get(colors.$colors, "c-gray");
 
         position: relative;
         margin: auto auto 0.5rem auto;
@@ -23,20 +25,17 @@
 
         %form-input-text-smalllabel {
             top: 0.1rem;
-            left: 0.2rem;
+            left: 0.7rem;
 
             font-size: 0.6rem;
             color: $text-smalllabel-color;
-        }
-
-        &.notblank > label {
-            @extend %form-input-text-smalllabel;
         }
 
         &:after {
             display: block;
             width: $field-width;
             height: 2.2rem;
+            padding-right: 0.45rem;
 
             content: "";
         }
@@ -51,7 +50,7 @@
             );
 
             border: 1px solid $border-color;
-            border-radius: 5px;
+            border-radius: 15px;
             outline: 0;
             background-color: $field-color;
             color: $text-field-color;
@@ -69,9 +68,13 @@
             }
         }
 
+        &.notblank > label {
+            @extend %form-input-text-smalllabel;
+        }
+
         & > label {
             @extend %form-input-text-common;
-            top: calc(50% - 0.65rem);
+            top: calc(50% - 0.67rem);
             left: 0.6rem;
 
             color: $text-label-color;

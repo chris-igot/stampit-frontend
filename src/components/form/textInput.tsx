@@ -21,9 +21,7 @@ export default function InputText(props: PropsType) {
     }, []);
     return (
         <div
-            className={
-                blank ? "form__input--text" : "form__input--text notblank"
-            }
+            className={blank ? "form__input-text" : "form__input-text notblank"}
         >
             <input
                 type={"type" in props ? props.type : "text"}

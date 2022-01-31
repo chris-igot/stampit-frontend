@@ -1,0 +1,53 @@
+@use "sass:map";
+@use "sass:color";
+@use "colors";
+
+#root {
+    &:before {
+        color: map.get(colors.$colors, "c-white");
+    }
+}
+
+.navigation {
+}
+
+body {
+    // background-image: url("https://picsum.photos/200/300");
+    background-color: map.get(colors.$colors, "c-black");
+}
+
+.page {
+}
+
+.navigation {
+    background-color: map.get(colors.$colors, "c-darkblue");
+
+    &__link {
+        color: map.get(colors.$colors, "c-white");
+        &:hover {
+            color: scale-color(
+                map.get(colors.$colors, "c-white"),
+                $lightness: -20%
+            );
+        }
+    }
+}
+
+.modal {
+    background-color: rgba(
+        $color: map.get(colors.$colors, "c-white"),
+        $alpha: 0.5
+    );
+}
+
+.modal__form {
+    border-radius: 5px;
+
+    background-color: rgba(
+        $color: map.get(colors.$colors, "c-white"),
+        $alpha: 0.8
+    );
+    outline: rgba($color: map.get(colors.$colors, "c-white"), $alpha: 0.2) solid
+        1px;
+    box-shadow: 1px 1px 5px 1px #444444;
+}

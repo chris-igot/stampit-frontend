@@ -26,29 +26,32 @@ export default function Register() {
     }
     return (
         <div className="page modal">
-            <form className="logreg__form" action="" method="post">
-                <p className="logo--large" />
-                <h4>Register</h4>
-                <InputText name="username" />
-                <InputText name="email" type="email" />
-                <InputText name="password" type="password" />
-                <InputText
-                    name="passwordConfirm"
-                    type="password"
-                    label="password confirmation"
-                />
-                <p>
-                    Go back to <Link to={"/login"}>Login</Link> page
-                </p>
-                <button
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                        e.preventDefault();
-                        handleSubmit(e);
-                    }}
-                >
-                    Register
-                </button>
-            </form>
+            <div className="modal__form">
+                <form className="" action="" method="post">
+                    <p className="logo--large" />
+                    <h4>Register</h4>
+                    <InputText name="username" />
+                    <InputText name="email" type="email" />
+                    <InputText name="password" type="password" />
+                    <InputText
+                        name="passwordConfirm"
+                        type="password"
+                        label="password confirmation"
+                    />
+                    <p>
+                        Go back to <Link to={"/login"}>Login</Link> page
+                    </p>
+                    <button
+                        className="btn-white"
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                            e.preventDefault();
+                            handleSubmit(e);
+                        }}
+                    >
+                        Register
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

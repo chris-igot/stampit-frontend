@@ -88,16 +88,14 @@ export default function Post() {
         <div className="page">
             <div className="post">
                 <div
-                    className={
-                        stampEnabled ? "post__top stamping" : "post__top"
-                    }
+                    className={stampEnabled ? "post-top stamping" : "post-top"}
                     onClick={(e) => {
                         if (stampEnabled) {
                             handleClick(e);
                         }
                     }}
                 >
-                    <Image class="post__top--image" image={post.image} />
+                    <Image className="image--full" image={post.image} />
                     {stamps.map((stamp) => (
                         <div
                             key={stamp.id}
@@ -114,18 +112,20 @@ export default function Post() {
                     ))}
                 </div>
 
-                <div className="post__middle">
-                    <div
-                        className="post__middle--enablestamp"
+                <div className="post-middle">
+                    <button
+                        className={stampEnabled ? "btn-red" : "btn-white"}
                         onClick={(e) => {
+                            e.preventDefault();
                             setStampEnabled(!stampEnabled);
                         }}
                     >
                         {stampEnabled ? "stop" : "start stamping"}
-                    </div>
-                    <p className="post__middle--credits">
+                    </button>
+
+                    <p className="post-middle__credits">
                         <Link
-                            className="post__middle--link"
+                            className="post-middle__link"
                             to={"/profile?id=" + profile.id}
                         >
                             {profile.name}

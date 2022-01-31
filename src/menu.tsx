@@ -11,8 +11,11 @@ function Menu(props: PropsType) {
             <Link className="navigation__link" to="/home" reloadDocument>
                 home
             </Link>
-            <Link className="navigation__link" to="/upload">
-                upload
+            <Link className="navigation__link" to="/search">
+                Search
+            </Link>
+            <Link className="navigation__link" to="/following">
+                Following
             </Link>
             <Link
                 className="navigation__link"

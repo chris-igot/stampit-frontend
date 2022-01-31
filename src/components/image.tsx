@@ -1,14 +1,18 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
 interface PropsType {
     image: string;
-    class?: string;
-    [key: string]: string | undefined;
+    className?: string;
+    onClick?: MouseEventHandler<HTMLDivElement>;
+    [key: string]: MouseEventHandler<HTMLDivElement> | string | undefined;
 }
 
 export default function Image(props: PropsType) {
     return (
-        <div className={"class" in props ? props.class : ""}>
+        <div
+            className={"className" in props ? props.className : ""}
+            onClick={props.onClick as MouseEventHandler<HTMLDivElement>}
+        >
             <img src={props.image} alt="" />
         </div>
     );
