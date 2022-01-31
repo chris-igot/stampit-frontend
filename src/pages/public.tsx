@@ -28,11 +28,11 @@ export default function Public() {
     }, []);
     return (
         <div className="page">
-            <div className="public__images">
+            <div className="thumbnails">
                 {posts.map((post) => (
                     <Link key={post.id} to={"/post?id=" + post.id}>
                         <Image
-                            class="public__images--image"
+                            className="image--thumbnail"
                             image={post.image}
                         />
                     </Link>

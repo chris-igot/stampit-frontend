@@ -4,9 +4,10 @@ import Menu from "./menu";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Profile from "./pages/profile";
-import PostNew from "./pages/postNew";
 import Public from "./pages/public";
 import Post from "./pages/post";
+import Following from "./pages/following";
+import Search from "./pages/search";
 
 function App() {
     // const loc = useLocation();
@@ -36,6 +37,24 @@ function App() {
                         <React.Fragment>
                             <Menu />
                             <Profile home={false} />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/search"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <Search />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/following"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <Following />
                         </React.Fragment>
                     }
                 />
@@ -72,15 +91,6 @@ function App() {
                         <React.Fragment>
                             <Menu />
                             <Public />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/upload"
-                    element={
-                        <React.Fragment>
-                            <Menu />
-                            <PostNew />
                         </React.Fragment>
                     }
                 />

@@ -1,0 +1,116 @@
+@use "sass:map";
+@use "sass:list";
+@use "../common/colors";
+
+.thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    margin-top: 0.5rem;
+}
+%image-sm-common {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+    transition-duration: 0.2s;
+}
+%img-common {
+    width: 100%;
+    object-fit: cover;
+    -o-object-fit: cover;
+
+    background-color: white;
+}
+.image {
+    &--full {
+        width: 100%;
+
+        & > img {
+            @extend %img-common;
+        }
+    }
+    &--listing {
+        @extend %image-sm-common;
+        margin: 0;
+        width: 75px;
+        height: 75px;
+
+        &:hover {
+            border-radius: 0;
+            opacity: 0.75;
+        }
+
+        & > img {
+            @extend %img-common;
+            height: 100%;
+        }
+    }
+
+    &--thumbnail {
+        @extend %image-sm-common;
+
+        &:hover {
+            border-radius: 0;
+            opacity: 0.75;
+        }
+
+        & > img {
+            @extend %img-common;
+            height: 100%;
+        }
+    }
+
+    &--profile {
+        @extend %image-sm-common;
+        // display: inline-block;
+        width: 100px;
+        height: 100px;
+        // overflow: hidden;
+
+        // border-radius: 15px;
+        &:hover {
+            border-radius: 0;
+        }
+
+        &.editable {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+            &:hover {
+                &:before {
+                    position: absolute;
+                    z-index: 1;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0.7;
+                    background-color: map.get(colors.$colors, "c-black");
+                    content: "";
+                }
+                &:after {
+                    position: absolute;
+                    z-index: 2;
+                    margin: auto;
+                    content: "edit profile";
+
+                    text-shadow: 1px 1px 1px gray;
+                    font-weight: 300;
+                    color: map.get(colors.$colors, "c-white");
+                }
+            }
+        }
+        & > img {
+            @extend %img-common;
+            height: 100%;
+        }
+    }
+}

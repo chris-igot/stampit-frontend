@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import InputText from "../components/form/textInput";
+import FollowButton from "../components/followButton";
+import EditProfile from "../components/form/editProfile";
+
 import Image from "../components/image";
 import { OutputType, PostType, ProfileType } from "../ts_types/types";
-import convertInputToFormData from "../utilities/convertInputToFormData";
+
 import getData from "../utilities/getData";
-import postForm from "../utilities/postForm";
+
+import PostNew from "./postNew";
 
 interface PropsType {
     home?: boolean;
@@ -20,41 +23,25 @@ export default function Profile(props: PropsType = { home: false }) {
         image: "",
         title: "",
         bio: "",
+        currentlyFollowing: false,
+        followers: 0,
+        amFollowing: 0,
     });
     const [posts, setPosts] = useState<PostType[]>([]);
-    const [amFollowing, setAmFollowing] = useState(false);
-    const [editable, setEditable] = useState(false);
+
+    const [editInfo, setEditInfo] = useState(false);
+    const [uploadPic, setUploadPic] = useState(false);
 
     useEffect(() => {
-        let profileRoute = "";
         let postsRoute = "";
         const id = searchParams.get("id");
         if (props.home) {
-            profileRoute = "/api/home";
             postsRoute = "/api/posts/self";
         } else {
-            profileRoute = "/api/profile?id=" + id;
             postsRoute = "/api/posts/user?id=" + id;
-            getData("/api/profile/amfollowing?id=" + id).then((output) => {
-                const data = output as OutputType;
-                if (data.status === 200) {
-                    setAmFollowing(data.json as boolean);
-                }
-            });
         }
 
-        getData(profileRoute).then((output) => {
-            const data = output as OutputType;
-            switch (data.status) {
-                case 200:
-                    console.log(data.json);
-                    setProfile(data.json as ProfileType);
-                    break;
-                default:
-                    navigate("/login");
-                    break;
-            }
-        });
+        updateProfile();
         getData(postsRoute).then((output) => {
             const data = output as OutputType;
             switch (data.status) {
@@ -71,7 +58,50 @@ export default function Profile(props: PropsType = { home: false }) {
                     return;
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (props.home) {
+            getData("/api/home").then((output) => {
+                const data = output as OutputType;
+                console.log("EDITING INFO", props.home);
+                switch (data.status) {
+                    case 200:
+                        setProfile(data.json as ProfileType);
+                        break;
+                    default:
+                        navigate("/login");
+                        break;
+                }
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [editInfo]);
+
+    function updateProfile() {
+        let profileRoute = "";
+
+        const id = searchParams.get("id");
+        if (props.home) {
+            profileRoute = "/api/home";
+        } else {
+            profileRoute = "/api/profile?id=" + id;
+        }
+
+        getData(profileRoute).then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
+                case 200:
+                    console.log(data.json);
+                    setProfile(data.json as ProfileType);
+                    break;
+                default:
+                    navigate("/login");
+                    break;
+            }
+        });
+    }
 
     function displayInfo() {
         const infoText = (
@@ -84,7 +114,7 @@ export default function Profile(props: PropsType = { home: false }) {
                 onClick={() => {
                     if (props.home) {
                         console.log("edit");
-                        setEditable(true);
+                        setEditInfo(true);
                     } else {
                         console.log("cannot edit");
                     }
@@ -95,57 +125,13 @@ export default function Profile(props: PropsType = { home: false }) {
             </div>
         );
 
-        const infoForm = (
-            <form
-                className="profile_header--texts"
-                action=""
-                method="post"
-                // onBlur={() => {
-                //     setEditable(false);
-                // }}
-            >
-                <input
-                    type="text"
-                    name="title"
-                    id=""
-                    defaultValue={profile.title}
-                />
-
-                <textarea
-                    name="bio"
-                    id=""
-                    cols={30}
-                    rows={3}
-                    defaultValue={profile.bio}
-                />
-
-                <button
-                    type="submit"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        console.log("submit");
-                        handleSubmit(e);
-                    }}
-                >
-                    Update
-                </button>
-                <button
-                    type="button"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setEditable(false);
-                    }}
-                >
-                    cancel
-                </button>
-            </form>
-        );
-
         const noInfo = (
             <div
                 onClick={() => {
-                    console.log("edit");
-                    setEditable(true);
+                    if (props.home) {
+                        console.log("edit");
+                        setEditInfo(true);
+                    }
                 }}
             >
                 Add profile info
@@ -153,79 +139,78 @@ export default function Profile(props: PropsType = { home: false }) {
         );
 
         if (props.home) {
-            if (editable) {
-                return infoForm;
+            if (profile.title === null && profile.bio === null) {
+                return noInfo;
             } else {
-                if (profile.title === null && profile.bio === null) {
-                    return noInfo;
-                } else {
-                    return infoText;
-                }
+                return infoText;
             }
         } else {
             return infoText;
         }
     }
 
-    function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-        const formData = convertInputToFormData(e);
-        console.log("submit2", formData, e.currentTarget.parentNode);
-        postForm("/api/home/edit", formData).then((output) => {
-            const data = output as OutputType;
-            switch (data.status) {
-                case 200:
-                    getData("/api/home").then((output) => {
-                        const data = output as OutputType;
-                        switch (data.status) {
-                            case 200:
-                                console.log(data.json);
-                                setProfile(data.json as ProfileType);
-                                break;
-                            default:
-                                navigate("/login");
-                                break;
-                        }
-                    });
-                    setEditable(false);
-                    break;
-                case 418:
-                    //TODO: error here
-                    break;
-                default:
-                    break;
-            }
-        });
-    }
-
-    function updateProfile() {}
-
-    function updatePosts() {}
     return (
         <div className="page">
             <div className="profile__header">
+                {editInfo && (
+                    <EditProfile profile={profile} enableFn={setEditInfo} />
+                )}
+                {uploadPic && <PostNew enableFn={setUploadPic} />}
                 <Image
-                    class={
+                    className={
                         props.home
-                            ? "profile__header--imageself editable"
-                            : "profile__header--imageself"
+                            ? "image--profile editable"
+                            : "image--profile"
                     }
                     image={profile.image}
+                    onClick={() => {
+                        if (props.home) {
+                            setEditInfo(true);
+                        }
+                    }}
                 />
                 <div className="profile__header--stuff">
-                    {!props.home && (
-                        <p>{amFollowing ? "following" : "not following"}</p>
-                    )}
+                    <div>
+                        <h2>{posts.length}</h2>
+                        <p>posts</p>
+                    </div>
+                    <div>
+                        <h2>{profile.followers}</h2>
+                        <p>followers</p>
+                    </div>
+                    <div>
+                        <h2>{profile.amFollowing}</h2>
+                        <p>following</p>
+                    </div>
                 </div>
                 <div className="profile__header--info">
+                    {!props.home && (
+                        <FollowButton
+                            profile={profile}
+                            onClick={updateProfile}
+                        />
+                    )}
+                    {props.home ? (
+                        <button
+                            className="btn-blue"
+                            onClick={() => {
+                                setUploadPic(true);
+                            }}
+                        >
+                            upload
+                        </button>
+                    ) : (
+                        ""
+                    )}
                     <h5 className="profile__header--name">{profile.name}</h5>
                     {displayInfo()}
                 </div>
             </div>
-            <div className="profile__images">
+            <div className="thumbnails">
                 {posts.map((post) => (
                     <Link key={post.id} to={"/post?id=" + post.id}>
                         <Image
-                            class="profile__images--image"
+                            className="image--thumbnail"
                             image={post.image}
                         />
                     </Link>

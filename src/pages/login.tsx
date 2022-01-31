@@ -25,24 +25,29 @@ export default function Login() {
     }
     return (
         <div className="page modal">
-            <form className="logreg__form" action="" method="post">
-                <p className="logo--large" />
-                <h4>Login</h4>
-                <InputText name="email" type="email" />
-                <InputText name="password" type="password" />
-                <p>
-                    New user? <Link to={"/register"}>Create a new account</Link>
-                </p>
-                <button
-                    type="submit"
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                        e.preventDefault();
-                        handleSubmit(e);
-                    }}
-                >
-                    Login
-                </button>
-            </form>
+            <div className="modal__form">
+                <form className="" action="" method="post">
+                    <p className="logo--large" />
+                    <h4>Login</h4>
+                    <InputText name="email" type="email" />
+                    <InputText name="password" type="password" />
+                    <p>
+                        New user?
+                        <br />{" "}
+                        <Link to={"/register"}>Create a new account</Link>
+                    </p>
+                    <button
+                        className="btn-white"
+                        type="submit"
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                            e.preventDefault();
+                            handleSubmit(e);
+                        }}
+                    >
+                        Login
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

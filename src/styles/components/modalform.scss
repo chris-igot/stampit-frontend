@@ -1,0 +1,20 @@
+@use "sass:map";
+@use "sass:color";
+@use "../common/colors";
+@use "../common/layout";
+
+.modal {
+    position: fixed;
+    display: flex;
+    z-index: 9002;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+
+    &__form {
+        padding: 1rem;
+    }
+}

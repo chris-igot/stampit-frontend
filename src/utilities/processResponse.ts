@@ -4,6 +4,7 @@ export default function processResponse(
     returnType: "json" | "status" = "status"
 ): (response: Response) => Promise<OutputType> {
     return function (response: Response): Promise<OutputType> {
+        console.trace("response", response.url);
         if (response.status >= 400) {
             switch (response.status) {
                 case 401:

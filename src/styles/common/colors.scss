@@ -1,28 +1,32 @@
-$darkblue: #14213d;
-//oxford blue
-$blue: #24406b;
-//dark cornflower blue
-$white: #f0f9f9;
-//old lace
-$red: #e63946;
-//imperial red
-$black: #000814;
-//rich black FOGRA 29
-$yellow: #ffc300;
-//mikado yellow
+// $darkblue: #14213d;
+// //oxford blue
+// $blue: #24406b;
+// //dark cornflower blue
+// $white: #f0f9f9;
+// //old lace
+// $red: #e63946;
+// //imperial red
+// $black: #000814;
+// //rich black FOGRA 29
+// $gray: #6c757d;
+// //slate gray
+// $yellow: #ffc300;
+// //mikado yellow
 
 $colors: (
-    darkblue: $darkblue,
+    c-darkblue: #14213d,
     //oxford blue
-    blue: $blue,
+    c-blue: #24406b,
     //dark cornflower blue
-    white: $white,
+    c-white: #f0f9f9,
     //old lace
-    red: $red,
+    c-red: #e63946,
     //imperial red
-    black: $black,
+    c-black: #000814,
     //rich black FOGRA 29
-    yellow: $yellow,
+    c-gray: #6c757d,
+    //slate gray
+    c-yellow: #ffc300,
     //mikado yellow
 );
 

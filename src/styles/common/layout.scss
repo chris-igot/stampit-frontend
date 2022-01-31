@@ -1,44 +1,88 @@
-$overall-width: 500px;
-$overall-modal-background-color: gray;
+$thumbnail-width: 160px;
+$thumbnail-margin: 1px;
+$thumbnail-across-default: 3;
 
-body {
-    // background-image: url("https://picsum.photos/200/300");
-    background-color: $black;
+@function width-calc($th-across) {
+    @return calc(
+        $th-across * $thumbnail-width + $th-across * 2 * $thumbnail-margin
+    );
 }
 
-#root {
-    width: $overall-width;
-    margin: auto;
-}
+$overall-width-default: width-calc(3);
 
 $nav-space: 3rem;
 
-.navigation {
-    position: fixed;
-    z-index: 9001;
-    height: $nav-space;
-    width: $overall-width;
+@mixin width-elements($calc-width) {
+    #root {
+        &:before {
+            position: fixed;
+            z-index: 10000;
+            top: 20rem;
+            content: "#{$calc-width}";
+        }
+        width: $calc-width;
+        margin: auto;
+    }
+
+    .navigation {
+        position: fixed;
+        z-index: 9001;
+        height: $nav-space;
+        width: $calc-width;
+        @if $calc-width == $overall-width-default {
+            // top: 0;
+            bottom: 0;
+        } @else {
+            top: 0;
+        }
+    }
+
+    @if $calc-width == $overall-width-default {
+        .page::after {
+            position: static;
+            display: block;
+            margin-bottom: 0.2rem;
+            content: "";
+            height: $nav-space;
+        }
+    } @else {
+        .page::before {
+            position: static;
+            display: block;
+            margin-bottom: 0.2rem;
+            content: "";
+            height: $nav-space;
+        }
+    }
+
+    .image--thumbnail {
+        height: $thumbnail-width;
+        width: $thumbnail-width;
+    }
+}
+
+@mixin width-elements-media($th-across) {
+    $calc-width: width-calc($th-across);
+    @media only screen and (min-width: $calc-width) {
+        @include width-elements($calc-width);
+    }
+}
+
+@include width-elements($overall-width-default);
+@include width-elements-media(1);
+@include width-elements-media(2);
+@include width-elements-media(3);
+@include width-elements-media(4);
+@include width-elements-media(5);
+@include width-elements-media(6);
+
+body {
+    // background-image: url("https://picsum.photos/200/300");
 }
 
 .page {
-    width: 100%;
-}
-
-.page::before {
-    position: static;
-    display: block;
-    height: $nav-space;
-    margin-bottom: 0.2rem;
-    content: "";
-}
-
-.modal {
-    position: fixed;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    left: 0;
-    height: 100%;
-
-    background-color: rgba($color: $white, $alpha: 0.5);
+    width: 100%;
 }

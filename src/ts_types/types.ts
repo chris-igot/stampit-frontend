@@ -19,6 +19,9 @@ export interface ProfileType {
     image: string;
     title: string;
     bio: string;
+    currentlyFollowing: boolean;
+    followers: number;
+    amFollowing: number;
 }
 
 export interface OutputType {

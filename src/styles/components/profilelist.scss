@@ -1,0 +1,31 @@
+.profile-list {
+    width: 100%;
+    &-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1px 0;
+        padding: 0.5rem;
+
+        border-radius: 15px;
+        background-color: white;
+
+        a {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .username {
+            flex-grow: 1;
+        }
+
+        .username,
+        .follow {
+            margin-left: 1rem;
+        }
+    }
+    &__link {
+        display: flex;
+        align-items: center;
+    }
+}

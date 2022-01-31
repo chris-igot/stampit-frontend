@@ -1,13 +1,19 @@
+@use "common/theme.scss";
+@use "common/normalize";
+// @use "common/colors";
+@use "common/layout";
+@use "components/logotext.scss";
+@use "components/buttons";
+@use "components/forminput";
+@use "components/modalform";
+@use "components/image";
+@use "components/navigation";
+@use "components/profilelist";
+
+@use "pages/loginregistration";
+@use "pages/profile";
+@use "pages/profileedit";
+@use "pages/public";
+@use "pages/post";
+@use "pages/search";
 @import url("https://fonts.googleapis.com/css2?family=Trocchi&display=swap");
-@import "common/normalize";
-@import "common/logotext.scss";
-@import "common/colors";
-@import "common/layout";
-
-@import "components/forminput";
-
-@import "common/navigation";
-@import "pages/loginregistration";
-@import "pages/profile";
-@import "pages/public";
-@import "pages/post";

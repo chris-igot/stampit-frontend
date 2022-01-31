@@ -1,9 +1,13 @@
-%header-common {
-    display: inline-block;
-}
+@use "sass:map";
+@use "sass:color";
+@use "../common/colors";
 
 .profile__header {
-    color: $white;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    color: map.get(colors.$colors, "c-white");
 
     &::after {
         display: block;
@@ -11,64 +15,49 @@
         margin: auto;
 
         content: "";
-        border-bottom: 1px solid $white;
-    }
-
-    &--imageself {
-        @extend %header-common;
-        width: 20%;
-
-        box-shadow: 0 0 5px 1px $white;
-
-        & img {
-            height: 100%;
-            width: 100%;
-
-            object-fit: cover;
-            -o-object-fit: cover;
-        }
-
-        &.editable {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-
-            &:hover:before {
-                position: absolute;
-                margin: auto;
-                content: "change";
-
-                text-shadow: 1px 1px 1px gray;
-                font-weight: 300;
-                color: $white;
-            }
-        }
+        border-bottom: 1px solid map.get(colors.$colors, "c-white");
     }
 
     &--stuff {
-        @extend %header-common;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 2;
+        padding: 1rem 2rem;
         width: 80%;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            text-align: center;
+
+            h2 {
+                font-weight: 700;
+                margin: 0.5rem 0;
+            }
+
+            p {
+                font-weight: 300;
+                margin: 0.5rem 0;
+            }
+        }
     }
 
     &--info {
-        width: $overall-width;
+        width: 100%;
         margin: 0.2rem 0 0.2rem 0;
         padding: 0.2rem;
 
-        & .editable {
-            cursor: pointer;
-            &:hover > *:after {
-                color: white;
-            }
+        button {
+            width: 100px;
+            margin-bottom: 0.2rem;
+            padding: 0.25rem;
 
-            & > *:after {
-                font-weight: 500;
-                font-size: 0.5rem;
-                content: " edit";
-                color: gray;
-            }
+            font-size: 12px;
+            font-weight: 600;
         }
     }
 
@@ -76,66 +65,5 @@
     &--title,
     &--bio {
         margin: 0;
-    }
-
-    %profile-update-form-fields {
-        display: block;
-        width: 60%;
-        margin-bottom: 0.5rem;
-
-        border: 0;
-        border-radius: 3px;
-        outline: 0;
-
-        &:hover {
-            outline: 1px solid $white;
-        }
-
-        &:focus {
-            outline: 2px solid $white;
-        }
-    }
-
-    & input {
-        @extend %profile-update-form-fields;
-    }
-
-    & textarea {
-        @extend %profile-update-form-fields;
-        resize: none;
-    }
-}
-
-.profile__images {
-    display: flex;
-    flex-wrap: wrap;
-
-    margin-top: 0.5rem;
-
-    &--image {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 10rem;
-        width: 10rem;
-        margin: 1px;
-
-        overflow: hidden;
-
-        background-color: $blue;
-        transition-duration: 0.2s;
-
-        &:hover {
-            opacity: 0.75;
-        }
-
-        & img {
-            height: 100%;
-            width: 100%;
-
-            object-fit: cover;
-            -o-object-fit: cover;
-            background-color: #ffffff;
-        }
     }
 }
