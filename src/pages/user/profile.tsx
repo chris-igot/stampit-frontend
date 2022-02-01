@@ -120,8 +120,8 @@ export default function Profile(props: PropsType = { home: false }) {
                     }
                 }}
             >
-                <h6 className="profile__header--title">{profile.title}</h6>
-                <p className="profile__header--bio">{profile.bio}</p>
+                <h6 className="profile-header__title">{profile.title}</h6>
+                <p className="profile-header__bio">{profile.bio}</p>
             </div>
         );
 
@@ -151,7 +151,7 @@ export default function Profile(props: PropsType = { home: false }) {
 
     return (
         <div className="page">
-            <div className="profile__header">
+            <div className="profile-header">
                 {editInfo && (
                     <EditProfile profile={profile} enableFn={setEditInfo} />
                 )}
@@ -169,7 +169,7 @@ export default function Profile(props: PropsType = { home: false }) {
                         }
                     }}
                 />
-                <div className="profile__header--stuff">
+                <div className="profile-header__stats">
                     <div>
                         <h2>{posts.length}</h2>
                         <p>posts</p>
@@ -183,7 +183,7 @@ export default function Profile(props: PropsType = { home: false }) {
                         <p>following</p>
                     </div>
                 </div>
-                <div className="profile__header--info">
+                <div className="profile-header__info">
                     {!props.home && (
                         <FollowButton
                             profile={profile}
@@ -202,7 +202,7 @@ export default function Profile(props: PropsType = { home: false }) {
                     ) : (
                         ""
                     )}
-                    <h5 className="profile__header--name">{profile.name}</h5>
+                    <h5 className="profile-header__name">{profile.name}</h5>
                     {displayInfo()}
                 </div>
             </div>

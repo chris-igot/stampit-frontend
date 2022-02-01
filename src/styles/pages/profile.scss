@@ -2,7 +2,7 @@
 @use "sass:color";
 @use "../common/colors";
 
-.profile__header {
+.profile-header {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -18,7 +18,7 @@
         border-bottom: 1px solid map.get(colors.$colors, "c-white");
     }
 
-    &--stuff {
+    &__stats {
         box-sizing: border-box;
         display: flex;
         justify-content: space-between;
@@ -46,7 +46,7 @@
         }
     }
 
-    &--info {
+    &__info {
         width: 100%;
         margin: 0.2rem 0 0.2rem 0;
         padding: 0.2rem;
@@ -61,9 +61,9 @@
         }
     }
 
-    &--name,
-    &--title,
-    &--bio {
+    &__name,
+    &__title,
+    &__bio {
         margin: 0;
     }
 }

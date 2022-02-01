@@ -28,6 +28,7 @@ export default function PostNew(props: PropsType) {
         <div className="page modal">
             <form className="modal__form" action="" method="post">
                 <input type="file" name="file" id="file" />
+                <input type="text" name="description" id="description" />
                 <button
                     type="submit"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
