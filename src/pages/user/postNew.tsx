@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { OutputType } from "../ts_types/types";
-import convertInputToFormData from "../utilities/convertInputToFormData";
-import postForm from "../utilities/postForm";
+import { OutputType } from "../../ts_types/types";
+import convertInputToFormData from "../../utilities/convertInputToFormData";
+import postForm from "../../utilities/postForm";
 
 interface PropsType {
     enableFn?: (enable: boolean) => void;

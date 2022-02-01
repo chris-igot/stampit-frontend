@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import Image from "../components/image";
+import Image from "../../components/image";
 import {
     OutputType,
     PostType,
     ProfileType,
     StampType,
-} from "../ts_types/types";
-import getData from "../utilities/getData";
+} from "../../ts_types/types";
+import getData from "../../utilities/getData";
 
 export default function Post() {
     const navigate = useNavigate();

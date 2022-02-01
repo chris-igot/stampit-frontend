@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ProfileList from "../components/profileList";
-import { OutputType, ProfileType } from "../ts_types/types";
-import postForm from "../utilities/postForm";
+import ProfileList from "../../components/profileList";
+import { OutputType, ProfileType } from "../../ts_types/types";
+import postForm from "../../utilities/postForm";
 
 export default function Search() {
     const [results, setResults] = useState<ProfileType[]>([]);

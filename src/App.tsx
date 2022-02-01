@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Menu from "./menu";
-import Login from "./pages/login";
-import Register from "./pages/register";
-import Profile from "./pages/profile";
-import Public from "./pages/public";
-import Post from "./pages/post";
-import Following from "./pages/following";
-import Search from "./pages/search";
+import Login from "./pages/user/login";
+import Register from "./pages/user/register";
+import Profile from "./pages/user/profile";
+import Public from "./pages/user/public";
+import Post from "./pages/user/post";
+import Following from "./pages/user/following";
+import Search from "./pages/user/search";
 
 function App() {
     // const loc = useLocation();
