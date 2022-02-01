@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import FollowButton from "../components/followButton";
-import EditProfile from "../components/form/editProfile";
+import FollowButton from "../../components/followButton";
+import EditProfile from "../../components/form/editProfile";
 
-import Image from "../components/image";
-import { OutputType, PostType, ProfileType } from "../ts_types/types";
+import Image from "../../components/image";
+import { OutputType, PostType, ProfileType } from "../../ts_types/types";
 
-import getData from "../utilities/getData";
+import getData from "../../utilities/getData";
 
 import PostNew from "./postNew";
 

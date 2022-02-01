@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Image from "../components/image";
-import { OutputType, PostType } from "../ts_types/types";
-import getData from "../utilities/getData";
+import Image from "../../components/image";
+import { OutputType, PostType } from "../../ts_types/types";
+import getData from "../../utilities/getData";
 
 export default function Public() {
     const navigate = useNavigate();
