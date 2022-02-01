@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import Image from "../../components/image";
+import Image from "../components/image";
 import {
     OutputType,
     PostType,
     ProfileType,
     StampType,
-} from "../../ts_types/types";
-import getData from "../../utilities/getData";
+} from "../ts_types/types";
+import getData from "../utilities/getData";
 
 export default function Post() {
     const navigate = useNavigate();
@@ -35,12 +35,10 @@ export default function Post() {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
-                    console.log(data.json);
                     setPost(data.json as PostType);
                     getData(
                         "/api/profile?id=" + (data.json as PostType).profile
                     ).then((output2) => {
-                        console.log("profile", (output2 as OutputType).json);
                         setProfile((output2 as OutputType).json as ProfileType);
                     });
                     break;
@@ -50,7 +48,6 @@ export default function Post() {
             }
         });
         getData("/api/post/stamps?id=" + postId).then((output2) => {
-            console.log("stamps", (output2 as OutputType).json);
             setStamps((output2 as OutputType).json as StampType[]);
         });
     }, []);
@@ -72,13 +69,11 @@ export default function Post() {
         form.append("boxDimY", Math.floor(boxDimY) as unknown as Blob);
         form.append("postId", postId as string);
 
-        console.log("CLICK", { rect, x, y, boxDimX, boxDimY });
         fetch("/post/stamp", {
             method: "POST",
             body: form,
         }).then(() => {
             getData("/api/post/stamps?id=" + postId).then((output2) => {
-                console.log("stamps", (output2 as OutputType).json);
                 setStamps((output2 as OutputType).json as StampType[]);
             });
         });
@@ -103,8 +98,6 @@ export default function Post() {
                             style={{
                                 left: `calc(${stamp.x / 100}% - 24px)`,
                                 top: `calc(${stamp.y / 100}% - 24px)`,
-                                // left: `${stamp.x / 100}%`,
-                                // top: `${stamp.y / 100}%`,
                             }}
                         >
                             <img src={stamp.image} alt="" />

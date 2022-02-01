@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Image from "../../components/image";
-import { OutputType, PostType } from "../../ts_types/types";
-import getData from "../../utilities/getData";
+import Image from "../components/image";
+import { OutputType, PostType } from "../ts_types/types";
+import getData from "../utilities/getData";
 
 export default function Public() {
     const navigate = useNavigate();
@@ -13,7 +13,6 @@ export default function Public() {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
-                    console.log(data.json);
                     setPosts(
                         (data.json as PostType[]).sort((a, b) =>
                             b.createdAt.localeCompare(a.createdAt)

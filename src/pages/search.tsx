@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import InputText from "../../components/form/textInput";
-import ProfileList from "../../components/profileList";
-import { OutputType, ProfileType } from "../../ts_types/types";
-import postForm from "../../utilities/postForm";
+import InputText from "../components/form/textInput";
+import ProfileList from "../components/profileList";
+import { OutputType, ProfileType } from "../ts_types/types";
+import postForm from "../utilities/postForm";
 
 export default function Search() {
     const [results, setResults] = useState<ProfileType[]>([]);
@@ -18,7 +18,6 @@ export default function Search() {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
-                    console.log(data.json);
                     setResults(data.json as ProfileType[]);
                     break;
                 default:

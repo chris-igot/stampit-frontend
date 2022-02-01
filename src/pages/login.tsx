@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import InputText from "../../components/form/textInput";
-import { OutputType } from "../../ts_types/types";
-import convertInputToFormData from "../../utilities/convertInputToFormData";
-import postForm from "../../utilities/postForm";
+import InputText from "../components/form/textInput";
+import { OutputType } from "../ts_types/types";
+import convertInputToFormData from "../utilities/convertInputToFormData";
+import postForm from "../utilities/postForm";
 
 export default function Login() {
     const navigate = useNavigate();

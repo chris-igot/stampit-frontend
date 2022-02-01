@@ -5,11 +5,11 @@ import { OutputType } from "../../ts_types/types";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
 import postForm from "../../utilities/postForm";
 
-export default function Register() {
+export default function Login() {
     const navigate = useNavigate();
     function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         const formData = convertInputToFormData(e);
-        postForm("/api/register", formData).then((output) => {
+        postForm("/api/admin/login", formData).then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
@@ -19,7 +19,6 @@ export default function Register() {
                     //TODO: error here
                     break;
                 default:
-                    navigate("/login");
                     break;
             }
         });
@@ -29,26 +28,23 @@ export default function Register() {
             <div className="modal__form">
                 <form className="" action="" method="post">
                     <p className="logo--large" />
-                    <h4>Register</h4>
-                    <InputText name="username" />
+                    <h4>Login</h4>
                     <InputText name="email" type="email" />
                     <InputText name="password" type="password" />
-                    <InputText
-                        name="passwordConfirm"
-                        type="password"
-                        label="password confirmation"
-                    />
                     <p>
-                        Go back to <Link to={"/login"}>Login</Link> page
+                        New user?
+                        <br />{" "}
+                        <Link to={"/register"}>Create a new account</Link>
                     </p>
                     <button
                         className="btn-white"
+                        type="submit"
                         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                             e.preventDefault();
                             handleSubmit(e);
                         }}
                     >
-                        Register
+                        Login
                     </button>
                 </form>
             </div>
