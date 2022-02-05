@@ -35,6 +35,7 @@
             @extend %img-common;
         }
     }
+
     &--listing {
         @extend %image-sm-common;
         margin: 0;
@@ -108,6 +109,29 @@
                 }
             }
         }
+        & > img {
+            @extend %img-common;
+            height: 100%;
+        }
+    }
+
+    &--stamp {
+        @extend %image-sm-common;
+        width: 3rem;
+        height: 3rem;
+        position: absolute;
+
+        & > img {
+            @extend %img-common;
+            height: 100%;
+        }
+    }
+
+    &--stamp-small {
+        @extend %image-sm-common;
+        width: 10px;
+        height: 10px;
+
         & > img {
             @extend %img-common;
             height: 100%;

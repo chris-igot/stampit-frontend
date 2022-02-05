@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Menu from "./menu";
+import Menu from "./components/menu";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Profile from "./pages/profile";

@@ -13,7 +13,7 @@ export default function Login() {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
-                    navigate("/home");
+                    navigate("/admin/home");
                     break;
                 case 418:
                     //TODO: error here
