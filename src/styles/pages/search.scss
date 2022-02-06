@@ -6,16 +6,4 @@
 
     border-radius: 15px;
     background-color: white;
-
-    input {
-        margin: 0.5rem;
-        padding: 0.5rem;
-
-        border-radius: 15px;
-        border: gray solid 1px;
-        &:focus {
-            border: black solid 1px;
-            outline: 0px solid white;
-        }
-    }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ProfileList from "../../components/profileList";
-import { OutputType, ProfileType } from "../../ts_types/types";
-import getData from "../../utilities/getData";
+import ProfileList from "../components/profileList";
+import { OutputType, ProfileType } from "../ts_types/types";
+import getData from "../utilities/getData";
 
 export default function Following() {
     const [following, setFollowing] = useState<ProfileType[]>([]);
@@ -14,7 +14,6 @@ export default function Following() {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
-                    console.log(data.json);
                     setFollowing(data.json as ProfileType[]);
                     break;
                 default:

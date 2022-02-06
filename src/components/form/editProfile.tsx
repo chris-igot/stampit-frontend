@@ -79,7 +79,7 @@ export default function EditProfile(props: PropsType) {
 
     return (
         <div className="modal">
-            <div className="modal__form profile-editinfo">
+            <div className="modal__form editinfo">
                 <button
                     className="cancel btn-clear"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -89,14 +89,10 @@ export default function EditProfile(props: PropsType) {
                 >
                     X
                 </button>
-                <form
-                    className="profile-editinfo__image-form"
-                    action=""
-                    method="post"
-                >
+                <form className="editinfo__image-form" action="" method="post">
                     <Image className={"image--profile"} image={profileImgURL} />
 
-                    <div className="profile-editinfo__image-form-controls">
+                    <div className="editinfo__image-form-controls">
                         <input
                             type="file"
                             name="file"
@@ -130,7 +126,7 @@ export default function EditProfile(props: PropsType) {
                     </div>
                 </form>
 
-                <form className="" action="" method="post">
+                <form className="editinfo__image-form" action="" method="post">
                     <input
                         type="text"
                         name="title"

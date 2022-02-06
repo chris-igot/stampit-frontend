@@ -2,7 +2,7 @@
 @use "sass:color";
 @use "../common/colors";
 
-.profile-editinfo {
+.editinfo {
     width: 50%;
     color: map.get(colors.$colors, "c-black");
     & .cancel {
@@ -24,7 +24,7 @@
         }
     }
 
-    & form {
+    &__text-form {
         margin: 2rem 0 0 0;
 
         %profile-update-form-fields {

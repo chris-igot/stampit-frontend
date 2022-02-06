@@ -9,11 +9,11 @@ export default function Login() {
     const navigate = useNavigate();
     function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         const formData = convertInputToFormData(e);
-        postForm("/api/login", formData).then((output) => {
+        postForm("/api/admin/login", formData).then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
-                    navigate("/home");
+                    navigate("/admin/home");
                     break;
                 case 418:
                     //TODO: error here

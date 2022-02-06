@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ProfileList from "../../components/profileList";
-import { OutputType, ProfileType } from "../../ts_types/types";
-import postForm from "../../utilities/postForm";
+import InputText from "../components/form/textInput";
+import ProfileList from "../components/profileList";
+import { OutputType, ProfileType } from "../ts_types/types";
+import postForm from "../utilities/postForm";
 
 export default function Search() {
     const [results, setResults] = useState<ProfileType[]>([]);
@@ -17,7 +18,6 @@ export default function Search() {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
-                    console.log(data.json);
                     setResults(data.json as ProfileType[]);
                     break;
                 default:
@@ -29,16 +29,8 @@ export default function Search() {
     return (
         <div className="page">
             <form className="search-form" action="">
-                <input
-                    type="text"
-                    name="search"
-                    id="search"
-                    onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                        if (e.currentTarget.value.length >= 3) {
-                            handleSearch();
-                        }
-                    }}
-                />
+                <InputText name="search" type="text" />
+
                 <button
                     className="btn-blue"
                     type="submit"

@@ -6,6 +6,10 @@ export interface PostType {
     createdAt: string;
 }
 
+export interface ImageFileType {
+    fileName: string;
+}
+
 export interface StampType {
     id: string;
     image: string;

@@ -38,16 +38,16 @@ body {
         $color: map.get(colors.$colors, "c-white"),
         $alpha: 0.5
     );
-}
 
-.modal__form {
-    border-radius: 5px;
+    &__form {
+        border-radius: 5px;
 
-    background-color: rgba(
-        $color: map.get(colors.$colors, "c-white"),
-        $alpha: 0.8
-    );
-    outline: rgba($color: map.get(colors.$colors, "c-white"), $alpha: 0.2) solid
-        1px;
-    box-shadow: 1px 1px 5px 1px #444444;
+        background-color: rgba(
+            $color: map.get(colors.$colors, "c-white"),
+            $alpha: 0.8
+        );
+        outline: rgba($color: map.get(colors.$colors, "c-white"), $alpha: 0.2)
+            solid 1px;
+        box-shadow: 1px 1px 5px 1px #444444;
+    }
 }
