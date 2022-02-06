@@ -13,7 +13,7 @@ export default function FollowButton(props: PropsType) {
                     className="follow btn-white"
                     onClick={() => {
                         getData(
-                            "/api/profile/unfollow?id=" + props.profile.id,
+                            "/api/profiles/unfollow?id=" + props.profile.id,
                             "status"
                         ).then(
                             props.onClick as (output: void | OutputType) => void
@@ -27,7 +27,7 @@ export default function FollowButton(props: PropsType) {
                     className="follow btn-blue"
                     onClick={() => {
                         getData(
-                            "/api/profile/follow?id=" + props.profile.id,
+                            "/api/profiles/follow?id=" + props.profile.id,
                             "status"
                         ).then(
                             props.onClick as (output: void | OutputType) => void

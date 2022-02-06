@@ -6,7 +6,7 @@ import postForm from "../../utilities/postForm";
 export default function StampNew() {
     function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         const formData = convertInputToFormData(e);
-        postForm("/api/post/new", formData, "status").then((output) => {
+        postForm("/api/admin/stamps/new", formData, "status").then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:

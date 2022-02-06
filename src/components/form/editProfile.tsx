@@ -32,7 +32,7 @@ export default function EditProfile(props: PropsType) {
 
     function handlePicSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         const formData = convertInputToFormData(e);
-        postForm("/api/home/setimage", formData).then((output) => {
+        postForm("/api/profiles/home/setimage", formData).then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
@@ -50,11 +50,11 @@ export default function EditProfile(props: PropsType) {
     ) {
         const formData = convertInputToFormData(e);
         console.log("submit2", formData, e.currentTarget.parentNode);
-        postForm("/api/home/edit", formData).then((output) => {
+        postForm("/api/profiles/home/edit", formData).then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
-                    getData("/api/home").then((output) => {
+                    getData("/api/profiles/home").then((output) => {
                         const data = output as OutputType;
                         switch (data.status) {
                             case 200:

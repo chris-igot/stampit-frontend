@@ -9,7 +9,7 @@ export default function Public() {
     const [posts, setPosts] = useState<PostType[]>([]);
 
     useEffect(() => {
-        getData("/api/public").then((output) => {
+        getData("/api/posts/public").then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:

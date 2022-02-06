@@ -14,7 +14,7 @@ export default function Search() {
         ).value;
         let form = new FormData();
         form.append("search", searchString);
-        postForm("/api/search", form, "json").then((output) => {
+        postForm("/api/profiles/search", form, "json").then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:

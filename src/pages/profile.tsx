@@ -38,7 +38,7 @@ export default function Profile(props: PropsType = { home: false }) {
         if (props.home) {
             postsRoute = "/api/posts/self";
         } else {
-            postsRoute = "/api/posts/user?id=" + id;
+            postsRoute = "/api/posts?id=" + id;
         }
 
         updateProfile();
@@ -62,7 +62,7 @@ export default function Profile(props: PropsType = { home: false }) {
 
     useEffect(() => {
         if (props.home) {
-            getData("/api/home").then((output) => {
+            getData("/api/profiles/home").then((output) => {
                 const data = output as OutputType;
                 switch (data.status) {
                     case 200:
@@ -82,9 +82,9 @@ export default function Profile(props: PropsType = { home: false }) {
 
         const id = searchParams.get("id");
         if (props.home) {
-            profileRoute = "/api/home";
+            profileRoute = "/api/profiles/home";
         } else {
-            profileRoute = "/api/profile?id=" + id;
+            profileRoute = "/api/profiles?id=" + id;
         }
 
         getData(profileRoute).then((output) => {

@@ -31,7 +31,7 @@ export default function Post() {
 
     useEffect(() => {
         const postId = searchParams.get("id");
-        getData("/api/post?id=" + postId).then((output) => {
+        getData("/api/posts/" + postId).then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
@@ -47,7 +47,7 @@ export default function Post() {
                     return;
             }
         });
-        getData("/api/post/stamps?id=" + postId).then((output2) => {
+        getData("/api/post/stamps?postid=" + postId).then((output2) => {
             setStamps((output2 as OutputType).json as StampType[]);
         });
     }, []);

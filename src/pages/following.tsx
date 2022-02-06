@@ -10,7 +10,7 @@ export default function Following() {
     }, []);
 
     function getFollowing() {
-        getData("/api/profile/follows").then((output) => {
+        getData("/api/profiles/follows").then((output) => {
             const data = output as OutputType;
             switch (data.status) {
                 case 200:
