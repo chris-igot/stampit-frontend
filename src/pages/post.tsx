@@ -119,7 +119,7 @@ export default function Post() {
                     <p className="post-middle__credits">
                         <Link
                             className="post-middle__link"
-                            to={"/profile?id=" + profile.id}
+                            to={"/profiles?id=" + profile.id}
                         >
                             {profile.name}
                         </Link>
