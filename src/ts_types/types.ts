@@ -7,6 +7,8 @@ export interface PostType {
 }
 
 export interface ImageFileType {
+    //TODO: Give this a better name
+    id: string;
     fileName: string;
 }
 
@@ -32,4 +34,10 @@ export interface OutputType {
     status: number;
     error?: string;
     json?: Object;
+}
+
+export interface UserType {
+    id: string;
+    name: string;
+    roles: string[];
 }
