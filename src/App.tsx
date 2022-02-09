@@ -8,6 +8,8 @@ import Public from "./pages/public";
 import Post from "./pages/post";
 import Following from "./pages/following";
 import Search from "./pages/search";
+import AdminLogin from "./pages/admin/adminLogin";
+import AdminHome from "./pages/admin/adminHome";
 
 function App() {
     // const loc = useLocation();
@@ -21,6 +23,8 @@ function App() {
         <Router>
             {/* <Menu /> */}
             <Routes>
+                <Route path="/admin/home" element={<AdminHome />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/" element={<Profile home={true} />} />
                 <Route
                     path="/home"
@@ -32,7 +36,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="/profile"
+                    path="/profiles"
                     element={
                         <React.Fragment>
                             <Menu />
@@ -59,7 +63,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="/post"
+                    path="/posts"
                     element={
                         <React.Fragment>
                             <Menu />
