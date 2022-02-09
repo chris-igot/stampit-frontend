@@ -17,7 +17,13 @@
 
     overflow: hidden;
 
-    border-radius: 15px;
+    &:hover {
+        transition-duration: 0.1s;
+        transition-timing-function: ease-in;
+        transform: scale(0.95);
+    }
+
+    border-radius: 5%;
     transition-duration: 0.2s;
 }
 %img-common {
@@ -30,6 +36,7 @@
 .image {
     &--full {
         width: 100%;
+        padding: 0;
 
         & > img {
             @extend %img-common;
@@ -39,13 +46,8 @@
     &--listing {
         @extend %image-sm-common;
         margin: 0;
-        width: 75px;
-        height: 75px;
-
-        &:hover {
-            border-radius: 0;
-            opacity: 0.75;
-        }
+        width: 50px;
+        height: 50px;
 
         & > img {
             @extend %img-common;
@@ -55,11 +57,6 @@
 
     &--thumbnail {
         @extend %image-sm-common;
-
-        &:hover {
-            border-radius: 0;
-            opacity: 0.75;
-        }
 
         & > img {
             @extend %img-common;
@@ -75,9 +72,6 @@
         // overflow: hidden;
 
         // border-radius: 15px;
-        &:hover {
-            border-radius: 0;
-        }
 
         &.editable {
             position: relative;
@@ -127,14 +121,53 @@
         }
     }
 
-    &--stamp-small {
+    &--stamp-listing {
         @extend %image-sm-common;
-        width: 10px;
-        height: 10px;
+        width: 40px;
+        height: 40px;
 
         & > img {
             @extend %img-common;
             height: 100%;
+        }
+    }
+
+    &--icon {
+        @extend %image-sm-common;
+        width: 40px;
+        height: 40px;
+
+        & > img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            -o-object-fit: cover;
+        }
+    }
+
+    &--icon-sm {
+        @extend %image-sm-common;
+        width: 25px;
+        height: 25px;
+
+        & > img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            -o-object-fit: cover;
+        }
+    }
+
+    &--menu {
+        @extend %image-sm-common;
+        width: 30px;
+        height: 30px;
+
+        & > img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            -o-object-fit: cover;
         }
     }
 }

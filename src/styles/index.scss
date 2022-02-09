@@ -1,7 +1,9 @@
 @use "common/theme.scss";
 @use "common/normalize";
-// @use "common/colors";
+@use "common/colors";
 @use "common/layout";
+@use "common/position";
+@use "common/spacing";
 @use "components/logotext.scss";
 @use "components/buttons";
 @use "components/forminput";
@@ -9,6 +11,7 @@
 @use "components/image";
 @use "components/navigation";
 @use "components/profilelist";
+@use "components/stamplist";
 
 @use "pages/loginregistration";
 @use "pages/profile";
@@ -16,4 +19,5 @@
 @use "pages/public";
 @use "pages/post";
 @use "pages/search";
+
 @import url("https://fonts.googleapis.com/css2?family=Trocchi&display=swap");

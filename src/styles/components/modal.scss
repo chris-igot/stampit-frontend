@@ -16,9 +16,14 @@
 
     &__form {
         padding: 1rem;
+
+        .form__input-text,
+        .form__input-file {
+            margin-bottom: 0.3rem;
+        }
     }
-    
+
     &__dialog {
-        padding:1rem;
+        padding: 1rem;
     }
 }
