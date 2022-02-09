@@ -14,16 +14,17 @@ export default function Search() {
         ).value;
         let form = new FormData();
         form.append("search", searchString);
-        postForm("/api/profiles/search", form, "json").then((output) => {
-            const data = output as OutputType;
-            switch (data.status) {
-                case 200:
-                    setResults(data.json as ProfileType[]);
-                    break;
-                default:
-                    break;
+        postForm<ProfileType[]>("/api/profiles/search", form, "json").then(
+            (output) => {
+                switch (output.status) {
+                    case 200:
+                        setResults(output.json as ProfileType[]);
+                        break;
+                    default:
+                        break;
+                }
             }
-        });
+        );
     }
 
     return (

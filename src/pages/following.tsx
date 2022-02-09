@@ -10,11 +10,10 @@ export default function Following() {
     }, []);
 
     function getFollowing() {
-        getData("/api/profiles/follows").then((output) => {
-            const data = output as OutputType;
-            switch (data.status) {
+        getData<ProfileType[]>("/api/profiles/ownfollows").then((output) => {
+            switch (output.status) {
                 case 200:
-                    setFollowing(data.json as ProfileType[]);
+                    setFollowing(output.json);
                     break;
                 default:
                     break;
