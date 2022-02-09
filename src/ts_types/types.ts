@@ -1,25 +1,25 @@
-export interface PostType {
+export type PostType = {
     id: string;
     profile: string;
     image: string;
     stamps: StampType[];
     createdAt: string;
-}
+};
 
-export interface ImageFileType {
+export type ImageFileType = {
     //TODO: Give this a better name
     id: string;
     fileName: string;
-}
+};
 
-export interface StampType {
+export type StampType = {
     id: string;
     image: string;
     x: number;
     y: number;
-}
+};
 
-export interface ProfileType {
+export type ProfileType = {
     id: string;
     name: string;
     image: string;
@@ -28,16 +28,18 @@ export interface ProfileType {
     currentlyFollowing: boolean;
     followers: number;
     amFollowing: number;
-}
+    user: UserType;
+};
 
-export interface OutputType {
-    status: number;
-    error?: string;
-    json?: Object;
-}
-
-export interface UserType {
+export type UserType = {
     id: string;
-    name: string;
+    username: string;
+    email: string;
     roles: string[];
+};
+
+export interface OutputType<T> {
+    status: number;
+    json: T;
+    error?: string;
 }
