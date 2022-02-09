@@ -14,13 +14,13 @@ export default function RestrictLink({
     children,
     to,
     ...props
-}: LinkProps) {
+}: PropsType) {
     const [display, setDisplay] = useState(false);
 
     useEffect(() => {
         let allow = false;
         for (let i = 0; i < restrictTo.length; i++) {
-            const restrictedRole = restrictTo[j];
+            const restrictedRole = restrictTo[i];
             allow = userRoles.includes(restrictedRole);
             if (allow) {
                 break;

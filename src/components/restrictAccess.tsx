@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 interface PropsType {
     userRoles: string[];
@@ -7,13 +7,13 @@ interface PropsType {
     children: React.ReactNode;
 }
 
-export default function restrictAccess(props: PropsType) {
+export default function RestrictAccess(props: PropsType) {
     const [display, setDisplay] = useState(false);
 
     useEffect(() => {
         let allow = false;
         for (let i = 0; i < props.restrictTo.length; i++) {
-            const restrictedRole = props.restrictTo[j];
+            const restrictedRole = props.restrictTo[i];
             allow = props.userRoles.includes(restrictedRole);
             if (allow) {
                 break;
