@@ -1,56 +1,77 @@
 import { OutputType } from "../ts_types/types";
 
-export default function processResponse(
-    returnType: "json" | "status" = "status"
-): (response: Response) => Promise<OutputType> {
-    return function (response: Response): Promise<OutputType> {
-        console.trace("response", response.url);
+function processResponse<T = Object>(returnType: "status" | "json" = "status") {
+    return function (response: Response): Promise<OutputType<T>> {
+        // console.trace("response", response.url);
+        let output: Promise<OutputType<T>>;
         if (response.status >= 400) {
+            console.log(response);
+            console.log(response.json);
             switch (response.status) {
                 case 401:
+                    break;
+                case 403:
                     break;
                 case 418:
                     break;
                 default:
-                    throw new Error(
-                        response.status + ": " + response.statusText
-                    );
+                    break;
+                // throw new Error(
+                //     response.status + ": " + response.statusText
+                // );
             }
-            let output = new Promise<OutputType>((resolve, reject) => {
-                resolve({
-                    status: response.status,
-                    error: response.statusText,
+            output = new Promise<OutputType<T>>((resolve, reject) => {
+                response.json().then((value) => {
+                    resolve({
+                        status: response.status,
+                        json: value as T,
+                        error: response.statusText,
+                    });
                 });
             });
-            return output;
         } else {
-            let output: Promise<OutputType>;
             switch (returnType) {
+                case "status":
+                    output = new Promise<OutputType<T>>((resolve, reject) => {
+                        resolve({
+                            status: response.status,
+                            json: {} as T,
+                        });
+                    });
+                    break;
                 case "json":
-                    output = new Promise<OutputType>((resolve, reject) => {
-                        response.json().then((value) => {
+                    output = new Promise<OutputType<T>>((resolve, reject) => {
+                        response.json().then((value: T) => {
                             resolve({
                                 status: response.status,
-                                json: value,
+                                json: (value !== null ? value : {}) as T,
                             });
                         });
                     });
-                    return output;
-                case "status":
-                    output = new Promise<OutputType>((resolve, reject) => {
-                        resolve({
-                            status: response.status,
-                        });
-                    });
-                    return output;
+                    break;
                 default:
-                    output = new Promise<OutputType>((resolve, reject) => {
+                    output = new Promise<OutputType<T>>((resolve, reject) => {
                         resolve({
                             status: response.status,
+                            json: {} as T,
                         });
                     });
-                    return output;
+                    break;
             }
         }
+
+        return output.catch((error) => {
+            console.log(error);
+
+            return new Promise<OutputType<T>>((resolve, reject) => {
+                resolve({
+                    status: response.status,
+                    json: {} as T,
+                    error: response.statusText,
+                });
+            });
+        });
     };
 }
+
+export default processResponse;

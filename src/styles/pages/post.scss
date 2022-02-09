@@ -9,6 +9,7 @@
 
     &-top {
         position: relative;
+        overflow: hidden;
 
         &.stamping {
             cursor: pointer;
@@ -17,10 +18,18 @@
 
     &-middle {
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        button {
+        }
+
+        .stamp-list__container {
+        }
 
         &__credits {
             margin: 0;
-            float: right;
         }
         &__link {
             font-size: 1rem;

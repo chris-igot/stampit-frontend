@@ -17,7 +17,7 @@ export default function ProfileList(props: PropsType) {
                 <div className="profile-list-row" key={index}>
                     <Link
                         className="profile-list__link"
-                        to={"/profile?id=" + profile.id}
+                        to={"/profiles?id=" + profile.id}
                     >
                         <Image
                             className="image--listing"
@@ -27,7 +27,7 @@ export default function ProfileList(props: PropsType) {
                     <div className="username">
                         <Link
                             className="profile-list__link"
-                            to={"/profile?id=" + profile.id}
+                            to={"/profiles?id=" + profile.id}
                         >
                             {profile.name}
                         </Link>

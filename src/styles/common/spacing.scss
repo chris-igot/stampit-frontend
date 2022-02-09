@@ -1,0 +1,42 @@
+$sizes: 0, 1, 2;
+
+@mixin genspacing($attr) {
+    @each $size in $sizes {
+        $c-size: calc($size/2);
+        &-#{$size} {
+            #{$attr}: #{$c-size}rem;
+        }
+        &t-#{$size} {
+            #{$attr}-top: #{$c-size}rem;
+        }
+        &r-#{$size} {
+            #{$attr}-right: #{$c-size}rem;
+        }
+        &b-#{$size} {
+            #{$attr}-bottom: #{$c-size}rem;
+        }
+        &l-#{$size} {
+            #{$attr}-left: #{$c-size}rem;
+        }
+        &x-#{$size} {
+            #{$attr}-right: #{$c-size}rem;
+            #{$attr}-left: #{$c-size}rem;
+        }
+        &y-#{$size} {
+            #{$attr}-top: #{$c-size}rem;
+            #{$attr}-bottom: #{$c-size}rem;
+        }
+    }
+}
+
+.m {
+    @include genspacing("margin");
+}
+
+.p {
+    @include genspacing("padding");
+}
+
+.rounded {
+    border-radius: 15px;
+}
