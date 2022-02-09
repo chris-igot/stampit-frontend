@@ -1,40 +1,42 @@
 import React from "react";
 import { OutputType, ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
+import Image from "./image";
+
+import person_add from "../icons/round_person_add_white_48dp.png";
+import person_remove from "../icons/round_person_remove_black_48dp.png";
 interface PropsType {
     profile: ProfileType;
-    onClick?: (output: void | OutputType) => void;
+    onClick?: Function;
 }
 export default function FollowButton(props: PropsType) {
+    function handleClick(follow: string) {
+        getData(
+            `/api/profiles/${follow}?id=` + props.profile.id,
+            "status"
+        ).then(() => {
+            (props.onClick as Function)();
+        });
+    }
     return (
         <React.Fragment>
             {props.profile.currentlyFollowing ? (
                 <button
-                    className="follow btn-white"
-                    onClick={() => {
-                        getData(
-                            "/api/profiles/unfollow?id=" + props.profile.id,
-                            "status"
-                        ).then(
-                            props.onClick as (output: void | OutputType) => void
-                        );
+                    className="follow btn-white--image"
+                    onClick={(e) => {
+                        handleClick("unfollow");
                     }}
                 >
-                    Following
+                    <Image className="image--icon-sm" image={person_remove} />
                 </button>
             ) : (
                 <button
-                    className="follow btn-blue"
+                    className="follow btn-blue--image"
                     onClick={() => {
-                        getData(
-                            "/api/profiles/follow?id=" + props.profile.id,
-                            "status"
-                        ).then(
-                            props.onClick as (output: void | OutputType) => void
-                        );
+                        handleClick("follow");
                     }}
                 >
-                    Follow
+                    <Image className="image--icon-sm" image={person_add} />
                 </button>
             )}
         </React.Fragment>
