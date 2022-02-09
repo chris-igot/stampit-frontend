@@ -1,3 +1,13 @@
+import React from "react";
+import Menu from "../components/menu";
+import Following from "../pages/following";
+import Login from "../pages/login";
+import Post from "../pages/post";
+import Profile from "../pages/profile";
+import Public from "../pages/public";
+import Register from "../pages/register";
+import Search from "../pages/search";
+
 let routeConfig = {
     root: {
         path: "/",
@@ -72,12 +82,18 @@ let routeConfig = {
     register: {
         path: "/register",
         restrictTo: ["user"],
-        element: (
+        _element: (
             <React.Fragment>
                 <Menu />
                 <Register />
             </React.Fragment>
         ),
+        get element() {
+            return this._element;
+        },
+        set element(value) {
+            this._element = value;
+        },
     },
     public: {
         path: "/public",
