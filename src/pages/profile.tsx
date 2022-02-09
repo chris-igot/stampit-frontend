@@ -26,6 +26,7 @@ export default function Profile(props: PropsType = { home: false }) {
         currentlyFollowing: false,
         followers: 0,
         amFollowing: 0,
+        user: { id: "", username: "", email: "", roles: [] },
     });
     const [posts, setPosts] = useState<PostType[]>([]);
 
@@ -42,12 +43,11 @@ export default function Profile(props: PropsType = { home: false }) {
         }
 
         updateProfile();
-        getData(postsRoute).then((output) => {
-            const data = output as OutputType;
-            switch (data.status) {
+        getData<PostType[]>(postsRoute).then((output) => {
+            switch (output.status) {
                 case 200:
                     setPosts(
-                        (data.json as PostType[]).sort((a, b) =>
+                        output.json.sort((a, b) =>
                             b.createdAt.localeCompare(a.createdAt)
                         )
                     );
@@ -62,11 +62,10 @@ export default function Profile(props: PropsType = { home: false }) {
 
     useEffect(() => {
         if (props.home) {
-            getData("/api/profiles/home").then((output) => {
-                const data = output as OutputType;
-                switch (data.status) {
+            getData<ProfileType>("/api/profiles/home").then((output) => {
+                switch (output.status) {
                     case 200:
-                        setProfile(data.json as ProfileType);
+                        setProfile(output.json);
                         break;
                     default:
                         navigate("/login");
@@ -86,12 +85,11 @@ export default function Profile(props: PropsType = { home: false }) {
         } else {
             profileRoute = "/api/profiles?id=" + id;
         }
-
-        getData(profileRoute).then((output) => {
-            const data = output as OutputType;
-            switch (data.status) {
+        getData<ProfileType>(profileRoute).then((output) => {
+            switch (output.status) {
                 case 200:
-                    setProfile(data.json as ProfileType);
+                    setProfile(output.json);
+                    console.log("profile", output.json);
                     break;
                 default:
                     navigate("/login");
@@ -146,9 +144,22 @@ export default function Profile(props: PropsType = { home: false }) {
         <div className="page">
             <div className="profile-header">
                 {editInfo && (
-                    <EditProfile profile={profile} enableFn={setEditInfo} />
+                    <EditProfile
+                        profile={profile}
+                        enableFn={setEditInfo}
+                        onExit={() => {
+                            updateProfile();
+                        }}
+                    />
                 )}
-                {uploadPic && <PostNew enableFn={setUploadPic} />}
+                {uploadPic && (
+                    <PostNew
+                        enableFn={setUploadPic}
+                        onExit={() => {
+                            updateProfile();
+                        }}
+                    />
+                )}
                 <Image
                     className={
                         props.home
@@ -201,7 +212,7 @@ export default function Profile(props: PropsType = { home: false }) {
             </div>
             <div className="thumbnails">
                 {posts.map((post) => (
-                    <Link key={post.id} to={"/post?id=" + post.id}>
+                    <Link key={post.id} to={"/posts?postid=" + post.id}>
                         <Image
                             className="image--thumbnail"
                             image={post.image}
