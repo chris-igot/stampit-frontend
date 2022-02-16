@@ -1,3 +1,4 @@
+import { profile } from "console";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OutputType, ProfileType } from "../../ts_types/types";
@@ -5,6 +6,7 @@ import convertInputToFormData from "../../utilities/convertInputToFormData";
 import getData from "../../utilities/getData";
 import postForm from "../../utilities/postForm";
 import Image from "../image";
+import InputCheckbox from "./checkboxInput";
 import InputFile from "./fileInput";
 import InputText from "./textInput";
 
@@ -98,6 +100,7 @@ export default function EditProfile(props: PropsType) {
                 <div className="editinfo__image-form">
                     <InputFile
                         name={"file"}
+                        className="btn-white"
                         label={
                             <Image
                                 className={"image--profile"}
@@ -126,6 +129,16 @@ export default function EditProfile(props: PropsType) {
                     <InputText
                         name={"title"}
                         value={props.profile.title}
+                        onChange={() => {
+                            formUpdateState.text = true;
+                            setFormUpdateState(formUpdateState);
+                        }}
+                    />
+
+                    <InputCheckbox
+                        name={"isPrivate"}
+                        label="Set profile as private?"
+                        checked={props.profile.isPrivate}
                         onChange={() => {
                             formUpdateState.text = true;
                             setFormUpdateState(formUpdateState);

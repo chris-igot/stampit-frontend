@@ -1,11 +1,16 @@
 .profile-list {
+    display: inline-block;
+    vertical-align: top;
     width: 100%;
+
     &-row {
         display: flex;
+        box-sizing: border-box;
         justify-content: space-between;
         align-items: center;
         margin: 1px 0;
         padding: 0.5rem;
+        width: 100%;
 
         border-radius: 15px;
         background-color: white;

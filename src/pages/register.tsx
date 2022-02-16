@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import InputCheckbox from "../components/form/checkboxInput";
 import InputText from "../components/form/textInput";
 import { OutputType } from "../ts_types/types";
 import convertInputToFormData from "../utilities/convertInputToFormData";
@@ -30,7 +31,7 @@ export default function Register() {
             console.log("REGISTRATION OUTPUT", output);
             switch (output.status) {
                 case 200:
-                    // navigate("/home");
+                    navigate("/home");
                     break;
                 case 418:
                     //TODO: error here
@@ -60,6 +61,8 @@ export default function Register() {
                         type="password"
                         label="password confirmation"
                     />
+                    <InputCheckbox name={"isPrivate"} label="private?" />
+
                     <p>
                         Go back to <Link to={"/login"}>Login</Link> page
                     </p>

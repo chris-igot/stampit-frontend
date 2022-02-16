@@ -10,6 +10,7 @@ import Following from "./pages/following";
 import Search from "./pages/search";
 import AdminLogin from "./pages/admin/adminLogin";
 import AdminHome from "./pages/admin/adminHome";
+import Feed from "./pages/feed";
 
 function App() {
     // const loc = useLocation();
@@ -95,6 +96,15 @@ function App() {
                         <React.Fragment>
                             <Menu />
                             <Public />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/feed"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <Feed />
                         </React.Fragment>
                     }
                 />

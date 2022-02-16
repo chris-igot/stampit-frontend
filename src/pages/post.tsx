@@ -44,6 +44,9 @@ export default function Post() {
                         setProfile(output2.json);
                     });
                     break;
+                case 403:
+                    navigate(-1);
+                    break;
                 default:
                     navigate("/login");
                     return;

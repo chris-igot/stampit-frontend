@@ -40,3 +40,9 @@ $sizes: 0, 1, 2;
 .rounded {
     border-radius: 15px;
 }
+
+.width {
+    &--max {
+        width: 100%;
+    }
+}

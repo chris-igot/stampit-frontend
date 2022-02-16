@@ -23,15 +23,18 @@ export default function Profile(props: PropsType = { home: false }) {
         image: "",
         title: "",
         bio: "",
-        currentlyFollowing: false,
+        isPrivate: true,
+        currentlyFollowing: 0,
+        followRequested: 0,
         followers: 0,
-        amFollowing: 0,
+        followed: 0,
         user: { id: "", username: "", email: "", roles: [] },
     });
     const [posts, setPosts] = useState<PostType[]>([]);
 
     const [editInfo, setEditInfo] = useState(false);
     const [uploadPic, setUploadPic] = useState(false);
+    const [posts403, setPosts403] = useState(false);
 
     useEffect(() => {
         let postsRoute = "";
@@ -51,6 +54,10 @@ export default function Profile(props: PropsType = { home: false }) {
                             b.createdAt.localeCompare(a.createdAt)
                         )
                     );
+                    setPosts403(false);
+                    break;
+                case 403:
+                    setPosts403(true);
                     break;
                 default:
                     navigate("/login");
@@ -183,7 +190,7 @@ export default function Profile(props: PropsType = { home: false }) {
                         <p>followers</p>
                     </div>
                     <div>
-                        <h2>{profile.amFollowing}</h2>
+                        <h2>{profile.followed}</h2>
                         <p>following</p>
                     </div>
                 </div>
@@ -206,7 +213,16 @@ export default function Profile(props: PropsType = { home: false }) {
                     ) : (
                         ""
                     )}
-                    <h5 className="profile-header__name">{profile.name}</h5>
+                    <div>
+                        <span className="profile-header__name">
+                            {profile.name}
+                        </span>{" "}
+                        {profile.isPrivate ? (
+                            <span className="tag--dark">private</span>
+                        ) : (
+                            ""
+                        )}
+                    </div>
                     {displayInfo()}
                 </div>
             </div>
@@ -219,6 +235,14 @@ export default function Profile(props: PropsType = { home: false }) {
                         />
                     </Link>
                 ))}
+                {posts403 && (
+                    <div className="flex flex--col flex--v-center width--max mt-2">
+                        <h3 className="m-0">
+                            This profile has been set to private
+                        </h3>
+                        <p className="m-0">Request to follow to view posts</p>
+                    </div>
+                )}
             </div>
         </div>
     );

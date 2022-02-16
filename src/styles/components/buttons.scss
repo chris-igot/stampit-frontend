@@ -17,6 +17,7 @@ $c-red: map.get(colors.$colors, "c-red");
     $bg-color3,
     $border-color
 ) {
+    box-sizing: border-box;
     border-radius: 15px;
     cursor: pointer;
     color: $text-color1;
@@ -140,4 +141,8 @@ $c-red: map.get(colors.$colors, "c-red");
             rgba($color: white, $alpha: 0)
         );
     }
+}
+
+.ghost {
+    opacity: 0.5;
 }

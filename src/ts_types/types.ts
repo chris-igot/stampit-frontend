@@ -25,9 +25,11 @@ export type ProfileType = {
     image: string;
     title: string;
     bio: string;
-    currentlyFollowing: boolean;
+    isPrivate: boolean;
+    currentlyFollowing: number;
+    followRequested: number;
     followers: number;
-    amFollowing: number;
+    followed: number;
     user: UserType;
 };
 

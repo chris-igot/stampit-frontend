@@ -40,7 +40,7 @@ body {
     );
 
     %modal-common {
-        border-radius: 5px;
+        border-radius: 20px;
 
         background-color: rgba(
             $color: map.get(colors.$colors, "c-white"),

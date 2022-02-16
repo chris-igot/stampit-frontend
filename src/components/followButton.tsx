@@ -18,27 +18,56 @@ export default function FollowButton(props: PropsType) {
             (props.onClick as Function)();
         });
     }
-    return (
-        <React.Fragment>
-            {props.profile.currentlyFollowing ? (
-                <button
-                    className="follow btn-white--image"
-                    onClick={(e) => {
-                        handleClick("unfollow");
-                    }}
-                >
-                    <Image className="image--icon-sm" image={person_remove} />
-                </button>
-            ) : (
-                <button
-                    className="follow btn-blue--image"
-                    onClick={() => {
-                        handleClick("follow");
-                    }}
-                >
-                    <Image className="image--icon-sm" image={person_add} />
-                </button>
-            )}
-        </React.Fragment>
-    );
+
+    function setButton() {
+        let button: JSX.Element;
+
+        switch (props.profile.currentlyFollowing) {
+            case 0:
+                button = (
+                    <button
+                        className="follow btn-blue--image"
+                        onClick={() => {
+                            handleClick("follow");
+                        }}
+                    >
+                        <Image className="image--icon-sm" image={person_add} />
+                    </button>
+                );
+                break;
+            case 1:
+                button = (
+                    <button
+                        className="follow btn-blue--image ghost"
+                        onClick={() => {
+                            handleClick("unfollow");
+                        }}
+                    >
+                        <Image className="image--icon-sm" image={person_add} />
+                    </button>
+                );
+                break;
+            case 2:
+                button = (
+                    <button
+                        className="follow btn-white--image"
+                        onClick={() => {
+                            handleClick("unfollow");
+                        }}
+                    >
+                        <Image
+                            className="image--icon-sm"
+                            image={person_remove}
+                        />
+                    </button>
+                );
+                break;
+
+            default:
+                button = <button />;
+                break;
+        }
+        return button;
+    }
+    return <React.Fragment>{setButton()}</React.Fragment>;
 }
