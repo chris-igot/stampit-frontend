@@ -1,10 +1,14 @@
 import processResponse from "./processResponse";
 
-export default function getData<T>(
+export default function getData(
     url: string,
     returnType: "json" | "status" = "json"
 ) {
     return fetch(url, {
         method: "GET",
-    }).then(processResponse<T>(returnType));
+    })
+        .then(processResponse(returnType))
+        .catch((error) => {
+            console.log(error);
+        });
 }

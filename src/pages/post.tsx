@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Image from "../components/image";
-import StampList from "../components/stampList";
 import {
     OutputType,
     PostType,
@@ -29,66 +28,55 @@ export default function Post() {
     });
     const [stamps, setStamps] = useState<StampType[]>([]);
     const [stampEnabled, setStampEnabled] = useState(false);
-    const [selectedStamp, setSelectedStamp] = useState("");
 
     useEffect(() => {
-        const postId = searchParams.get("postid");
-        getData<PostType>("/api/posts/" + postId).then((output) => {
-            switch (output.status) {
+        const postId = searchParams.get("id");
+        getData("/api/post?id=" + postId).then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
                 case 200:
-                    setPost(output.json);
-                    getData<ProfileType>(
-                        "/api/profiles?id=" + output.json.profile
+                    setPost(data.json as PostType);
+                    getData(
+                        "/api/profile?id=" + (data.json as PostType).profile
                     ).then((output2) => {
-                        console.log(output2.json);
-                        setProfile(output2.json);
+                        setProfile((output2 as OutputType).json as ProfileType);
                     });
-                    break;
-                case 403:
-                    navigate(-1);
                     break;
                 default:
                     navigate("/login");
                     return;
             }
         });
-        getData<StampType[]>("/api/stamps?postid=" + postId).then((output2) => {
-            setStamps(output2.json);
+        getData("/api/post/stamps?id=" + postId).then((output2) => {
+            setStamps((output2 as OutputType).json as StampType[]);
         });
     }, []);
 
     function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        if (selectedStamp !== "") {
-            const targetDiv = e.currentTarget;
+        const targetDiv = e.currentTarget;
 
-            const rect = targetDiv.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const boxDimX = rect.right - rect.left;
-            const boxDimY = rect.bottom - rect.top;
-            const postId = searchParams.get("postid");
-            let form = new FormData();
+        const rect = targetDiv.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const boxDimX = rect.right - rect.left;
+        const boxDimY = rect.bottom - rect.top;
+        const postId = searchParams.get("id");
+        let form = new FormData();
 
-            form.append("x", Math.floor(x) as unknown as Blob);
-            form.append("y", Math.floor(y) as unknown as Blob);
-            form.append("boxDimX", Math.floor(boxDimX) as unknown as Blob);
-            form.append("boxDimY", Math.floor(boxDimY) as unknown as Blob);
-            form.append("postId", postId as string);
-            form.append("stampId", selectedStamp);
+        form.append("x", Math.floor(x) as unknown as Blob);
+        form.append("y", Math.floor(y) as unknown as Blob);
+        form.append("boxDimX", Math.floor(boxDimX) as unknown as Blob);
+        form.append("boxDimY", Math.floor(boxDimY) as unknown as Blob);
+        form.append("postId", postId as string);
 
-            fetch("/api/stamps/new", {
-                // fetch("/click", {
-                method: "POST",
-                body: form,
-            }).then(() => {
-                getData<StampType[]>(
-                    "/api/stamps?postid=" + postId,
-                    "json"
-                ).then((output2) => {
-                    setStamps(output2.json);
-                });
+        fetch("/post/stamp", {
+            method: "POST",
+            body: form,
+        }).then(() => {
+            getData("/api/post/stamps?id=" + postId).then((output2) => {
+                setStamps((output2 as OutputType).json as StampType[]);
             });
-        }
+        });
     }
 
     return (
@@ -128,18 +116,10 @@ export default function Post() {
                         {stampEnabled ? "stop" : "start stamping"}
                     </button>
 
-                    {stampEnabled && (
-                        <StampList
-                            onClick={(stampId) => {
-                                setSelectedStamp(stampId);
-                            }}
-                        />
-                    )}
-
                     <p className="post-middle__credits">
                         <Link
                             className="post-middle__link"
-                            to={"/profiles?id=" + profile.id}
+                            to={"/profile?id=" + profile.id}
                         >
                             {profile.name}
                         </Link>

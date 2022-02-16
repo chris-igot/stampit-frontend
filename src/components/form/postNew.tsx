@@ -3,27 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { OutputType } from "../../ts_types/types";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
 import postForm from "../../utilities/postForm";
-import InputFile from "./fileInput";
-import InputText from "./textInput";
 
-type EnableFnType = (enable: boolean) => void;
 interface PropsType {
-    onExit?: Function;
-    enableFn?: EnableFnType;
+    enableFn?: (enable: boolean) => void;
 }
 
 export default function PostNew(props: PropsType) {
     const navigate = useNavigate();
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
+    function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         const formData = convertInputToFormData(e);
-        postForm("/api/posts/new", formData).then((output) => {
-            switch (output.status) {
+        postForm("/api/post/new", formData).then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
                 case 200:
                     (props.enableFn as (enable: boolean) => void)(false);
-                    if ("onExit" in props) {
-                        (props.onExit as Function)();
-                    }
                     break;
                 default:
                     navigate("/home");
@@ -33,16 +26,16 @@ export default function PostNew(props: PropsType) {
     }
     return (
         <div className="page modal">
-            <form
-                className="modal__form"
-                action=""
-                method="post"
-                onSubmit={handleSubmit}
-            >
-                <InputFile name={"file"} />
-
-                <InputText name={"description"} />
-                <button className="btn-white" type="submit">
+            <form className="modal__form" action="" method="post">
+                <input type="file" name="file" id="file" />
+                <input type="text" name="description" id="description" />
+                <button
+                    type="submit"
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        e.preventDefault();
+                        handleSubmit(e);
+                    }}
+                >
                     Post!
                 </button>
 
@@ -50,12 +43,7 @@ export default function PostNew(props: PropsType) {
                     className="btn-gray"
                     onClick={(e) => {
                         e.preventDefault();
-                        if ("onExit" in props) {
-                            (props.onExit as Function)();
-                        }
-                        if ("enableFn" in props) {
-                            (props.enableFn as EnableFnType)(false);
-                        }
+                        (props.enableFn as (enable: boolean) => void)(false);
                     }}
                 >
                     cancel

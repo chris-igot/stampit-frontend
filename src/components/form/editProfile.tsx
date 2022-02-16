@@ -1,4 +1,3 @@
-import { profile } from "console";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OutputType, ProfileType } from "../../ts_types/types";
@@ -6,23 +5,16 @@ import convertInputToFormData from "../../utilities/convertInputToFormData";
 import getData from "../../utilities/getData";
 import postForm from "../../utilities/postForm";
 import Image from "../image";
-import InputCheckbox from "./checkboxInput";
-import InputFile from "./fileInput";
-import InputText from "./textInput";
 
 interface PropsType {
     profile: ProfileType;
-    onExit?: Function;
     enableFn: (enable: boolean) => void;
 }
 
 export default function EditProfile(props: PropsType) {
     const navigate = useNavigate();
     const [profileImgURL, setProfileImgURL] = useState(props.profile.image);
-    const [formUpdateState, setFormUpdateState] = useState({
-        image: false,
-        text: false,
-    });
+    // const first = useRef(second);
 
     useEffect(() => {
         return () => {};
@@ -31,42 +23,53 @@ export default function EditProfile(props: PropsType) {
     function updateImagePreview(e: React.ChangeEvent<HTMLInputElement>) {
         const file = (e.currentTarget.files as FileList)[0];
         let newSrc = URL.createObjectURL(file);
-
-        formUpdateState.image = true;
-        setFormUpdateState(formUpdateState);
         setProfileImgURL(newSrc);
     }
 
     function resetImage() {
-        (document.getElementById("file") as HTMLInputElement).value = "";
-        formUpdateState.image = false;
-        setFormUpdateState(formUpdateState);
         setProfileImgURL(props.profile.image);
     }
 
-    function submitProfilePic(formData: FormData) {
-        postForm("/api/profiles/home/setimage", formData).then((output) => {
-            switch (output.status) {
+    function handlePicSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+        const formData = convertInputToFormData(e);
+        postForm("/api/home/setimage", formData).then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
                 case 200:
-                    if ("onExit" in props) {
-                        (props.onExit as Function)();
-                    }
+                    navigate("/home");
                     break;
                 default:
+                    navigate("/login");
                     return;
             }
         });
     }
 
-    function submitInfo(formData: FormData) {
-        postForm("/api/profiles/home/edit", formData).then((output) => {
-            switch (output.status) {
+    function handleInfoSubmit(
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) {
+        const formData = convertInputToFormData(e);
+        console.log("submit2", formData, e.currentTarget.parentNode);
+        postForm("/api/home/edit", formData).then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
                 case 200:
-                    if ("onExit" in props) {
-                        (props.onExit as Function)();
-                    }
+                    getData("/api/home").then((output) => {
+                        const data = output as OutputType;
+                        switch (data.status) {
+                            case 200:
+                                console.log(data.json);
+                                // setProfile(data.json as ProfileType);
+                                break;
+                            default:
+                                navigate("/login");
+                                break;
+                        }
+                    });
+                    props.enableFn(false);
                     break;
                 case 418:
+                    //TODO: error here
                     break;
                 default:
                     break;
@@ -74,43 +77,41 @@ export default function EditProfile(props: PropsType) {
         });
     }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        props.enableFn(false);
-        console.log(formUpdateState);
-        if (formUpdateState.image) {
-            let formData = convertInputToFormData(e);
-            formData.delete("title");
-            formData.delete("bio");
-            submitProfilePic(formData);
-        }
-        if (formUpdateState.text) {
-            let formData = convertInputToFormData(e);
-            formData.delete("file");
-            submitInfo(formData);
-        }
-    }
     return (
         <div className="modal">
-            <form
-                className="modal__form editinfo"
-                action=""
-                onSubmit={handleSubmit}
-            >
-                <div className="editinfo__image-form">
-                    <InputFile
-                        name={"file"}
-                        className="btn-white"
-                        label={
-                            <Image
-                                className={"image--profile"}
-                                image={profileImgURL}
-                            />
-                        }
-                        onChange={updateImagePreview}
-                    />
+            <div className="modal__form editinfo">
+                <button
+                    className="cancel btn-clear"
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        e.preventDefault();
+                        props.enableFn(false);
+                    }}
+                >
+                    X
+                </button>
+                <form className="editinfo__image-form" action="" method="post">
+                    <Image className={"image--profile"} image={profileImgURL} />
 
-                    <div>
+                    <div className="editinfo__image-form-controls">
+                        <input
+                            type="file"
+                            name="file"
+                            id="file"
+                            onChange={updateImagePreview}
+                        />
+                        <button
+                            type="submit"
+                            className="btn-white"
+                            onClick={(
+                                e: React.MouseEvent<HTMLButtonElement>
+                            ) => {
+                                e.preventDefault();
+                                handlePicSubmit(e);
+                                props.enableFn(false);
+                            }}
+                        >
+                            Update
+                        </button>
                         <button
                             className="btn-gray"
                             onClick={(
@@ -123,26 +124,14 @@ export default function EditProfile(props: PropsType) {
                             reset
                         </button>
                     </div>
-                </div>
+                </form>
 
-                <div className="editinfo__text-form">
-                    <InputText
-                        name={"title"}
-                        value={props.profile.title}
-                        onChange={() => {
-                            formUpdateState.text = true;
-                            setFormUpdateState(formUpdateState);
-                        }}
-                    />
-
-                    <InputCheckbox
-                        name={"isPrivate"}
-                        label="Set profile as private?"
-                        checked={props.profile.isPrivate}
-                        onChange={() => {
-                            formUpdateState.text = true;
-                            setFormUpdateState(formUpdateState);
-                        }}
+                <form className="editinfo__image-form" action="" method="post">
+                    <input
+                        type="text"
+                        name="title"
+                        id=""
+                        defaultValue={props.profile.title}
                     />
 
                     <textarea
@@ -151,27 +140,21 @@ export default function EditProfile(props: PropsType) {
                         cols={30}
                         rows={3}
                         defaultValue={props.profile.bio}
-                        onChange={() => {
-                            formUpdateState.text = true;
-                            setFormUpdateState(formUpdateState);
-                        }}
                     />
-                </div>
-                <div>
-                    <button className="btn-white mr-1" type="submit">
-                        Update
-                    </button>
+
                     <button
-                        className="btn-gray"
-                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        className="btn-white"
+                        type="submit"
+                        onClick={(e) => {
                             e.preventDefault();
-                            props.enableFn(false);
+                            console.log("submit");
+                            handleInfoSubmit(e);
                         }}
                     >
-                        Cancel
+                        Update
                     </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     );
 }

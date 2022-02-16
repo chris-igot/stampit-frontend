@@ -9,11 +9,12 @@ export default function Public() {
     const [posts, setPosts] = useState<PostType[]>([]);
 
     useEffect(() => {
-        getData<PostType[]>("/api/posts/public").then((output) => {
-            switch (output.status) {
+        getData("/api/public").then((output) => {
+            const data = output as OutputType;
+            switch (data.status) {
                 case 200:
                     setPosts(
-                        (output.json as PostType[]).sort((a, b) =>
+                        (data.json as PostType[]).sort((a, b) =>
                             b.createdAt.localeCompare(a.createdAt)
                         )
                     );
@@ -28,7 +29,7 @@ export default function Public() {
         <div className="page">
             <div className="thumbnails">
                 {posts.map((post) => (
-                    <Link key={post.id} to={"/posts?postid=" + post.id}>
+                    <Link key={post.id} to={"/post?id=" + post.id}>
                         <Image
                             className="image--thumbnail"
                             image={post.image}

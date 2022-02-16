@@ -3,15 +3,17 @@
 @use "../common/colors";
 
 .form__input {
-    $field-width: 12rem;
-    $input-padding: 0.7rem, 0.5rem, 0.2rem, 0.5rem;
-    $field-color: map.get(colors.$colors, "c-white");
-    $border-color: map.get(colors.$colors, "c-gray");
-    $text-field-color: map.get(colors.$colors, "c-black");
-    $text-label-color: map.get(colors.$colors, "c-black");
-    $text-smalllabel-color: map.get(colors.$colors, "c-gray");
     &-text {
+        $field-width: 12rem;
+        $input-padding: 0.7rem, 0.5rem, 0.2rem, 0.5rem;
+        $field-color: map.get(colors.$colors, "c-white");
+        $border-color: map.get(colors.$colors, "c-gray");
+        $text-field-color: map.get(colors.$colors, "c-black");
+        $text-label-color: map.get(colors.$colors, "c-black");
+        $text-smalllabel-color: map.get(colors.$colors, "c-gray");
+
         position: relative;
+        margin: auto auto 0.5rem auto;
 
         %form-input-text-common {
             position: absolute;
@@ -31,7 +33,6 @@
 
         &:after {
             display: block;
-            box-sizing: content-box;
             width: $field-width;
             height: 2.2rem;
             padding-right: 0.45rem;
@@ -77,81 +78,6 @@
             left: 0.6rem;
 
             color: $text-label-color;
-        }
-    }
-
-    &-file {
-        display: flex;
-        align-items: flex-start;
-        box-sizing: border-box;
-
-        input {
-            display: none;
-        }
-
-        label {
-            display: inline-block;
-            margin-right: 0.5rem;
-
-            color: $text-label-color;
-        }
-        p {
-            margin: 0;
-        }
-    }
-
-    &-checkbox {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: calc(nth($input-padding, 3) + 1.4px) nth($input-padding, 4);
-
-        border: 1px solid $border-color;
-        border-radius: 15px;
-        background-color: map.get(colors.$colors, "c-white");
-
-        span {
-            margin-bottom: 0.1rem;
-        }
-
-        input {
-            display: none;
-        }
-
-        .checkbox {
-            position: relative;
-            box-sizing: border-box;
-            width: 48px;
-            height: 24px;
-
-            cursor: pointer;
-
-            transition-duration: 0.1s;
-            outline: map.get(colors.$colors, "c-gray") solid 1px;
-            border-radius: 12px;
-            background-color: map.get(colors.$colors, "c-red");
-            &.checked {
-                background-color: map.get(colors.$colors, "c-blue");
-
-                &::after {
-                    left: 24px;
-                }
-            }
-
-            &::after {
-                position: absolute;
-                box-sizing: border-box;
-                left: 0;
-                width: 24px;
-                height: 24px;
-
-                content: "";
-
-                transition-duration: 0.1s;
-                border: 1px solid map.get(colors.$colors, "c-gray");
-                border-radius: 12px;
-                background-color: white;
-            }
         }
     }
 }

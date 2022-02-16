@@ -1,7 +1,6 @@
-import { OutputType } from "../ts_types/types";
 import processResponse from "./processResponse";
 
-export default function postForm<T>(
+export default function postForm(
     url = "/",
     data: FormData,
     returnType: "json" | "status" = "status"
@@ -9,5 +8,9 @@ export default function postForm<T>(
     return fetch(url, {
         method: "POST",
         body: data,
-    }).then(processResponse<T>(returnType));
+    })
+        .then(processResponse(returnType))
+        .catch((error) => {
+            console.log(error);
+        });
 }
