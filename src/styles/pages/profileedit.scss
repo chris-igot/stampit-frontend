@@ -1,8 +1,11 @@
 @use "sass:map";
 @use "sass:color";
 @use "../common/colors";
+@use "../components/forminput";
 
 .editinfo {
+    $border-color: map.get(colors.$colors, "c-gray");
+    $field-color: map.get(colors.$colors, "c-white");
     width: 50%;
     color: map.get(colors.$colors, "c-black");
     & .cancel {
@@ -11,21 +14,21 @@
 
     &__image-form {
         display: flex;
-        flex-wrap: wrap;
+        align-items: center;
+        // flex-wrap: wrap;
 
         &-controls {
             padding: 0.5rem;
         }
-        & input[type="file"] {
-            width: 14rem;
-        }
-        & button {
-            margin: 0 0.5rem;
+
+        & button,
+        .form__input-file {
+            margin: 0.5rem;
         }
     }
 
     &__text-form {
-        margin: 2rem 0 0 0;
+        margin: 0.5rem 0 0 0;
 
         %profile-update-form-fields {
             display: block;
@@ -45,22 +48,25 @@
             }
         }
 
-        & input {
-            @extend %profile-update-form-fields;
-            box-sizing: border-box;
-            width: 100%;
-            padding: 0.5rem;
-            margin: 5px 0;
-            border-radius: 15px;
-        }
-
         & textarea {
-            @extend %profile-update-form-fields;
+            // @extend .form__input;
             box-sizing: border-box;
             width: 100%;
+            margin-bottom: 0.5rem;
             padding: 0.5rem;
             resize: none;
+            border: 1px solid $border-color;
             border-radius: 15px;
+            background-color: $field-color;
+
+            &:hover {
+                box-shadow: 0 0 0 1px $border-color;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 2px $border-color;
+                outline-width: 0;
+            }
         }
     }
 }

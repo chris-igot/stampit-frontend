@@ -1,16 +1,26 @@
 export default function convertInputToFormData(
-    e: React.MouseEvent<HTMLButtonElement>
+    e: React.FormEvent<HTMLFormElement>
 ): FormData {
-    const inputs = e.currentTarget.parentNode?.querySelectorAll(
+    const inputs = e.currentTarget.querySelectorAll(
         "input,textarea"
     ) as unknown as HTMLInputElement[];
 
     let data = new FormData();
 
     inputs.forEach((input) => {
-        console.log(input.name, input.value);
         if (input.type === "file") {
-            data.append(input.name, (input.files as FileList)[0]);
+            const fileList: FileList = input.files as FileList;
+
+            if (input.hasAttribute("multiple")) {
+                for (let i = 0; i < fileList.length; i++) {
+                    const file = fileList[i];
+                    data.append(input.name, file, file.name);
+                }
+            } else {
+                data.append(input.name, fileList[0]);
+            }
+        } else if (input.type === "checkbox") {
+            data.append(input.name, input.checked as unknown as Blob);
         } else {
             data.append(input.name, input.value);
         }

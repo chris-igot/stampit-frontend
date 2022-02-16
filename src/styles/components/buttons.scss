@@ -17,8 +17,7 @@ $c-red: map.get(colors.$colors, "c-red");
     $bg-color3,
     $border-color
 ) {
-    padding: 6px 15px 9px 15px;
-
+    box-sizing: border-box;
     border-radius: 15px;
     cursor: pointer;
     color: $text-color1;
@@ -78,18 +77,54 @@ $c-red: map.get(colors.$colors, "c-red");
 
 .btn-white {
     @include btn-light($c-black, $c-white, rgba($color: $c-black, $alpha: 0.5));
+    padding: 6px 15px 9px 15px;
+
+    &--image {
+        @include btn-light(
+            $c-black,
+            $c-white,
+            rgba($color: $c-black, $alpha: 0.5)
+        );
+    }
 }
 
 .btn-gray {
     @include btn-light($c-white, $c-gray, rgba($color: $c-black, $alpha: 0.5));
+    padding: 6px 15px 9px 15px;
+
+    &--image {
+        @include btn-light(
+            $c-white,
+            $c-gray,
+            rgba($color: $c-black, $alpha: 0.5)
+        );
+    }
 }
 
 .btn-blue {
     @include btn-dark($c-white, $c-blue, rgba($color: $c-white, $alpha: 0.5));
+    padding: 6px 15px 9px 15px;
+
+    &--image {
+        @include btn-dark(
+            $c-white,
+            $c-blue,
+            rgba($color: $c-white, $alpha: 0.5)
+        );
+    }
 }
 
 .btn-red {
     @include btn-dark($c-white, $c-red, rgba($color: $c-white, $alpha: 0.5));
+    padding: 6px 15px 9px 15px;
+
+    &--image {
+        @include btn-dark(
+            $c-white,
+            $c-red,
+            rgba($color: $c-white, $alpha: 0.5)
+        );
+    }
 }
 .btn-clear {
     @include btn-light(
@@ -97,4 +132,17 @@ $c-red: map.get(colors.$colors, "c-red");
         rgba($color: white, $alpha: 0),
         rgba($color: white, $alpha: 0)
     );
+    padding: 6px 15px 9px 15px;
+
+    &--image {
+        @include btn-light(
+            $c-gray,
+            rgba($color: white, $alpha: 0),
+            rgba($color: white, $alpha: 0)
+        );
+    }
+}
+
+.ghost {
+    opacity: 0.5;
 }

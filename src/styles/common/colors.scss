@@ -1,17 +1,4 @@
-// $darkblue: #14213d;
-// //oxford blue
-// $blue: #24406b;
-// //dark cornflower blue
-// $white: #f0f9f9;
-// //old lace
-// $red: #e63946;
-// //imperial red
-// $black: #000814;
-// //rich black FOGRA 29
-// $gray: #6c757d;
-// //slate gray
-// $yellow: #ffc300;
-// //mikado yellow
+@use "sass:map";
 
 $colors: (
     c-darkblue: #14213d,
@@ -44,4 +31,27 @@ $colors: (
 
 .text {
     @include gencolorclasses("color");
+}
+
+.tag {
+    margin: 0;
+    padding: 1px;
+
+    border-radius: 5px;
+
+    font-size: 0.6rem;
+
+    &--dark {
+        @extend .tag;
+        background-color: map.get($colors, "c-black");
+        color: map.get($colors, "c-white");
+        outline: map.get($colors, "c-gray") solid 1px;
+    }
+
+    &--light {
+        @extend .tag;
+        background-color: map.get($colors, "c-white");
+        color: map.get($colors, "c-gray");
+        outline: map.get($colors, "c-gray") solid 1px;
+    }
 }

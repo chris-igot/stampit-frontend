@@ -4,12 +4,12 @@ import Image from "../components/image";
 import { OutputType, PostType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
-export default function Public() {
+export default function Feed() {
     const navigate = useNavigate();
     const [posts, setPosts] = useState<PostType[]>([]);
 
     useEffect(() => {
-        getData<PostType[]>("/api/posts/public").then((output) => {
+        getData<PostType[]>("/api/posts/followed").then((output) => {
             switch (output.status) {
                 case 200:
                     setPosts(

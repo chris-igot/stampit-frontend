@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Menu from "./menu";
+import Menu from "./components/menu";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Profile from "./pages/profile";
@@ -8,6 +8,9 @@ import Public from "./pages/public";
 import Post from "./pages/post";
 import Following from "./pages/following";
 import Search from "./pages/search";
+import AdminLogin from "./pages/admin/adminLogin";
+import AdminHome from "./pages/admin/adminHome";
+import Feed from "./pages/feed";
 
 function App() {
     // const loc = useLocation();
@@ -21,6 +24,8 @@ function App() {
         <Router>
             {/* <Menu /> */}
             <Routes>
+                <Route path="/admin/home" element={<AdminHome />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/" element={<Profile home={true} />} />
                 <Route
                     path="/home"
@@ -32,7 +37,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="/profile"
+                    path="/profiles"
                     element={
                         <React.Fragment>
                             <Menu />
@@ -59,7 +64,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="/post"
+                    path="/posts"
                     element={
                         <React.Fragment>
                             <Menu />
@@ -91,6 +96,15 @@ function App() {
                         <React.Fragment>
                             <Menu />
                             <Public />
+                        </React.Fragment>
+                    }
+                />
+                <Route
+                    path="/feed"
+                    element={
+                        <React.Fragment>
+                            <Menu />
+                            <Feed />
                         </React.Fragment>
                     }
                 />

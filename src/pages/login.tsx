@@ -7,11 +7,11 @@ import postForm from "../utilities/postForm";
 
 export default function Login() {
     const navigate = useNavigate();
-    function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
         const formData = convertInputToFormData(e);
         postForm("/api/login", formData).then((output) => {
-            const data = output as OutputType;
-            switch (data.status) {
+            switch (output.status) {
                 case 200:
                     navigate("/home");
                     break;
@@ -26,7 +26,12 @@ export default function Login() {
     return (
         <div className="page modal">
             <div className="modal__form">
-                <form className="" action="" method="post">
+                <form
+                    className=""
+                    action=""
+                    method="post"
+                    onSubmit={handleSubmit}
+                >
                     <p className="logo--large" />
                     <h4>Login</h4>
                     <InputText name="email" type="email" />
@@ -36,14 +41,7 @@ export default function Login() {
                         <br />{" "}
                         <Link to={"/register"}>Create a new account</Link>
                     </p>
-                    <button
-                        className="btn-white"
-                        type="submit"
-                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                            e.preventDefault();
-                            handleSubmit(e);
-                        }}
-                    >
+                    <button className="btn-white" type="submit">
                         Login
                     </button>
                 </form>
