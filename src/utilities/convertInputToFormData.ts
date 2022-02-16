@@ -19,6 +19,8 @@ export default function convertInputToFormData(
             } else {
                 data.append(input.name, fileList[0]);
             }
+        } else if (input.type === "checkbox") {
+            data.append(input.name, input.checked as unknown as Blob);
         } else {
             data.append(input.name, input.value);
         }

@@ -58,7 +58,7 @@ export default function StampNew() {
                     {imagePreviews.map((preview, index) => (
                         <div className="" key={index}>
                             <Image
-                                className={"image--stamp-small"}
+                                className={"image--stamp-listing"}
                                 image={preview}
                             />
                         </div>
