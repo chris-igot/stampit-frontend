@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OutputType } from "../ts_types/types";
 
 type PathFunctionType = (path?: string) => string;
@@ -9,13 +10,24 @@ interface StatusResponseFunctions {
 
 export default function useAPIResource<T>(
     apiPath: PathFunctionType,
-    responseFunctions: StatusResponseFunctions = {},
     fetchInit: RequestInit = { method: "GET" }
 ) {
     type OnDataUpdateFunctionType = (data: T) => void;
-
+    const navigate = useNavigate();
     const [data, setData] = useState<T>();
     const onUpdateRef = useRef<OnDataUpdateFunctionType>(() => {});
+    const responseFunctionsRef = useRef<StatusResponseFunctions>({});
+
+    useEffect(() => {
+        setResponseFunctions({
+            401: () => {
+                navigate("/login");
+            },
+            404: () => {
+                navigate(-1);
+            },
+        });
+    }, []);
 
     useEffect(() => {
         onUpdateRef.current(data as T);
@@ -23,6 +35,13 @@ export default function useAPIResource<T>(
 
     function setOnUpdate(onUpdate: OnDataUpdateFunctionType) {
         onUpdateRef.current = onUpdate;
+    }
+
+    function setResponseFunctions(responseFunctions: StatusResponseFunctions) {
+        responseFunctionsRef.current = {
+            ...responseFunctionsRef.current,
+            ...responseFunctions,
+        };
     }
 
     function updateData(pathArg: string = "") {
@@ -39,12 +58,14 @@ export default function useAPIResource<T>(
                         });
                     });
 
-                    if (200 in responseFunctions) {
-                        responseFunctions[200](response.statusText);
+                    if (200 in responseFunctionsRef.current) {
+                        responseFunctionsRef.current[200](response.statusText);
                     }
                 } else {
-                    if (response.status in responseFunctions) {
-                        responseFunctions[response.status](response.statusText);
+                    if (response.status in responseFunctionsRef.current) {
+                        responseFunctionsRef.current[response.status](
+                            response.statusText
+                        );
                     }
 
                     throw new Error(
@@ -62,5 +83,10 @@ export default function useAPIResource<T>(
             });
     }
 
-    return { data, refresh: updateData, onUpdate: setOnUpdate };
+    return {
+        data,
+        refresh: updateData,
+        onUpdate: setOnUpdate,
+        setResponseFunctions,
+    };
 }
