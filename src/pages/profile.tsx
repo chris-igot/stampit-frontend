@@ -25,7 +25,7 @@ export default function Profile(props: PropsType = { home: false }) {
         bio: "",
         currentlyFollowing: false,
         followers: 0,
-        amFollowing: 0,
+        followed: 0,
         user: { id: "", username: "", email: "", roles: [] },
     });
     const [posts, setPosts] = useState<PostType[]>([]);
@@ -183,7 +183,7 @@ export default function Profile(props: PropsType = { home: false }) {
                         <p>followers</p>
                     </div>
                     <div>
-                        <h2>{profile.amFollowing}</h2>
+                        <h2>{profile.followed}</h2>
                         <p>following</p>
                     </div>
                 </div>

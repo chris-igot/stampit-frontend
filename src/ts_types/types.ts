@@ -27,7 +27,7 @@ export type ProfileType = {
     bio: string;
     currentlyFollowing: boolean;
     followers: number;
-    amFollowing: number;
+    followed: number;
     user: UserType;
 };
 
