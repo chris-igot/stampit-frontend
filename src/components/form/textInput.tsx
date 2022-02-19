@@ -37,6 +37,7 @@ export default function InputText(props: PropsType) {
         }
         (divRef.current as HTMLDivElement).style.height =
             (inputRef.current as HTMLInputElement).clientHeight + "px";
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
