@@ -32,7 +32,7 @@
         &:after {
             display: block;
             box-sizing: content-box;
-            width: $field-width;
+            // width: $field-width;
             height: 2.2rem;
             padding-right: 0.45rem;
 
@@ -43,10 +43,10 @@
             @extend %form-input-text-common;
             padding: nth($input-padding, 1) nth($input-padding, 2)
                 nth($input-padding, 3) nth($input-padding, 4);
-            width: calc(
-                #{$field-width - nth($input-padding, 2) - nth($input-padding, 4) -
-                    #{2px}}
-            );
+            // width: calc(
+            //     #{$field-width - nth($input-padding, 2) - nth($input-padding, 4) -
+            //         #{2px}}
+            // );
 
             border: 1px solid $border-color;
             border-radius: 15px;

@@ -34,22 +34,24 @@ $colors: (
 }
 
 .tag {
-    margin: 0;
-    padding: 1px;
+    @mixin tag-common {
+        margin: 0;
+        padding: 1px;
 
-    border-radius: 5px;
+        border-radius: 5px;
 
-    font-size: 0.6rem;
+        font-size: 0.6rem;
+    }
 
     &--dark {
-        @extend .tag;
+        @include tag-common();
         background-color: map.get($colors, "c-black");
         color: map.get($colors, "c-white");
         outline: map.get($colors, "c-gray") solid 1px;
     }
 
     &--light {
-        @extend .tag;
+        @include tag-common();
         background-color: map.get($colors, "c-white");
         color: map.get($colors, "c-gray");
         outline: map.get($colors, "c-gray") solid 1px;

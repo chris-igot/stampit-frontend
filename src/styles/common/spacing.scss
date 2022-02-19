@@ -36,13 +36,3 @@ $sizes: 0, 1, 2;
 .p {
     @include genspacing("padding");
 }
-
-.rounded {
-    border-radius: 15px;
-}
-
-.width {
-    &--max {
-        width: 100%;
-    }
-}
