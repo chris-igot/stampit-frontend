@@ -33,6 +33,33 @@ $colors: (
     @include gencolorclasses("color");
 }
 
+.outline {
+    @mixin outline-common {
+        &.interactive {
+            transition-duration: 0.1s;
+            &:hover {
+                outline-width: 2px;
+            }
+
+            &:focus {
+                outline-width: 3px;
+            }
+        }
+    }
+
+    &--gray {
+        outline: map.get($colors, "c-gray") solid 1px;
+
+        @include outline-common();
+    }
+
+    &--white {
+        outline: map.get($colors, "c-white") solid 1px;
+
+        @include outline-common();
+    }
+}
+
 .tag {
     @mixin tag-common {
         margin: 0;

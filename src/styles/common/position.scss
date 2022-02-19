@@ -37,3 +37,13 @@
         }
     }
 }
+
+.position {
+    &--rel {
+        position: relative;
+    }
+
+    &--abs {
+        position: absolute;
+    }
+}
