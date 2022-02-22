@@ -1,5 +1,14 @@
 @use "sass:map";
 
+$clr-blue-3: #073d73;
+$clr-blue-5: #0a5cae;
+$clr-blue-7: #52a3f4;
+$clr-white: #f0f9f9;
+$clr-gray-3: #393e41;
+$clr-gray-5: #6c757d;
+$clr-gray-7: #b3b8bd;
+$clr-black: #0f1b2e;
+
 $colors: (
     c-darkblue: #14213d,
     //oxford blue
@@ -15,6 +24,14 @@ $colors: (
     //slate gray
     c-yellow: #ffc300,
     //mikado yellow
+    blue-3: #073d73,
+    blue-5: #0a5cae,
+    blue-7: #52a3f4,
+    white: #f0f9f9,
+    gray-3: #393e41,
+    gray-5: #6c757d,
+    gray-7: #b3b8bd,
+    black: #0f1b2e,
 );
 
 @mixin gencolorclasses($attr) {
