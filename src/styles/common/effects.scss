@@ -1,0 +1,39 @@
+.overflow {
+    &--scroll {
+        overflow: scroll;
+    }
+
+    &--hidden {
+        overflow: hidden;
+    }
+}
+
+.scroll-x--hidden {
+    overflow-x: hidden;
+}
+
+.scroll-y--hidden {
+    overflow-y: hidden;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+.smoothscroll {
+    scroll-behavior: smooth;
+}
+
+$z: 0, 1, 2, 3, 4, 9000, 9001;
+
+@mixin gen-z-index {
+    @each $index in $z {
+        &--#{$index} {
+            z-index: #{$index};
+        }
+    }
+}
+
+.z {
+    @include gen-z-index();
+}

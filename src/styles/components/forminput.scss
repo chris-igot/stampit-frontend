@@ -4,14 +4,14 @@
 
 .form__input {
     $field-width: 12rem;
-    $input-padding: 0.7rem, 0.5rem, 0.2rem, 0.5rem;
     $field-color: map.get(colors.$colors, "c-white");
     $border-color: map.get(colors.$colors, "c-gray");
-    $text-field-color: map.get(colors.$colors, "c-black");
+    $text-color: map.get(colors.$colors, "c-black");
     $text-label-color: map.get(colors.$colors, "c-black");
     $text-smalllabel-color: map.get(colors.$colors, "c-gray");
-    &-text {
+    &--text {
         position: relative;
+        margin: 4px 4px 0.5rem 4px;
 
         %form-input-text-common {
             position: absolute;
@@ -22,49 +22,25 @@
         }
 
         %form-input-text-smalllabel {
-            top: 0.1rem;
-            left: 0.7rem;
+            transform: translateY(10%);
 
             font-size: 0.6rem;
             color: $text-smalllabel-color;
         }
 
-        &:after {
-            display: block;
-            box-sizing: content-box;
-            width: $field-width;
-            height: 2.2rem;
-            padding-right: 0.45rem;
-
-            content: "";
-        }
-
         & > input {
-            @extend %form-input-text-common;
-            padding: nth($input-padding, 1) nth($input-padding, 2)
-                nth($input-padding, 3) nth($input-padding, 4);
-            width: calc(
-                #{$field-width - nth($input-padding, 2) - nth($input-padding, 4) -
-                    #{2px}}
-            );
+            box-sizing: border-box;
+            height: 2.2rem;
+            padding: 0.75rem 1rem 0 1rem;
 
-            border: 1px solid $border-color;
-            border-radius: 15px;
-            outline: 0;
-            background-color: $field-color;
-            color: $text-field-color;
-
-            &:hover {
-                box-shadow: 0 0 0 1px $border-color;
-            }
-
-            &:focus {
-                box-shadow: 0 0 0 2px $border-color;
-            }
+            border: 0;
+            color: $text-color;
 
             &:focus + label {
                 @extend %form-input-text-smalllabel;
             }
+
+            @extend %form-input-text-common;
         }
 
         &.notblank > label {
@@ -72,11 +48,12 @@
         }
 
         & > label {
-            @extend %form-input-text-common;
-            top: calc(50% - 0.67rem);
-            left: 0.6rem;
+            left: 1rem;
+            transform: translateY(50%);
 
             color: $text-label-color;
+
+            @extend %form-input-text-common;
         }
     }
 
@@ -104,7 +81,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: calc(nth($input-padding, 3) + 1.4px) nth($input-padding, 4);
+        padding: 0.5rem 1rem 0.5rem 1rem;
 
         border: 1px solid $border-color;
         border-radius: 15px;

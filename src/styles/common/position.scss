@@ -38,28 +38,12 @@
     }
 }
 
-.overflow {
-    &--scroll {
-        overflow: scroll;
+.position {
+    &--rel {
+        position: relative;
     }
 
-    &--hidden {
-        overflow: hidden;
+    &--abs {
+        position: absolute;
     }
-}
-
-.scroll-x--hidden {
-    overflow-x: hidden;
-}
-
-.scroll-y--hidden {
-    overflow-y: hidden;
-}
-
-.no-wrap {
-    white-space: nowrap;
-}
-
-.smoothscroll {
-    scroll-behavior: smooth;
 }

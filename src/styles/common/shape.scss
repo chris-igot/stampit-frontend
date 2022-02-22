@@ -1,0 +1,55 @@
+.rounded {
+    &--5 {
+        border-radius: 0.5rem;
+    }
+
+    &--10 {
+        border-radius: 1rem;
+    }
+
+    &--15 {
+        border-radius: 1.5rem;
+    }
+}
+
+$sizes: 40px, 100px, 1rem, 2rem, 3rem, 6rem;
+
+@mixin gensizes($attr) {
+    @each $size in $sizes {
+        &--#{$size} {
+            #{$attr}: #{$size};
+        }
+    }
+}
+
+.width {
+    &--25 {
+        width: 25%;
+    }
+
+    &--50 {
+        width: 50%;
+    }
+
+    &--max {
+        width: 100%;
+    }
+
+    @include gensizes("width");
+}
+
+.height {
+    &--25 {
+        height: 25%;
+    }
+
+    &--50 {
+        height: 50%;
+    }
+
+    &--max {
+        height: 100%;
+    }
+
+    @include gensizes("height");
+}
