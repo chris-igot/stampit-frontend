@@ -10,6 +10,8 @@ import getData from "../utilities/getData";
 
 import PostNew from "../components/form/postNew";
 
+import noProfilePic from "../icons/round_account_circle_white_48dp.png";
+
 interface PropsType {
     home?: boolean;
 }
@@ -173,7 +175,7 @@ export default function Profile(props: PropsType = { home: false }) {
                             ? "image--profile editable"
                             : "image--profile"
                     }
-                    image={profile.image}
+                    image={profile.image != null ? profile.image : noProfilePic}
                     onClick={() => {
                         if (props.home) {
                             setEditInfo(true);
