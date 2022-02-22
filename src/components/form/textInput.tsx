@@ -63,7 +63,7 @@ export default function InputText(props: PropsType) {
                 ref={inputRef}
                 type={"type" in props ? props.type : "text"}
                 name={props.name}
-                pattern={"pattern" in props ? props.pattern : ".?"}
+                pattern={"pattern" in props ? props.pattern : ".*"}
                 title={"title" in props ? props.title : ""}
                 defaultValue={"value" in props ? props.value : ""}
                 onKeyUp={handleKeyPress}
