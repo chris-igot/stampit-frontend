@@ -4,11 +4,16 @@
 
 .form__input {
     $field-width: 12rem;
-    $field-color: map.get(colors.$colors, "c-white");
-    $border-color: map.get(colors.$colors, "c-gray");
-    $text-color: map.get(colors.$colors, "c-black");
-    $text-label-color: map.get(colors.$colors, "c-black");
-    $text-smalllabel-color: map.get(colors.$colors, "c-gray");
+    $field-color: colors.$clr-white;
+    $border-color: colors.$clr-gray-5;
+    $text-color: colors.$clr-black;
+    $text-label-color: colors.$clr-black;
+    $text-smalllabel-color: colors.$clr-gray-5;
+    $positive: colors.$clr-blue-5;
+    $negative: colors.$clr-red;
+    $height: 2.5rem;
+    $radius: calc($height/2);
+
     &--text {
         position: relative;
         margin: 4px 4px 0.5rem 4px;
@@ -30,11 +35,23 @@
 
         & > input {
             box-sizing: border-box;
-            height: 2.2rem;
+            height: $height;
             padding: 0.75rem 1rem 0 1rem;
 
+            outline: $border-color solid 1px;
             border: 0;
+            border-radius: $radius;
             color: $text-color;
+            background-color: $field-color;
+
+            &:hover {
+                outline-width: 2px;
+            }
+
+            &:active,
+            &:focus {
+                outline-width: 3px;
+            }
 
             &:focus + label {
                 @extend %form-input-text-smalllabel;
@@ -57,7 +74,7 @@
         }
     }
 
-    &-file {
+    &--file {
         display: flex;
         align-items: flex-start;
         box-sizing: border-box;
@@ -77,15 +94,25 @@
         }
     }
 
-    &-checkbox {
+    &--checkbox {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.5rem 1rem 0.5rem 1rem;
+        height: $height;
+        padding: 0 1rem 0 1rem;
 
-        border: 1px solid $border-color;
-        border-radius: 15px;
-        background-color: map.get(colors.$colors, "c-white");
+        border-radius: $radius;
+        outline: $border-color solid 1px;
+        background-color: $field-color;
+
+        &:hover {
+            outline-width: 2px;
+        }
+
+        &:active,
+        &:focus {
+            outline-width: 3px;
+        }
 
         span {
             margin-bottom: 0.1rem;
@@ -96,22 +123,25 @@
         }
 
         .checkbox {
+            $checkbox-height: calc($height * 0.6);
+            $checkbox-width: calc($checkbox-height * 2);
+
             position: relative;
             box-sizing: border-box;
-            width: 48px;
-            height: 24px;
+            height: $checkbox-height;
+            width: $checkbox-width;
 
             cursor: pointer;
 
             transition-duration: 0.1s;
-            outline: map.get(colors.$colors, "c-gray") solid 1px;
-            border-radius: 12px;
-            background-color: map.get(colors.$colors, "c-red");
+            outline: $border-color solid 1px;
+            border-radius: $radius;
+            background-color: $negative;
             &.checked {
-                background-color: map.get(colors.$colors, "c-blue");
+                background-color: $positive;
 
                 &::after {
-                    left: 24px;
+                    left: calc($checkbox-width / 2);
                 }
             }
 
@@ -119,14 +149,14 @@
                 position: absolute;
                 box-sizing: border-box;
                 left: 0;
-                width: 24px;
-                height: 24px;
+                width: $checkbox-height;
+                height: $checkbox-height;
 
                 content: "";
 
                 transition-duration: 0.1s;
-                border: 1px solid map.get(colors.$colors, "c-gray");
-                border-radius: 12px;
+                border: 1px solid $border-color;
+                border-radius: $radius;
                 background-color: white;
             }
         }

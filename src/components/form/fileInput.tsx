@@ -31,7 +31,7 @@ export default function InputFile(props: PropsType) {
     }
 
     return (
-        <div className="form__input-file">
+        <div className="form__input--file">
             {props.multiple === true ? (
                 <input
                     type="file"

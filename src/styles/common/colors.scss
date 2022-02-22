@@ -40,7 +40,7 @@ $colors: (
 
 @mixin gencolorclasses($attr) {
     @each $name, $hex in $colors {
-        &-#{$name} {
+        &--#{$name} {
             #{$attr}: $hex;
         }
     }
@@ -69,13 +69,13 @@ $colors: (
     }
 
     &--gray {
-        outline: map.get($colors, "c-gray") solid 1px;
+        outline: $clr-gray-5 solid 1px;
 
         @include outline-common();
     }
 
     &--white {
-        outline: map.get($colors, "c-white") solid 1px;
+        outline: $clr-white solid 1px;
 
         @include outline-common();
     }

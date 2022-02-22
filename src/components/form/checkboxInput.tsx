@@ -28,7 +28,7 @@ export default function InputCheckbox(props: PropsType) {
     }
 
     return (
-        <div className={"form__input-checkbox"}>
+        <div className={"form__input--checkbox"}>
             <span>{"label" in props ? props.label : props.name}</span>
             <input
                 id={props.name}

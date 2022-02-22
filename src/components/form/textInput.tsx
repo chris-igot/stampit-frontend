@@ -59,10 +59,7 @@ export default function InputText(props: PropsType) {
         >
             <input
                 id={props.name}
-                className={
-                    "rounded--15 outline--gray interactive" +
-                    ("className" in props ? " " + props.className : "")
-                }
+                className={"className" in props ? " " + props.className : ""}
                 ref={inputRef}
                 type={"type" in props ? props.type : "text"}
                 name={props.name}
