@@ -8,7 +8,7 @@ $c-black: map.get(colors.$colors, "c-black");
 $c-gray: map.get(colors.$colors, "c-gray");
 $c-red: map.get(colors.$colors, "c-red");
 
-@mixin btn-common(
+@mixin btn-commonx(
     $text-color1,
     $text-color2,
     $text-color3,
@@ -47,7 +47,7 @@ $c-red: map.get(colors.$colors, "c-red");
     $bg-color2: color.scale($bg-color1, $blackness: 10%);
     $bg-color3: color.scale($bg-color1, $blackness: 20%);
 
-    @include btn-common(
+    @include btn-commonx(
         $text-color1,
         $text-color2,
         $text-color3,
@@ -64,7 +64,7 @@ $c-red: map.get(colors.$colors, "c-red");
     $bg-color2: color.scale($bg-color1, $whiteness: 10%);
     $bg-color3: color.scale($bg-color1, $whiteness: 20%);
 
-    @include btn-common(
+    @include btn-commonx(
         $text-color1,
         $text-color2,
         $text-color3,
@@ -145,4 +145,45 @@ $c-red: map.get(colors.$colors, "c-red");
 
 .ghost {
     opacity: 0.5;
+}
+
+%btn-common {
+    box-sizing: border-box;
+
+    cursor: pointer;
+    border: 0;
+    border-radius: 15px;
+    outline-width: 1px;
+    transition-duration: 0.15s;
+
+    &:hover {
+        outline-width: 2px;
+    }
+    &:active {
+        outline-width: 3px;
+    }
+}
+
+.btn-primary {
+    color: colors.$clr-white;
+    background-color: colors.$clr-blue-5;
+    outline-color: colors.$clr-blue-7;
+
+    @extend %btn-common;
+}
+
+.btn-secondary {
+    color: colors.$clr-black;
+    background-color: colors.$clr-white;
+    outline-color: colors.$clr-gray-7;
+
+    @extend %btn-common;
+}
+
+.btn-tertiary {
+    color: colors.$clr-white;
+    background-color: colors.$clr-gray-5;
+    outline-color: colors.$clr-gray-3;
+
+    @extend %btn-common;
 }
