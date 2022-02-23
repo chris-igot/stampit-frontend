@@ -27,10 +27,15 @@ export default function InputText(props: PropsType) {
         }
 
         if ("width" in props) {
-            (divRef.current as HTMLDivElement).style.width =
-                props.width as string;
-            (inputRef.current as HTMLInputElement).style.width =
-                props.width as string;
+            let width = props.width as string;
+            if (width === "100%") {
+                const parentWidth = divRef.current?.parentElement
+                    ?.clientWidth as number;
+                width = parentWidth - 8 + "px";
+                console.log("100%", width);
+            }
+            (divRef.current as HTMLDivElement).style.width = width;
+            (inputRef.current as HTMLInputElement).style.width = width;
         } else {
             (divRef.current as HTMLDivElement).style.width =
                 (inputRef.current as HTMLInputElement).clientWidth + "px";
@@ -59,7 +64,7 @@ export default function InputText(props: PropsType) {
         >
             <input
                 id={props.name}
-                className={"className" in props ? " " + props.className : ""}
+                className={"className" in props ? props.className : ""}
                 ref={inputRef}
                 type={"type" in props ? props.type : "text"}
                 name={props.name}
