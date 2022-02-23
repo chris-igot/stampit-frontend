@@ -1,18 +1,16 @@
 .profile-list {
-    display: inline-block;
-    vertical-align: top;
-    width: 100%;
-
-    &-row {
+    &__row {
+        $height: 4rem;
         display: flex;
         box-sizing: border-box;
         justify-content: space-between;
         align-items: center;
+        height: $height;
         margin: 1px 0;
-        padding: 0.5rem;
+        padding: 0.5rem 1rem;
         width: 100%;
 
-        border-radius: 15px;
+        border-radius: calc($height / 2);
         background-color: white;
 
         a {
@@ -20,18 +18,9 @@
             justify-content: space-between;
         }
 
-        .username {
+        & > div {
             flex-grow: 1;
             max-width: 80%;
         }
-
-        .username,
-        .follow {
-            margin-left: 1rem;
-        }
-    }
-    &__link {
-        display: flex;
-        align-items: center;
     }
 }
