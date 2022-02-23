@@ -148,12 +148,18 @@ $c-red: map.get(colors.$colors, "c-red");
 }
 
 %btn-common {
+    $height: 2rem;
+
     box-sizing: border-box;
+    height: $height;
+    padding: 0.5rem 1rem;
 
     cursor: pointer;
     border: 0;
-    border-radius: 15px;
+    border-radius: calc($height / 2);
     outline-width: 1px;
+    outline-style: solid;
+    line-height: calc($height / 2);
     transition-duration: 0.15s;
 
     &:hover {
