@@ -13,10 +13,11 @@
     $negative: colors.$clr-red;
     $height: 2.5rem;
     $radius: calc($height/2);
+    $margin: 4px 4px 0.5rem 4px;
 
     &--text {
         position: relative;
-        margin: 4px 4px 0.5rem 4px;
+        margin: $margin;
 
         %form-input-text-common {
             position: absolute;
@@ -99,7 +100,7 @@
         justify-content: space-between;
         align-items: center;
         height: $height;
-        margin: 4px 4px 0.5rem 4px;
+        margin: $margin;
         padding: 0 1rem 0 1rem;
 
         border-radius: $radius;
@@ -159,6 +160,30 @@
                 border: 1px solid $border-color;
                 border-radius: $radius;
                 background-color: white;
+            }
+        }
+    }
+
+    &--textarea {
+        margin: $margin;
+
+        & textarea {
+            // @extend .form__input;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 0.5rem;
+            resize: none;
+            border: 1px solid $border-color;
+            border-radius: 1rem;
+            background-color: $field-color;
+
+            &:hover {
+                box-shadow: 0 0 0 1px $border-color;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 2px $border-color;
+                outline-width: 0;
             }
         }
     }
