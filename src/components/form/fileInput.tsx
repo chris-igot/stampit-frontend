@@ -51,7 +51,9 @@ export default function InputFile(props: PropsType) {
                 />
             )}
             <label
-                className={"className" in props ? props.className : ""}
+                className={
+                    "className" in props ? props.className : "btn-secondary"
+                }
                 htmlFor={props.name}
             >
                 {"label" in props
