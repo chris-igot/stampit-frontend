@@ -73,7 +73,7 @@ export default function EditProfile(props: PropsType) {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         props.enableFn(false);
-        console.log(formUpdateState);
+
         if (formUpdateState.image) {
             let formData = convertInputToFormData(e);
             formData.delete("title");

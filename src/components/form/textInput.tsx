@@ -32,7 +32,6 @@ export default function InputText(props: PropsType) {
                 const parentWidth = divRef.current?.parentElement
                     ?.clientWidth as number;
                 width = parentWidth - 8 + "px";
-                console.log("100%", width);
             }
             (divRef.current as HTMLDivElement).style.width = width;
             (inputRef.current as HTMLInputElement).style.width = width;
