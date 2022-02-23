@@ -106,6 +106,7 @@
         border-radius: $radius;
         outline: $border-color solid 1px;
         background-color: $field-color;
+        color: $text-color;
 
         &:hover {
             outline-width: 2px;
