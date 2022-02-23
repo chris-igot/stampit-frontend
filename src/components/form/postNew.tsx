@@ -38,15 +38,19 @@ export default function PostNew(props: PropsType) {
                 method="post"
                 onSubmit={handleSubmit}
             >
-                <InputFile name={"file"} />
+                <InputFile
+                    className="btn-secondary mt-1 mb-1"
+                    name={"file"}
+                    listFiles={true}
+                />
 
                 <InputText name={"description"} />
-                <button className="btn-white" type="submit">
+                <button className="btn-primary mt-2 mr-1" type="submit">
                     Post!
                 </button>
 
                 <button
-                    className="btn-gray"
+                    className="btn-secondary"
                     onClick={(e) => {
                         e.preventDefault();
                         if ("onExit" in props) {
