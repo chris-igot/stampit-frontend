@@ -1,9 +1,6 @@
-import { profile } from "console";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { OutputType, ProfileType } from "../../ts_types/types";
+import { ProfileType } from "../../ts_types/types";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
-import getData from "../../utilities/getData";
 import postForm from "../../utilities/postForm";
 import Image from "../image";
 import InputCheckbox from "./checkboxInput";
@@ -17,7 +14,6 @@ interface PropsType {
 }
 
 export default function EditProfile(props: PropsType) {
-    const navigate = useNavigate();
     const [profileImgURL, setProfileImgURL] = useState(props.profile.image);
     const [formUpdateState, setFormUpdateState] = useState({
         image: false,
@@ -100,7 +96,7 @@ export default function EditProfile(props: PropsType) {
                 <div className="editinfo__image-form">
                     <InputFile
                         name={"file"}
-                        className="btn-white"
+                        className=""
                         label={
                             <Image
                                 className={"image--profile"}
@@ -112,7 +108,7 @@ export default function EditProfile(props: PropsType) {
 
                     <div>
                         <button
-                            className="btn-gray"
+                            className="btn-tertiary"
                             onClick={(
                                 e: React.MouseEvent<HTMLButtonElement>
                             ) => {
@@ -145,24 +141,27 @@ export default function EditProfile(props: PropsType) {
                         }}
                     />
 
-                    <textarea
-                        name="bio"
-                        id=""
-                        cols={30}
-                        rows={3}
-                        defaultValue={props.profile.bio}
-                        onChange={() => {
-                            formUpdateState.text = true;
-                            setFormUpdateState(formUpdateState);
-                        }}
-                    />
+                    <div className="form__input--textarea">
+                        <textarea
+                            name="bio"
+                            id=""
+                            cols={30}
+                            rows={3}
+                            defaultValue={props.profile.bio}
+                            placeholder={"Bio"}
+                            onChange={() => {
+                                formUpdateState.text = true;
+                                setFormUpdateState(formUpdateState);
+                            }}
+                        />
+                    </div>
                 </div>
                 <div>
-                    <button className="btn-white mr-1" type="submit">
+                    <button className="btn-primary mr-1" type="submit">
                         Update
                     </button>
                     <button
-                        className="btn-gray"
+                        className="btn-secondary"
                         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                             e.preventDefault();
                             props.enableFn(false);
