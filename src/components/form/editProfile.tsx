@@ -89,11 +89,11 @@ export default function EditProfile(props: PropsType) {
     return (
         <div className="modal">
             <form
-                className="modal__form editinfo"
+                className="modal__form width--50"
                 action=""
                 onSubmit={handleSubmit}
             >
-                <div className="editinfo__image-form">
+                <div className="flex">
                     <InputFile
                         name={"file"}
                         className=""
@@ -106,7 +106,7 @@ export default function EditProfile(props: PropsType) {
                         onChange={updateImagePreview}
                     />
 
-                    <div>
+                    <div className="flex flex--v-center">
                         <button
                             className="btn-tertiary"
                             onClick={(
@@ -121,8 +121,9 @@ export default function EditProfile(props: PropsType) {
                     </div>
                 </div>
 
-                <div className="editinfo__text-form">
+                <div>
                     <InputText
+                        width="100%"
                         name={"title"}
                         value={props.profile.title}
                         onChange={() => {
