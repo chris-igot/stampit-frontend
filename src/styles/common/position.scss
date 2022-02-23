@@ -23,6 +23,9 @@
         &-right {
             justify-content: flex-end;
         }
+        &-space-between {
+            justify-content: space-between;
+        }
     }
 
     &--v {
@@ -45,5 +48,11 @@
 
     &--abs {
         position: absolute;
+    }
+}
+
+.display {
+    &--inline-block {
+        display: inline-block;
     }
 }
