@@ -77,8 +77,10 @@
 
     &--file {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         box-sizing: border-box;
+
+        color: $text-color;
 
         input {
             display: none;
