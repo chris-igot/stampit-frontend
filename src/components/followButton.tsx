@@ -1,10 +1,7 @@
 import React from "react";
-import { OutputType, ProfileType } from "../ts_types/types";
+import { ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
-import Image from "./image";
 
-import person_add from "../icons/round_person_add_white_48dp.png";
-import person_remove from "../icons/round_person_remove_black_48dp.png";
 interface PropsType {
     profile: ProfileType;
     onClick?: Function;
@@ -26,39 +23,36 @@ export default function FollowButton(props: PropsType) {
             case 0:
                 button = (
                     <button
-                        className="follow btn-blue--image"
+                        className="follow btn-primary"
                         onClick={() => {
                             handleClick("follow");
                         }}
                     >
-                        <Image className="image--icon-sm" image={person_add} />
+                        Follow
                     </button>
                 );
                 break;
             case 1:
                 button = (
                     <button
-                        className="follow btn-blue--image ghost"
+                        className="follow btn-tertiary"
                         onClick={() => {
                             handleClick("unfollow");
                         }}
                     >
-                        <Image className="image--icon-sm" image={person_add} />
+                        Cancel
                     </button>
                 );
                 break;
             case 2:
                 button = (
                     <button
-                        className="follow btn-white--image"
+                        className="follow btn-secondary"
                         onClick={() => {
                             handleClick("unfollow");
                         }}
                     >
-                        <Image
-                            className="image--icon-sm"
-                            image={person_remove}
-                        />
+                        Following
                     </button>
                 );
                 break;
