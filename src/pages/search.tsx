@@ -29,11 +29,14 @@ export default function Search() {
 
     return (
         <div className="page">
-            <form className="search-form" action="">
+            <form
+                className="flex flex--v-center bg--white rounded--15"
+                action=""
+            >
                 <InputText name="search" type="text" />
 
                 <button
-                    className="btn-blue"
+                    className="btn-primary ml-1"
                     type="submit"
                     onClick={(e) => {
                         e.preventDefault();

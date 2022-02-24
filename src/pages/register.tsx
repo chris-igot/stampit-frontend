@@ -12,21 +12,11 @@ export default function Register() {
         e.preventDefault();
         const formData = convertInputToFormData(e);
         let x: { [key: string]: any } = {};
+
         formData.forEach((val, key) => {
             x[key] = val;
         });
-        // fetch("/api/register", {
-        //     method: "POST",
-        //     body: JSON.stringify(x),
-        //     headers: { "Content-Type": "application/json" },
-        // })
-        //     .then((output) => {
-        //         console.log("REGISTRATION OUTPUT", output);
-        //         return output.json();
-        //     })
-        //     .then((output) => {
-        //         console.log("REGISTRATION OUTPUT2", output);
-        //     });
+
         postForm("/api/register", formData).then((output) => {
             console.log("REGISTRATION OUTPUT", output);
             switch (output.status) {
@@ -66,7 +56,7 @@ export default function Register() {
                     <p>
                         Go back to <Link to={"/login"}>Login</Link> page
                     </p>
-                    <button className="btn-white" type="submit">
+                    <button className="btn-primary" type="submit">
                         Register
                     </button>
                 </form>

@@ -41,7 +41,7 @@ export default function Login() {
                         <br />{" "}
                         <Link to={"/register"}>Create a new account</Link>
                     </p>
-                    <button className="btn-white" type="submit">
+                    <button className="btn-primary" type="submit">
                         Login
                     </button>
                 </form>

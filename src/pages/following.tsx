@@ -67,7 +67,7 @@ export default function Following() {
         <div className="page">
             <div className="flex flex--h-center width--max">
                 <button
-                    className="btn-white m-1"
+                    className="btn-secondary m-1"
                     onClick={() => {
                         scrollTo("requested");
                     }}
@@ -75,7 +75,7 @@ export default function Following() {
                     requests ({requested.length})
                 </button>
                 <button
-                    className="btn-white m-1"
+                    className="btn-secondary m-1"
                     onClick={() => {
                         scrollTo("followed");
                     }}
@@ -83,7 +83,7 @@ export default function Following() {
                     followed ({followed.length})
                 </button>
                 <button
-                    className="btn-white m-1"
+                    className="btn-secondary m-1"
                     onClick={() => {
                         scrollTo("followers");
                     }}
