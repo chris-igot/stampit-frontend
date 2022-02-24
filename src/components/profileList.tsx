@@ -28,7 +28,7 @@ export default function ProfileList(props: PropsType) {
                 button = (
                     <React.Fragment>
                         <button
-                            className="btn-white"
+                            className="btn-primary"
                             onClick={() => {
                                 handleRequestClick("accept", profile);
                             }}
@@ -36,7 +36,7 @@ export default function ProfileList(props: PropsType) {
                             accept
                         </button>
                         <button
-                            className="btn-red ml-1"
+                            className="btn-danger ml-1"
                             onClick={() => {
                                 handleRequestClick("reject", profile);
                             }}
@@ -59,20 +59,14 @@ export default function ProfileList(props: PropsType) {
         <div id={"id" in props ? props.id : undefined} className="width--max">
             {props.profiles.map((profile, index) => (
                 <div className="profile-list__row" key={index}>
-                    <Link
-                        className="profile-list__link"
-                        to={"/profiles?id=" + profile.id}
-                    >
+                    <Link to={"/profiles?id=" + profile.id}>
                         <Image
                             className="image--listing"
                             image={profile.image}
                         />
                     </Link>
                     <div>
-                        <Link
-                            className="profile-list__link"
-                            to={"/profiles?id=" + profile.id}
-                        >
+                        <Link to={"/profiles?id=" + profile.id}>
                             {profile.name}
                         </Link>
                         {profile.isPrivate ? (
