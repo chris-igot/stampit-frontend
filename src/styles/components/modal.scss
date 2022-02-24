@@ -14,17 +14,22 @@
     height: 100%;
     width: 100%;
 
-    &__form {
-        padding: 1rem;
+    background-color: rgba($color: colors.$clr-white, $alpha: 0.5);
 
-        .form__input-text,
-        .form__input-checkbox,
-        .form__input-file {
-            margin-bottom: 0.3rem;
-        }
+    %modal-common {
+        padding: 1rem;
+        border-radius: 1.5rem;
+
+        background-color: rgba($color: colors.$clr-white, $alpha: 0.8);
+        outline: rgba($color: colors.$clr-white, $alpha: 0.2) solid 1px;
+        box-shadow: 1px 1px 5px 1px #444444;
+    }
+
+    &__form {
+        @extend %modal-common;
     }
 
     &__dialog {
-        padding: 1rem;
+        @extend %modal-common;
     }
 }

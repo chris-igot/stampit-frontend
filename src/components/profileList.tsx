@@ -56,9 +56,9 @@ export default function ProfileList(props: PropsType) {
         return button;
     }
     return (
-        <div id={"id" in props ? props.id : undefined} className="profile-list">
+        <div id={"id" in props ? props.id : undefined} className="width--max">
             {props.profiles.map((profile, index) => (
-                <div className="profile-list-row" key={index}>
+                <div className="profile-list__row" key={index}>
                     <Link
                         className="profile-list__link"
                         to={"/profiles?id=" + profile.id}
@@ -68,7 +68,7 @@ export default function ProfileList(props: PropsType) {
                             image={profile.image}
                         />
                     </Link>
-                    <div className="username">
+                    <div>
                         <Link
                             className="profile-list__link"
                             to={"/profiles?id=" + profile.id}

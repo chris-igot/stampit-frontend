@@ -23,6 +23,9 @@
         &-right {
             justify-content: flex-end;
         }
+        &-space-between {
+            justify-content: space-between;
+        }
     }
 
     &--v {
@@ -38,28 +41,18 @@
     }
 }
 
-.overflow {
-    &--scroll {
-        overflow: scroll;
+.position {
+    &--rel {
+        position: relative;
     }
 
-    &--hidden {
-        overflow: hidden;
+    &--abs {
+        position: absolute;
     }
 }
 
-.scroll-x--hidden {
-    overflow-x: hidden;
-}
-
-.scroll-y--hidden {
-    overflow-y: hidden;
-}
-
-.no-wrap {
-    white-space: nowrap;
-}
-
-.smoothscroll {
-    scroll-behavior: smooth;
+.display {
+    &--inline-block {
+        display: inline-block;
+    }
 }

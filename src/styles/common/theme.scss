@@ -32,30 +32,3 @@ body {
         }
     }
 }
-
-.modal {
-    background-color: rgba(
-        $color: map.get(colors.$colors, "c-white"),
-        $alpha: 0.5
-    );
-
-    %modal-common {
-        border-radius: 20px;
-
-        background-color: rgba(
-            $color: map.get(colors.$colors, "c-white"),
-            $alpha: 0.8
-        );
-        outline: rgba($color: map.get(colors.$colors, "c-white"), $alpha: 0.2)
-            solid 1px;
-        box-shadow: 1px 1px 5px 1px #444444;
-    }
-
-    &__form {
-        @extend %modal-common;
-    }
-
-    &__dialog {
-        @extend %modal-common;
-    }
-}

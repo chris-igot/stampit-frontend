@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 type onChangeFunc = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
@@ -31,7 +31,7 @@ export default function InputFile(props: PropsType) {
     }
 
     return (
-        <div className="form__input-file">
+        <div className="form__input--file">
             {props.multiple === true ? (
                 <input
                     type="file"
@@ -51,7 +51,9 @@ export default function InputFile(props: PropsType) {
                 />
             )}
             <label
-                className={"className" in props ? props.className : ""}
+                className={
+                    "className" in props ? props.className : "btn-secondary"
+                }
                 htmlFor={props.name}
             >
                 {"label" in props

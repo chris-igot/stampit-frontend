@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { OutputType } from "../../ts_types/types";
+import React, { useState } from "react";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
 import postForm from "../../utilities/postForm";
 import Image from "../image";
@@ -18,10 +17,11 @@ export default function StampNew() {
 
         setImagePreviews(previews);
     }
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = convertInputToFormData(e);
-        console.log("formdata", formData);
+
         postForm<Object>(
             "/api/admin/stamps/multiplenew",
             formData,

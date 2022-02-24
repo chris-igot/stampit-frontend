@@ -1,5 +1,17 @@
 @use "sass:map";
 
+$clr-blue-3: #073d73;
+$clr-blue-5: #0a5cae;
+$clr-blue-7: #52a3f4;
+$clr-white: #f0f9f9;
+$clr-gray-3: #393e41;
+$clr-gray-5: #6c757d;
+$clr-gray-7: #b3b8bd;
+$clr-gray-9: #e9eaec;
+$clr-black: #0f1b2e;
+$clr-red: #e63946;
+$clr-green: #0bc129;
+
 $colors: (
     c-darkblue: #14213d,
     //oxford blue
@@ -15,11 +27,22 @@ $colors: (
     //slate gray
     c-yellow: #ffc300,
     //mikado yellow
+    blue-3: #073d73,
+    blue-5: #0a5cae,
+    blue-7: #52a3f4,
+    white: #f0f9f9,
+    gray-3: #393e41,
+    gray-5: #6c757d,
+    gray-7: #b3b8bd,
+    gray-9: #e9eaec,
+    black: #0f1b2e,
+    red: #e63946,
+    green: #0bc129,
 );
 
 @mixin gencolorclasses($attr) {
     @each $name, $hex in $colors {
-        &-#{$name} {
+        &--#{$name} {
             #{$attr}: $hex;
         }
     }
@@ -33,23 +56,52 @@ $colors: (
     @include gencolorclasses("color");
 }
 
+.outline {
+    @mixin outline-common {
+        &.interactive {
+            transition-duration: 0.1s;
+            &:hover {
+                outline-width: 2px;
+            }
+
+            &:focus {
+                outline-width: 3px;
+            }
+        }
+    }
+
+    &--gray {
+        outline: $clr-gray-5 solid 1px;
+
+        @include outline-common();
+    }
+
+    &--white {
+        outline: $clr-white solid 1px;
+
+        @include outline-common();
+    }
+}
+
 .tag {
-    margin: 0;
-    padding: 1px;
+    @mixin tag-common {
+        margin: 0;
+        padding: 1px;
 
-    border-radius: 5px;
+        border-radius: 5px;
 
-    font-size: 0.6rem;
+        font-size: 0.6rem;
+    }
 
     &--dark {
-        @extend .tag;
+        @include tag-common();
         background-color: map.get($colors, "c-black");
         color: map.get($colors, "c-white");
         outline: map.get($colors, "c-gray") solid 1px;
     }
 
     &--light {
-        @extend .tag;
+        @include tag-common();
         background-color: map.get($colors, "c-white");
         color: map.get($colors, "c-gray");
         outline: map.get($colors, "c-gray") solid 1px;
