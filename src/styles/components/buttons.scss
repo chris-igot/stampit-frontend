@@ -189,7 +189,15 @@ $c-red: map.get(colors.$colors, "c-red");
 .btn-tertiary {
     color: colors.$clr-white;
     background-color: colors.$clr-gray-5;
-    outline-color: colors.$clr-gray-3;
+    outline-color: colors.$clr-gray-7;
+
+    @extend %btn-common;
+}
+
+.btn-danger {
+    color: colors.$clr-white;
+    background-color: colors.$clr-red-5;
+    outline-color: colors.$clr-red-7;
 
     @extend %btn-common;
 }
