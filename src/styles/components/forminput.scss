@@ -2,8 +2,8 @@
 @use "sass:list";
 @use "../common/colors";
 
-$margin-top: 4px;
-$margin-bottom: 0.5rem;
+$margin-top: 8px;
+$margin-bottom: 8px;
 
 .form__input {
     $field-width: 12rem;
@@ -197,7 +197,7 @@ $margin-bottom: 0.5rem;
 
 .p--single-line-input-container {
     padding-top: $margin-bottom;
-    padding-bottom: calc($margin-bottom - $margin-top);
+    padding-bottom: $margin-top;
 }
 
 .m--single-line-input {
