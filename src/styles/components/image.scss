@@ -2,13 +2,6 @@
 @use "sass:list";
 @use "../common/colors";
 
-.thumbnails {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-
-    margin-top: 0.5rem;
-}
 %image-sm-common {
     display: flex;
     justify-content: center;
