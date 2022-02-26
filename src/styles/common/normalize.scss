@@ -1,3 +1,5 @@
+@use "colors";
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -11,6 +13,8 @@
 html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
+
+    color: colors.$clr-black;
 }
 
 /* Sections
@@ -27,6 +31,8 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    background-color: colors.$clr-blue-9;
 }
 
 /**
@@ -80,8 +86,13 @@ pre {
 
 a {
     background-color: transparent;
-    color: #393e41;
+    color: colors.$clr-gray-5;
     text-decoration: none;
+
+    &:hover {
+        color: colors.$clr-gray-3;
+        text-decoration: underline;
+    }
 }
 
 /**
