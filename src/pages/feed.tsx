@@ -27,7 +27,7 @@ export default function Feed() {
     }, []);
     return (
         <div className="page">
-            <div className="flex flex--wrap width--max">
+            <div className="pt-1 flex flex--wrap width--max">
                 {posts.map((post) => (
                     <Link key={post.id} to={"/posts?postid=" + post.id}>
                         <Image

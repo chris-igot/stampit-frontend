@@ -228,7 +228,7 @@ export default function Profile(props: PropsType = { home: false }) {
                     {displayInfo()}
                 </div>
             </div>
-            <div className="thumbnails">
+            <div className="pt-1 flex flex--wrap width--max">
                 {posts.map((post) => (
                     <Link key={post.id} to={"/posts?postid=" + post.id}>
                         <Image
