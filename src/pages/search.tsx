@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InputText from "../components/form/textInput";
 import ProfileList from "../components/profileList";
-import { OutputType, ProfileType } from "../ts_types/types";
+import { ProfileType } from "../ts_types/types";
 import postForm from "../utilities/postForm";
 
 export default function Search() {
@@ -30,13 +30,13 @@ export default function Search() {
     return (
         <div className="page">
             <form
-                className="flex flex--v-center bg--white rounded--15"
+                className="width--max box-sizing--border flex flex--v-center flex--h-space-between px-2 p--single-line-input-container bg--white rounded--max"
                 action=""
             >
                 <InputText name="search" type="text" />
 
                 <button
-                    className="btn-primary ml-1"
+                    className="btn-primary m--single-line-input"
                     type="submit"
                     onClick={(e) => {
                         e.preventDefault();
