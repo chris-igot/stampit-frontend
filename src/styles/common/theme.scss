@@ -4,13 +4,13 @@
 
 #root {
     &:before {
-        color: map.get(colors.$colors, "c-white");
+        color: colors.$clr-gray-5;
     }
 }
 
 body {
     // background-image: url("https://picsum.photos/200/300");
-    background-color: map.get(colors.$colors, "c-black");
+    background-color: colors.$clr-white;
 }
 
 .page {
