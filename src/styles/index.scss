@@ -5,6 +5,7 @@
 @use "common/position";
 @use "common/spacing";
 @use "common/effects";
+@use "common/text";
 @use "common/shape";
 @use "components/logotext.scss";
 @use "components/buttons";
@@ -15,7 +16,6 @@
 @use "components/profilelist";
 @use "components/stamplist";
 
-@use "pages/profile";
 @use "pages/public";
 @use "pages/search";
 

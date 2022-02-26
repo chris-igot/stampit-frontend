@@ -107,51 +107,9 @@ export default function Profile(props: PropsType = { home: false }) {
         });
     }
 
-    function displayInfo() {
-        const infoText = (
-            <div
-                className={
-                    props.home
-                        ? "profile_header--texts editable"
-                        : "profile_header--texts"
-                }
-                onClick={() => {
-                    if (props.home) {
-                        setEditInfo(true);
-                    }
-                }}
-            >
-                <h6 className="profile-header__title">{profile.title}</h6>
-                <p className="profile-header__bio">{profile.bio}</p>
-            </div>
-        );
-
-        const noInfo = (
-            <div
-                onClick={() => {
-                    if (props.home) {
-                        setEditInfo(true);
-                    }
-                }}
-            >
-                Add profile info
-            </div>
-        );
-
-        if (props.home) {
-            if (profile.title === null && profile.bio === null) {
-                return noInfo;
-            } else {
-                return infoText;
-            }
-        } else {
-            return infoText;
-        }
-    }
-
     return (
         <div className="page">
-            <div className="profile-header">
+            <div className="width--max flex flex--col">
                 {editInfo && (
                     <EditProfile
                         profile={profile}
@@ -169,63 +127,77 @@ export default function Profile(props: PropsType = { home: false }) {
                         }}
                     />
                 )}
-                <Image
-                    className={
-                        props.home
-                            ? "image--profile editable"
-                            : "image--profile"
-                    }
-                    image={profile.image != null ? profile.image : noProfilePic}
-                    onClick={() => {
-                        if (props.home) {
-                            setEditInfo(true);
+                <div className="flex">
+                    <Image
+                        className={"image--profile"}
+                        image={
+                            profile.image != null ? profile.image : noProfilePic
                         }
-                    }}
-                />
-                <div className="profile-header__stats">
-                    <div>
-                        <h2>{posts.length}</h2>
-                        <p>posts</p>
-                    </div>
-                    <div>
-                        <h2>{profile.followers}</h2>
-                        <p>followers</p>
-                    </div>
-                    <div>
-                        <h2>{profile.followed}</h2>
-                        <p>following</p>
+                    />
+                    <div className="flex flex--h-space-between flex--grow-1 px-2">
+                        <div className="flex flex--col flex--h-center ">
+                            <h2 className="text--center text--w-700 my-1 mx-0">
+                                {posts.length}
+                            </h2>
+                            <p className="text--w-300 my-1 mx-0">posts</p>
+                        </div>
+                        <div className="flex flex--col flex--h-center ">
+                            <h2 className="text--center text--w-700 my-1 mx-0">
+                                {profile.followers}
+                            </h2>
+                            <p className="text--w-300 my-1 mx-0">followers</p>
+                        </div>
+                        <div className="flex flex--col flex--h-center ">
+                            <h2 className="text--center text--w-700 my-1 mx-0">
+                                {profile.followed}
+                            </h2>
+                            <p className="text--w-300 my-1 mx-0">following</p>
+                        </div>
                     </div>
                 </div>
-                <div className="profile-header__info">
-                    {!props.home && (
-                        <FollowButton
-                            profile={profile}
-                            onClick={updateProfile}
-                        />
-                    )}
-                    {props.home ? (
-                        <button
-                            className="btn-blue"
-                            onClick={() => {
-                                setUploadPic(true);
-                            }}
-                        >
-                            upload
-                        </button>
-                    ) : (
-                        ""
-                    )}
-                    <div>
-                        <span className="profile-header__name">
-                            {profile.name}
-                        </span>{" "}
-                        {profile.isPrivate ? (
-                            <span className="tag--dark">private</span>
+                <div>
+                    <div className="my-1">
+                        {!props.home && (
+                            <FollowButton
+                                profile={profile}
+                                onClick={updateProfile}
+                            />
+                        )}
+                        {props.home ? (
+                            <React.Fragment>
+                                <button
+                                    className="btn-primary mr-1"
+                                    onClick={() => {
+                                        setUploadPic(true);
+                                    }}
+                                >
+                                    upload
+                                </button>
+                                <button
+                                    className="btn-secondary"
+                                    onClick={() => {
+                                        setEditInfo(true);
+                                    }}
+                                >
+                                    edit profile
+                                </button>
+                            </React.Fragment>
                         ) : (
                             ""
                         )}
                     </div>
-                    {displayInfo()}
+                    <div>
+                        <h4 className="m-0">
+                            <span>{profile.name}</span>{" "}
+                            {profile.isPrivate ? (
+                                <span className="tag--dark">private</span>
+                            ) : (
+                                ""
+                            )}
+                        </h4>
+                        <h5 className="m-0">{profile.title}</h5>
+                        <p className="m-0">{profile.bio}</p>
+                    </div>
                 </div>
             </div>
             <div className="pt-1 flex flex--wrap width--max">
