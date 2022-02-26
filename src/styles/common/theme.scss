@@ -8,9 +8,6 @@
     }
 }
 
-.navigation {
-}
-
 body {
     // background-image: url("https://picsum.photos/200/300");
     background-color: map.get(colors.$colors, "c-black");
@@ -20,15 +17,5 @@ body {
 }
 
 .navigation {
-    background-color: map.get(colors.$colors, "c-darkblue");
-
-    &__link {
-        color: map.get(colors.$colors, "c-white");
-        &:hover {
-            color: scale-color(
-                map.get(colors.$colors, "c-white"),
-                $lightness: -20%
-            );
-        }
-    }
+    background-color: colors.$clr-blue-5;
 }
