@@ -109,7 +109,7 @@ export default function Profile(props: PropsType = { home: false }) {
 
     return (
         <div className="page">
-            <div className="width--max flex flex--col">
+            <div className="width--max flex flex--col pb-1">
                 {editInfo && (
                     <EditProfile
                         profile={profile}
@@ -127,36 +127,41 @@ export default function Profile(props: PropsType = { home: false }) {
                         }}
                     />
                 )}
-                <div className="flex">
+                <div className="flex flex--h-space-between pt-1">
                     <Image
                         className={"image--profile"}
                         image={
                             profile.image != null ? profile.image : noProfilePic
                         }
                     />
-                    <div className="flex flex--h-space-between flex--grow-1 px-2">
-                        <div className="flex flex--col flex--h-center ">
-                            <h2 className="text--center text--w-700 my-1 mx-0">
-                                {posts.length}
-                            </h2>
-                            <p className="text--w-300 my-1 mx-0">posts</p>
-                        </div>
-                        <div className="flex flex--col flex--h-center ">
-                            <h2 className="text--center text--w-700 my-1 mx-0">
-                                {profile.followers}
-                            </h2>
-                            <p className="text--w-300 my-1 mx-0">followers</p>
-                        </div>
-                        <div className="flex flex--col flex--h-center ">
-                            <h2 className="text--center text--w-700 my-1 mx-0">
-                                {profile.followed}
-                            </h2>
-                            <p className="text--w-300 my-1 mx-0">following</p>
-                        </div>
+
+                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                        <h2 className="text--center text--w-700 my-1 mx-0">
+                            {posts.length}
+                        </h2>
+                        <p className="my-1 mx-0 text--w-300 text--center">
+                            posts
+                        </p>
+                    </div>
+                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                        <h2 className="text--center text--w-700 my-1 mx-0">
+                            {profile.followers}
+                        </h2>
+                        <p className="my-1 mx-0 text--w-300 text--center">
+                            followers
+                        </p>
+                    </div>
+                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                        <h2 className="text--center text--w-700 my-1 mx-0">
+                            {profile.followed}
+                        </h2>
+                        <p className="my-1 mx-0 text--w-300 text--center">
+                            following
+                        </p>
                     </div>
                 </div>
                 <div>
-                    <div className="my-1">
+                    <div className="my-1 p-2 rounded--max bg--white">
                         {!props.home && (
                             <FollowButton
                                 profile={profile}
@@ -186,11 +191,11 @@ export default function Profile(props: PropsType = { home: false }) {
                             ""
                         )}
                     </div>
-                    <div>
-                        <h4 className="m-0">
+                    <div className="p-2 rounded--15 bg--white">
+                        <h4 className="m-0 flex flex--v-center">
                             <span>{profile.name}</span>{" "}
                             {profile.isPrivate ? (
-                                <span className="tag--dark">private</span>
+                                <span className="tag--dark ml-1">private</span>
                             ) : (
                                 ""
                             )}
