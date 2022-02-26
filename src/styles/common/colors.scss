@@ -72,8 +72,20 @@ $colors: (
         }
     }
 
-    &--gray {
+    &--gray-3 {
+        outline: $clr-gray-3 solid 1px;
+
+        @include outline-common();
+    }
+
+    &--gray-5 {
         outline: $clr-gray-5 solid 1px;
+
+        @include outline-common();
+    }
+
+    &--gray-7 {
+        outline: $clr-gray-7 solid 1px;
 
         @include outline-common();
     }
