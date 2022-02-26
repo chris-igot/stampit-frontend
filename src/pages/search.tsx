@@ -30,7 +30,7 @@ export default function Search() {
     return (
         <div className="page">
             <form
-                className="width--max box-sizing--border flex flex--v-center flex--h-space-between px-2 p--single-line-input-container bg--white rounded--max"
+                className="width--max box-sizing--border flex flex--v-center flex--h-space-between mt-1 px-2 p--single-line-input-container bg--white rounded--max"
                 action=""
             >
                 <InputText name="search" type="text" />
