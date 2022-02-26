@@ -74,7 +74,7 @@ export default function ProfileList(props: PropsType) {
                                 {profile.name}
                             </Link>
                             {profile.isPrivate ? (
-                                <span className="tag--light">private</span>
+                                <span className="tag--dark">private</span>
                             ) : (
                                 ""
                             )}
