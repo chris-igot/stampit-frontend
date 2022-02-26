@@ -1,5 +1,3 @@
-@use "sass:map";
-
 $clr-blue-3: #073d73;
 $clr-blue-5: #0a5cae;
 $clr-blue-7: #52a3f4;
@@ -99,10 +97,23 @@ $colors: (
     }
 }
 
+.border {
+    %common {
+        border-width: 1px;
+        border-style: solid;
+    }
+
+    &-bottom {
+        &--white {
+            border-bottom: $clr-white solid 1px;
+        }
+    }
+}
+
 .tag {
     @mixin tag-common {
         margin: 0;
-        padding: 1px;
+        padding: 2px;
 
         border-radius: 5px;
 
@@ -111,15 +122,15 @@ $colors: (
 
     &--dark {
         @include tag-common();
-        background-color: map.get($colors, "c-black");
-        color: map.get($colors, "c-white");
-        outline: map.get($colors, "c-gray") solid 1px;
+        background-color: $clr-gray-5;
+        color: $clr-white;
+        outline: $clr-gray-7 solid 1px;
     }
 
     &--light {
         @include tag-common();
-        background-color: map.get($colors, "c-white");
-        color: map.get($colors, "c-gray");
-        outline: map.get($colors, "c-gray") solid 1px;
+        background-color: $clr-white;
+        color: $clr-gray-3;
+        outline: $clr-gray-7 solid 1px;
     }
 }
