@@ -1,3 +1,5 @@
+@use "colors";
+
 $thumbnail-width: 160px;
 $thumbnail-margin: 1px;
 $thumbnail-across-default: 3;
@@ -19,6 +21,8 @@ $nav-space: 3rem;
             z-index: 10000;
             top: 20rem;
             content: "#{$calc-width}";
+
+            color: colors.$clr-gray-5;
         }
         width: $calc-width;
         margin: auto;
@@ -29,7 +33,7 @@ $nav-space: 3rem;
         z-index: 9001;
         height: $nav-space;
         width: $calc-width;
-        @if $calc-width == $overall-width-default {
+        @if $calc-width <= $overall-width-default {
             // top: 0;
             bottom: 0;
         } @else {
@@ -37,7 +41,7 @@ $nav-space: 3rem;
         }
     }
 
-    @if $calc-width == $overall-width-default {
+    @if $calc-width <= $overall-width-default {
         .page::after {
             position: static;
             display: block;
@@ -76,8 +80,10 @@ $nav-space: 3rem;
 @include width-elements-media(5);
 @include width-elements-media(6);
 
+html,
+#root,
 body {
-    // background-image: url("https://picsum.photos/200/300");
+    height: 100%;
 }
 
 .page {
@@ -85,6 +91,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100%;
 }
 
 .form-newstamps {
