@@ -1,7 +1,6 @@
-import { listenerCount } from "process";
 import React, { useEffect, useState } from "react";
 import ProfileList from "../components/profileList";
-import { OutputType, ProfileType } from "../ts_types/types";
+import { ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 export default function Following() {
