@@ -56,28 +56,39 @@ export default function ProfileList(props: PropsType) {
         return button;
     }
     return (
-        <div id={"id" in props ? props.id : undefined} className="width--max">
-            {props.profiles.map((profile, index) => (
-                <div className="profile-list__row" key={index}>
-                    <Link to={"/profiles?id=" + profile.id}>
-                        <Image
-                            className="image--listing"
-                            image={profile.image}
-                        />
-                    </Link>
-                    <div>
+        <div
+            id={"id" in props ? props.id : undefined}
+            className="display--inline-block width--max height--max flex flex--col flex--v-top vertical-align--top"
+        >
+            {props.profiles.length > 0 ? (
+                props.profiles.map((profile, index) => (
+                    <div className="profile-list__row" key={index}>
                         <Link to={"/profiles?id=" + profile.id}>
-                            {profile.name}
+                            <Image
+                                className="image--listing"
+                                image={profile.image}
+                            />
                         </Link>
-                        {profile.isPrivate ? (
-                            <span className="tag--light">private</span>
-                        ) : (
-                            ""
-                        )}
+                        <div>
+                            <Link to={"/profiles?id=" + profile.id}>
+                                {profile.name}
+                            </Link>
+                            {profile.isPrivate ? (
+                                <span className="tag--light">private</span>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+                        {setButton(profile)}
                     </div>
-                    {setButton(profile)}
+                ))
+            ) : (
+                <div className="flex flex--h-center">
+                    <h3 className="display--inline-block text--gray-5">
+                        empty
+                    </h3>
                 </div>
-            ))}
+            )}
         </div>
     );
 }
