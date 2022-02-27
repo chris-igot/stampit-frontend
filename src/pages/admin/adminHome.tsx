@@ -1,25 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import StampNew from "../../components/form/stampNew";
 import StampList from "../../components/stampList";
-import getData from "../../utilities/getData";
+import {
+    AddOverlayFnType,
+    overlayContext,
+} from "../../context/overlaidContentProvider";
 
 export default function AdminHome() {
+    const { addOverlay } = useContext(overlayContext);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     getData("/css/getuser").then((output) => {
-    //         console.log(output);
-    //     });
-
-    //     return () => {};
-    // }, []);
-
     return (
-        <div className="page">
-            <div>
+        <div className="height--max">
+            <div className="height--3rem flex flex--h-center flex--v-center bg--blue-7">
+                <button
+                    className="btn-secondary"
+                    onClick={() => {
+                        (addOverlay as AddOverlayFnType)("form", <StampNew />);
+                    }}
+                >
+                    Add Stamps
+                </button>
                 <Link
-                    className="navigation__link"
+                    className="btn-danger ml-4"
                     to="/admin/login"
                     onClick={() => {
                         fetch("/api/logout").then(() => {
@@ -30,9 +34,8 @@ export default function AdminHome() {
                     logout
                 </Link>
             </div>
-            <StampNew />
 
-            <div>
+            <div className="height--25 flex flex--h-center flex--v-bottom">
                 <StampList />
             </div>
         </div>

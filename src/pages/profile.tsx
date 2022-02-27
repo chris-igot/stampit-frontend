@@ -1,43 +1,51 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import FollowButton from "../components/followButton";
 import EditProfile from "../components/form/editProfile";
-
 import Image from "../components/image";
 import { PostType, ProfileType } from "../ts_types/types";
-
-import getData from "../utilities/getData";
-
 import PostNew from "../components/form/postNew";
-
 import noProfilePic from "../icons/round_account_circle_white_48dp.png";
 import {
     AddOverlayFnType,
     overlayContext,
 } from "../context/overlaidContentProvider";
+import useAPIResource from "../hooks/useAPIResource";
 
 interface PropsType {
     home?: boolean;
 }
 
+const defaultProfile = {
+    id: "",
+    name: "",
+    image: "",
+    title: "",
+    bio: "",
+    isPrivate: true,
+    currentlyFollowing: 0,
+    followRequested: 0,
+    followers: 0,
+    followed: 0,
+    user: { id: "", username: "", email: "", roles: [] },
+};
+
 export default function Profile(props: PropsType = { home: false }) {
     const { addOverlay } = useContext(overlayContext);
+    const profileResource = useAPIResource<ProfileType>(
+        (arg = "") => "/api/profiles" + arg,
+        defaultProfile
+    );
+    const postsResource = useAPIResource<PostType[]>(
+        (arg = "") => "/api/posts" + arg,
+        [],
+        {
+            403: () => {
+                setPosts403(true);
+            },
+        }
+    );
     const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
-    const [profile, setProfile] = useState<ProfileType>({
-        id: "",
-        name: "",
-        image: "",
-        title: "",
-        bio: "",
-        isPrivate: true,
-        currentlyFollowing: 0,
-        followRequested: 0,
-        followers: 0,
-        followed: 0,
-        user: { id: "", username: "", email: "", roles: [] },
-    });
-    const [posts, setPosts] = useState<PostType[]>([]);
     const [posts403, setPosts403] = useState(false);
 
     useEffect(() => {
@@ -47,54 +55,21 @@ export default function Profile(props: PropsType = { home: false }) {
     }, []);
 
     function updateProfile() {
-        let profileRoute = "";
-
         const id = searchParams.get("id");
         if (props.home) {
-            profileRoute = "/api/profiles/home";
+            profileResource.refresh("/home");
         } else {
-            profileRoute = "/api/profiles?id=" + id;
+            profileResource.refresh("?id=" + id);
         }
-        getData<ProfileType>(profileRoute).then((output) => {
-            switch (output.status) {
-                case 200:
-                    setProfile(output.json);
-                    console.log("profile", output.json);
-                    break;
-                default:
-                    navigate("/login");
-                    break;
-            }
-        });
     }
 
     function updatePosts() {
-        let postsRoute = "";
         const id = searchParams.get("id");
         if (props.home) {
-            postsRoute = "/api/posts/self";
+            postsResource.refresh("/self");
         } else {
-            postsRoute = "/api/posts?id=" + id;
+            postsResource.refresh("?id=" + id);
         }
-
-        getData<PostType[]>(postsRoute).then((output) => {
-            switch (output.status) {
-                case 200:
-                    setPosts(
-                        output.json.sort((a, b) =>
-                            b.createdAt.localeCompare(a.createdAt)
-                        )
-                    );
-                    setPosts403(false);
-                    break;
-                case 403:
-                    setPosts403(true);
-                    break;
-                default:
-                    navigate("/login");
-                    return;
-            }
-        });
     }
 
     return (
@@ -104,13 +79,15 @@ export default function Profile(props: PropsType = { home: false }) {
                     <Image
                         className={"image--profile"}
                         image={
-                            profile.image != null ? profile.image : noProfilePic
+                            profileResource.data.image != null
+                                ? profileResource.data.image
+                                : noProfilePic
                         }
                     />
 
                     <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
                         <h2 className="text--center text--w-700 my-1 mx-0">
-                            {posts.length}
+                            {postsResource.data.length}
                         </h2>
                         <p className="my-1 mx-0 text--w-300 text--center">
                             posts
@@ -118,7 +95,7 @@ export default function Profile(props: PropsType = { home: false }) {
                     </div>
                     <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
                         <h2 className="text--center text--w-700 my-1 mx-0">
-                            {profile.followers}
+                            {profileResource.data.followers}
                         </h2>
                         <p className="my-1 mx-0 text--w-300 text--center">
                             followers
@@ -126,7 +103,7 @@ export default function Profile(props: PropsType = { home: false }) {
                     </div>
                     <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
                         <h2 className="text--center text--w-700 my-1 mx-0">
-                            {profile.followed}
+                            {profileResource.data.followed}
                         </h2>
                         <p className="my-1 mx-0 text--w-300 text--center">
                             following
@@ -137,7 +114,7 @@ export default function Profile(props: PropsType = { home: false }) {
                     <div className="my-1 p-2 rounded--max bg--white">
                         {!props.home && (
                             <FollowButton
-                                profile={profile}
+                                profile={profileResource.data}
                                 onClick={updateProfile}
                             />
                         )}
@@ -150,6 +127,7 @@ export default function Profile(props: PropsType = { home: false }) {
                                         (addOverlay as AddOverlayFnType)(
                                             "form",
                                             <PostNew
+                                                key={"postNew"}
                                                 onExit={() => {
                                                     updatePosts();
                                                 }}
@@ -165,7 +143,8 @@ export default function Profile(props: PropsType = { home: false }) {
                                         (addOverlay as AddOverlayFnType)(
                                             "form",
                                             <EditProfile
-                                                profile={profile}
+                                                key={"editProfile"}
+                                                profile={profileResource.data}
                                                 onExit={() => {
                                                     updateProfile();
                                                 }}
@@ -182,20 +161,20 @@ export default function Profile(props: PropsType = { home: false }) {
                     </div>
                     <div className="p-2 rounded--15 bg--white">
                         <h4 className="m-0 flex flex--v-center">
-                            <span>{profile.name}</span>{" "}
-                            {profile.isPrivate ? (
+                            <span>{profileResource.data.name}</span>{" "}
+                            {profileResource.data.isPrivate ? (
                                 <span className="tag--dark ml-1">private</span>
                             ) : (
                                 ""
                             )}
                         </h4>
-                        <h5 className="m-0">{profile.title}</h5>
-                        <p className="m-0">{profile.bio}</p>
+                        <h5 className="m-0">{profileResource.data.title}</h5>
+                        <p className="m-0">{profileResource.data.bio}</p>
                     </div>
                 </div>
             </div>
             <div className="pt-1 flex flex--wrap width--max">
-                {posts.map((post) => (
+                {postsResource.data.map((post) => (
                     <Link key={post.id} to={"/posts?postid=" + post.id}>
                         <Image
                             className="image--thumbnail"
