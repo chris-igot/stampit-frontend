@@ -4,9 +4,19 @@ import InputCheckbox from "../components/form/checkboxInput";
 import InputText from "../components/form/textInput";
 import convertInputToFormData from "../utilities/convertInputToFormData";
 import postForm from "../utilities/postForm";
+import { escapeRegExp } from "../utilities/regex";
 
 export default function Register() {
     const navigate = useNavigate();
+
+    function handlePwChange(e: React.KeyboardEvent<HTMLInputElement>) {
+        const value = e.currentTarget.value;
+        const pwConfirmElement = document.getElementById(
+            "passwordConfirm"
+        ) as HTMLInputElement;
+        pwConfirmElement.pattern = escapeRegExp(value);
+    }
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = convertInputToFormData(e);
@@ -21,9 +31,6 @@ export default function Register() {
             switch (output.status) {
                 case 200:
                     navigate("/home");
-                    break;
-                case 418:
-                    //TODO: error here
                     break;
                 default:
                     // navigate("/login");
@@ -42,13 +49,27 @@ export default function Register() {
                 >
                     <p className="logo--large" />
                     <h4>Register</h4>
-                    <InputText name="username" />
-                    <InputText name="email" type="email" />
-                    <InputText name="password" type="password" />
+                    <InputText
+                        name="username"
+                        pattern="^[ -~]{2,32}$"
+                        title="Username must be between 2 and 32 characters"
+                        required
+                    />
+                    <InputText name="email" type="email" required />
+                    <InputText
+                        name="password"
+                        pattern="^[ -~]{8,100}$"
+                        title="Password must be between 8 and 100 characters"
+                        type="password"
+                        onKeyUp={handlePwChange}
+                        required
+                    />
                     <InputText
                         name="passwordConfirm"
                         type="password"
                         label="password confirmation"
+                        title="Password must match"
+                        required
                     />
                     <InputCheckbox name={"isPrivate"} label="private?" />
 

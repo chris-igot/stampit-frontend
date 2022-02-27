@@ -8,38 +8,28 @@ $clr-gray-5: #6c757d;
 $clr-gray-7: #b3b8bd;
 $clr-gray-9: #e9eaec;
 $clr-black: #0f1b2e;
+$clr-red-3: #800f17;
 $clr-red-5: #e63946;
 $clr-red-7: #ef8089;
+$clr-red-9: #f6b7bc;
 $clr-green: #0bc129;
 
 $colors: (
-    c-darkblue: #14213d,
-    //oxford blue
-    c-blue: #24406b,
-    //dark cornflower blue
-    c-white: #f0f9f9,
-    //old lace
-    c-red: #e63946,
-    //imperial red
-    c-black: #000814,
-    //rich black FOGRA 29
-    c-gray: #6c757d,
-    //slate gray
-    c-yellow: #ffc300,
-    //mikado yellow
-    blue-3: #073d73,
-    blue-5: #0a5cae,
-    blue-7: #52a3f4,
-    blue-9: #a0ccf8,
-    white: #f0f9f9,
-    gray-3: #393e41,
-    gray-5: #6c757d,
-    gray-7: #b3b8bd,
-    gray-9: #e9eaec,
-    black: #0f1b2e,
-    red-5: #e63946,
-    red-7: #ef8089,
-    green: #0bc129,
+    blue-3: $clr-blue-3,
+    blue-5: $clr-blue-5,
+    blue-7: $clr-blue-7,
+    blue-9: $clr-blue-9,
+    white: $clr-white,
+    gray-3: $clr-gray-3,
+    gray-5: $clr-gray-5,
+    gray-7: $clr-gray-7,
+    gray-9: $clr-gray-9,
+    black: $clr-black,
+    red-3: $clr-red-3,
+    red-5: $clr-red-5,
+    red-7: $clr-red-7,
+    red-9: $clr-red-9,
+    green: $clr-green,
 );
 
 @mixin gencolorclasses($attr) {

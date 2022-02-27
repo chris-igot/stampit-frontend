@@ -14,9 +14,6 @@ export default function Login() {
                 case 200:
                     navigate("/home");
                     break;
-                case 418:
-                    //TODO: error here
-                    break;
                 default:
                     break;
             }
@@ -33,8 +30,8 @@ export default function Login() {
                 >
                     <p className="logo--large" />
                     <h4>Login</h4>
-                    <InputText name="email" type="email" />
-                    <InputText name="password" type="password" />
+                    <InputText name="email" type="email" required />
+                    <InputText name="password" type="password" required />
                     <p>
                         New user?
                         <br />{" "}

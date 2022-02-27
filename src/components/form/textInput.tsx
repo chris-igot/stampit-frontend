@@ -6,16 +6,19 @@ interface PropsType {
     name: string;
     type?: "text" | "email" | "number" | "password" | "search" | "tel" | "url";
     width?: string;
+    label?: string;
+
     className?: string;
     pattern?: string;
     title?: string;
-    label?: string;
-    value?: string;
+    defaultValue?: string;
+    required?: boolean;
     onKeyUp?: onKeyUpFunc;
     onChange?: onChangeFunc;
 }
-export default function InputText(props: PropsType) {
+export default function InputText({ name, width, label, ...props }: PropsType) {
     const [blank, setBlank] = useState(true);
+    const [submitted, setSubmitted] = useState(false);
     const divRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -27,10 +30,9 @@ export default function InputText(props: PropsType) {
         }
 
         if ("width" in props) {
-            (divRef.current as HTMLDivElement).style.width =
-                props.width as string;
+            (divRef.current as HTMLDivElement).style.width = width as string;
             (inputRef.current as HTMLInputElement).style.width =
-                props.width as string;
+                width as string;
         } else {
             (divRef.current as HTMLDivElement).style.width =
                 (inputRef.current as HTMLInputElement).clientWidth + "px";
@@ -58,19 +60,20 @@ export default function InputText(props: PropsType) {
             ref={divRef}
         >
             <input
-                id={props.name}
-                className={"className" in props ? props.className : ""}
+                id={name}
+                className={
+                    (submitted ? "submitted" : "") +
+                    ("className" in props ? " " + props.className : "")
+                }
                 ref={inputRef}
-                type={"type" in props ? props.type : "text"}
-                name={props.name}
-                pattern={"pattern" in props ? props.pattern : ".*"}
-                title={"title" in props ? props.title : ""}
-                defaultValue={"value" in props ? props.value : ""}
+                name={name}
+                {...props}
                 onKeyUp={handleKeyPress}
+                onInvalid={(e) => {
+                    setSubmitted(true);
+                }}
             />
-            <label htmlFor={props.name}>
-                {"label" in props ? props.label : props.name}
-            </label>
+            <label htmlFor={name}>{label !== undefined ? label : name}</label>
         </div>
     );
 }

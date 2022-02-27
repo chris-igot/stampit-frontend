@@ -1,4 +1,3 @@
-import { OutputType } from "../ts_types/types";
 import processResponse from "./processResponse";
 
 export default function postForm<T>(

@@ -130,7 +130,7 @@ export default function EditProfile(props: PropsType) {
                     <InputText
                         width="100%"
                         name={"title"}
-                        value={props.profile.title}
+                        defaultValue={props.profile.title}
                         onChange={() => {
                             formUpdateState.text = true;
                             setFormUpdateState(formUpdateState);
