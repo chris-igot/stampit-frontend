@@ -23,6 +23,7 @@ export default function StampList(props: PropsType) {
     const listContainer = useRef<HTMLDivElement>(null);
     useEffect(() => {
         updateStampList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -31,6 +32,7 @@ export default function StampList(props: PropsType) {
         } else {
             updateSize(isExpanded);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stamps]);
 
     function updateSize(expand: boolean) {
@@ -68,7 +70,7 @@ export default function StampList(props: PropsType) {
 
     return (
         <div
-            className="stamp-list__container"
+            className="position--rel"
             ref={listContainer}
             onBlur={() => {
                 console.log("blurred");
@@ -80,7 +82,7 @@ export default function StampList(props: PropsType) {
             }}
         >
             <div
-                className="stamp-list bg-c-black"
+                className="stamp-list"
                 style={{
                     bottom: (isExpanded ? 0 : 0) * listDimensions.stamp + "px",
                 }}
