@@ -92,8 +92,8 @@ export default function Post() {
                 <div
                     className={
                         stampEnabled
-                            ? "cursor--rel overflow--hidden cursor--pointer"
-                            : "cursor--rel overflow--hidden"
+                            ? "position--rel overflow--hidden cursor--pointer"
+                            : "position--rel overflow--hidden"
                     }
                     onClick={(e) => {
                         if (stampEnabled) {
