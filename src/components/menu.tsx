@@ -15,23 +15,22 @@ function Menu(props: PropsType) {
     const navigate = useNavigate();
     return (
         <nav className="navigation">
-            <Link className="navigation__link" to="/home" reloadDocument>
+            <Link to="/home" reloadDocument>
                 <Image className="image--menu" image={home} />
             </Link>
-            <Link className="navigation__link" to="/search">
+            <Link to="/search">
                 <Image className="image--menu" image={search} />
             </Link>
-            <Link className="navigation__link" to="/feed">
+            <Link to="/feed">
                 <Image className="image--menu" image={feed} />
             </Link>
-            <Link className="navigation__link" to="/public">
+            <Link to="/public">
                 <Image className="image--menu" image={world} />
             </Link>
-            <Link className="navigation__link" to="/following">
+            <Link to="/following">
                 <Image className="image--menu" image={people} />
             </Link>
             <Link
-                className="navigation__link"
                 to="/login"
                 onClick={() => {
                     fetch("/api/logout").then(() => {

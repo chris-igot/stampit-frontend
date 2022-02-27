@@ -1,26 +1,16 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputText from "../components/form/textInput";
-import { OutputType } from "../ts_types/types";
 import convertInputToFormData from "../utilities/convertInputToFormData";
-import postForm from "../utilities/postForm";
+import { postForm } from "../utilities/postForm";
 
 export default function Login() {
     const navigate = useNavigate();
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const formData = convertInputToFormData(e);
-        postForm("/api/login", formData).then((output) => {
-            switch (output.status) {
-                case 200:
-                    navigate("/home");
-                    break;
-                case 418:
-                    //TODO: error here
-                    break;
-                default:
-                    break;
-            }
+
+        postForm("/api/login", convertInputToFormData(e), () => {
+            navigate("/home");
         });
     }
     return (
@@ -34,14 +24,14 @@ export default function Login() {
                 >
                     <p className="logo--large" />
                     <h4>Login</h4>
-                    <InputText name="email" type="email" />
-                    <InputText name="password" type="password" />
+                    <InputText name="email" type="email" required />
+                    <InputText name="password" type="password" required />
                     <p>
                         New user?
                         <br />{" "}
                         <Link to={"/register"}>Create a new account</Link>
                     </p>
-                    <button className="btn-white" type="submit">
+                    <button className="btn-primary" type="submit">
                         Login
                     </button>
                 </form>

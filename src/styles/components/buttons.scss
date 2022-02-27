@@ -1,151 +1,4 @@
-@use "sass:color";
-@use "sass:map";
 @use "../common/colors";
-
-$c-white: map.get(colors.$colors, "c-white");
-$c-blue: map.get(colors.$colors, "c-blue");
-$c-black: map.get(colors.$colors, "c-black");
-$c-gray: map.get(colors.$colors, "c-gray");
-$c-red: map.get(colors.$colors, "c-red");
-
-@mixin btn-commonx(
-    $text-color1,
-    $text-color2,
-    $text-color3,
-    $bg-color1,
-    $bg-color2,
-    $bg-color3,
-    $border-color
-) {
-    box-sizing: border-box;
-    border-radius: 15px;
-    cursor: pointer;
-    color: $text-color1;
-    background-color: $bg-color1;
-    border: 0;
-    box-shadow: 0px 0px 5px 0px $border-color;
-    transition-duration: 0.15s;
-    // outline: rgba($color: $border-color, $alpha: 1) solid 1px;
-
-    &:hover {
-        box-shadow: 0px 0px 5px 1px $border-color;
-        // outline: $bg-color2 solid 1px;
-        color: $text-color2;
-        // background-color: $bg-color2;
-    }
-    &:active {
-        box-shadow: 0 0 0 0 $border-color;
-        // outline: $bg-color3 solid 2px;
-        color: $text-color3;
-        // background-color: $bg-color3;
-    }
-}
-
-@mixin btn-light($text-color1, $bg-color1, $border-color) {
-    $text-color2: color.scale($text-color1, $blackness: 10%);
-    $text-color3: color.scale($text-color1, $blackness: 20%);
-    $bg-color2: color.scale($bg-color1, $blackness: 10%);
-    $bg-color3: color.scale($bg-color1, $blackness: 20%);
-
-    @include btn-commonx(
-        $text-color1,
-        $text-color2,
-        $text-color3,
-        $bg-color1,
-        $bg-color2,
-        $bg-color3,
-        $border-color
-    );
-}
-
-@mixin btn-dark($text-color1, $bg-color1, $border-color) {
-    $text-color2: color.scale($text-color1, $whiteness: 10%);
-    $text-color3: color.scale($text-color1, $whiteness: 20%);
-    $bg-color2: color.scale($bg-color1, $whiteness: 10%);
-    $bg-color3: color.scale($bg-color1, $whiteness: 20%);
-
-    @include btn-commonx(
-        $text-color1,
-        $text-color2,
-        $text-color3,
-        $bg-color1,
-        $bg-color2,
-        $bg-color3,
-        $border-color
-    );
-}
-
-.btn-white {
-    @include btn-light($c-black, $c-white, rgba($color: $c-black, $alpha: 0.5));
-    padding: 6px 15px 9px 15px;
-
-    &--image {
-        @include btn-light(
-            $c-black,
-            $c-white,
-            rgba($color: $c-black, $alpha: 0.5)
-        );
-    }
-}
-
-.btn-gray {
-    @include btn-light($c-white, $c-gray, rgba($color: $c-black, $alpha: 0.5));
-    padding: 6px 15px 9px 15px;
-
-    &--image {
-        @include btn-light(
-            $c-white,
-            $c-gray,
-            rgba($color: $c-black, $alpha: 0.5)
-        );
-    }
-}
-
-.btn-blue {
-    @include btn-dark($c-white, $c-blue, rgba($color: $c-white, $alpha: 0.5));
-    padding: 6px 15px 9px 15px;
-
-    &--image {
-        @include btn-dark(
-            $c-white,
-            $c-blue,
-            rgba($color: $c-white, $alpha: 0.5)
-        );
-    }
-}
-
-.btn-red {
-    @include btn-dark($c-white, $c-red, rgba($color: $c-white, $alpha: 0.5));
-    padding: 6px 15px 9px 15px;
-
-    &--image {
-        @include btn-dark(
-            $c-white,
-            $c-red,
-            rgba($color: $c-white, $alpha: 0.5)
-        );
-    }
-}
-.btn-clear {
-    @include btn-light(
-        $c-gray,
-        rgba($color: white, $alpha: 0),
-        rgba($color: white, $alpha: 0)
-    );
-    padding: 6px 15px 9px 15px;
-
-    &--image {
-        @include btn-light(
-            $c-gray,
-            rgba($color: white, $alpha: 0),
-            rgba($color: white, $alpha: 0)
-        );
-    }
-}
-
-.ghost {
-    opacity: 0.5;
-}
 
 %btn-common {
     $height: 2rem;
@@ -162,6 +15,9 @@ $c-red: map.get(colors.$colors, "c-red");
     line-height: calc($height / 2);
     transition-duration: 0.15s;
 
+    &.ghost {
+        opacity: 0.5;
+    }
     &:hover {
         outline-width: 2px;
     }
@@ -189,7 +45,15 @@ $c-red: map.get(colors.$colors, "c-red");
 .btn-tertiary {
     color: colors.$clr-white;
     background-color: colors.$clr-gray-5;
-    outline-color: colors.$clr-gray-3;
+    outline-color: colors.$clr-gray-7;
+
+    @extend %btn-common;
+}
+
+.btn-danger {
+    color: colors.$clr-white;
+    background-color: colors.$clr-red-5;
+    outline-color: colors.$clr-red-7;
 
     @extend %btn-common;
 }

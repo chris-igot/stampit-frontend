@@ -1,49 +1,44 @@
 import React, { useEffect, useState } from "react";
 import InputText from "../components/form/textInput";
 import ProfileList from "../components/profileList";
-import { OutputType, ProfileType } from "../ts_types/types";
-import postForm from "../utilities/postForm";
+import { ProfileType } from "../ts_types/types";
+import convertInputToFormData from "../utilities/convertInputToFormData";
+import { postForm } from "../utilities/postForm";
 
 export default function Search() {
     const [results, setResults] = useState<ProfileType[]>([]);
     useEffect(() => {}, []);
 
-    function handleSearch() {
-        const searchString = (
-            document.getElementById("search") as HTMLInputElement
-        ).value;
-        let form = new FormData();
-        form.append("search", searchString);
-        postForm<ProfileType[]>("/api/profiles/search", form, "json").then(
+    function handleSearch(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        postForm<ProfileType[]>(
+            "/api/profiles/search",
+            convertInputToFormData(e),
             (output) => {
-                switch (output.status) {
-                    case 200:
-                        setResults(output.json as ProfileType[]);
-                        break;
-                    default:
-                        break;
-                }
-            }
+                setResults(output);
+            },
+            true
         );
     }
 
     return (
         <div className="page">
-            <form className="search-form" action="">
+            <form
+                className="width--max box-sizing--border flex flex--v-center flex--h-space-between mt-1 px-2 p--single-line-input-container bg--white rounded--max"
+                action=""
+                onSubmit={handleSearch}
+            >
                 <InputText name="search" type="text" />
 
                 <button
-                    className="btn-blue"
+                    className="btn-primary m--single-line-input"
                     type="submit"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        handleSearch();
-                    }}
                 >
                     Search
                 </button>
             </form>
-            <ProfileList profiles={results} updateFn={handleSearch} />
+            <ProfileList profiles={results} />
         </div>
     );
 }

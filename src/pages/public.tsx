@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Image from "../components/image";
-import { OutputType, PostType } from "../ts_types/types";
+import { PostType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 export default function Public() {
@@ -23,10 +23,11 @@ export default function Public() {
                     return;
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <div className="page">
-            <div className="thumbnails">
+            <div className="pt-1 flex flex--wrap width--max">
                 {posts.map((post) => (
                     <Link key={post.id} to={"/posts?postid=" + post.id}>
                         <Image

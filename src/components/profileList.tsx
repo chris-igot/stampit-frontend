@@ -28,7 +28,7 @@ export default function ProfileList(props: PropsType) {
                 button = (
                     <React.Fragment>
                         <button
-                            className="btn-white"
+                            className="btn-primary"
                             onClick={() => {
                                 handleRequestClick("accept", profile);
                             }}
@@ -36,7 +36,7 @@ export default function ProfileList(props: PropsType) {
                             accept
                         </button>
                         <button
-                            className="btn-red ml-1"
+                            className="btn-danger ml-1"
                             onClick={() => {
                                 handleRequestClick("reject", profile);
                             }}
@@ -56,34 +56,39 @@ export default function ProfileList(props: PropsType) {
         return button;
     }
     return (
-        <div id={"id" in props ? props.id : undefined} className="width--max">
-            {props.profiles.map((profile, index) => (
-                <div className="profile-list__row" key={index}>
-                    <Link
-                        className="profile-list__link"
-                        to={"/profiles?id=" + profile.id}
-                    >
-                        <Image
-                            className="image--listing"
-                            image={profile.image}
-                        />
-                    </Link>
-                    <div>
-                        <Link
-                            className="profile-list__link"
-                            to={"/profiles?id=" + profile.id}
-                        >
-                            {profile.name}
+        <div
+            id={"id" in props ? props.id : undefined}
+            className="display--inline-block width--max height--max flex flex--col flex--v-top vertical-align--top"
+        >
+            {props.profiles.length > 0 ? (
+                props.profiles.map((profile, index) => (
+                    <div className="profile-list__row" key={index}>
+                        <Link to={"/profiles?id=" + profile.id}>
+                            <Image
+                                className="image--listing"
+                                image={profile.image}
+                            />
                         </Link>
-                        {profile.isPrivate ? (
-                            <span className="tag--light">private</span>
-                        ) : (
-                            ""
-                        )}
+                        <div>
+                            <Link to={"/profiles?id=" + profile.id}>
+                                {profile.name}
+                            </Link>
+                            {profile.isPrivate ? (
+                                <span className="tag--dark">private</span>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+                        {setButton(profile)}
                     </div>
-                    {setButton(profile)}
+                ))
+            ) : (
+                <div className="flex flex--h-center">
+                    <h3 className="display--inline-block text--gray-5">
+                        empty
+                    </h3>
                 </div>
-            ))}
+            )}
         </div>
     );
 }

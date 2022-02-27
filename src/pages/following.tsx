@@ -1,7 +1,6 @@
-import { listenerCount } from "process";
 import React, { useEffect, useState } from "react";
 import ProfileList from "../components/profileList";
-import { OutputType, ProfileType } from "../ts_types/types";
+import { ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 export default function Following() {
@@ -67,7 +66,7 @@ export default function Following() {
         <div className="page">
             <div className="flex flex--h-center width--max">
                 <button
-                    className="btn-white m-1"
+                    className="btn-secondary m-1"
                     onClick={() => {
                         scrollTo("requested");
                     }}
@@ -75,7 +74,7 @@ export default function Following() {
                     requests ({requested.length})
                 </button>
                 <button
-                    className="btn-white m-1"
+                    className="btn-secondary m-1"
                     onClick={() => {
                         scrollTo("followed");
                     }}
@@ -83,7 +82,7 @@ export default function Following() {
                     followed ({followed.length})
                 </button>
                 <button
-                    className="btn-white m-1"
+                    className="btn-secondary m-1"
                     onClick={() => {
                         scrollTo("followers");
                     }}

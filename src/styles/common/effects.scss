@@ -24,6 +24,10 @@
     scroll-behavior: smooth;
 }
 
+.cursor--pointer {
+    cursor: pointer;
+}
+
 $z: 0, 1, 2, 3, 4, 9000, 9001;
 
 @mixin gen-z-index {

@@ -2,44 +2,32 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputCheckbox from "../components/form/checkboxInput";
 import InputText from "../components/form/textInput";
-import { OutputType } from "../ts_types/types";
 import convertInputToFormData from "../utilities/convertInputToFormData";
-import postForm from "../utilities/postForm";
+import { postForm } from "../utilities/postForm";
+import { escapeRegExp } from "../utilities/regex";
 
 export default function Register() {
     const navigate = useNavigate();
+
+    function handlePwChange(e: React.KeyboardEvent<HTMLInputElement>) {
+        const value = e.currentTarget.value;
+        const pwConfirmElement = document.getElementById(
+            "passwordConfirm"
+        ) as HTMLInputElement;
+        pwConfirmElement.pattern = escapeRegExp(value);
+    }
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = convertInputToFormData(e);
         let x: { [key: string]: any } = {};
+
         formData.forEach((val, key) => {
             x[key] = val;
         });
-        // fetch("/api/register", {
-        //     method: "POST",
-        //     body: JSON.stringify(x),
-        //     headers: { "Content-Type": "application/json" },
-        // })
-        //     .then((output) => {
-        //         console.log("REGISTRATION OUTPUT", output);
-        //         return output.json();
-        //     })
-        //     .then((output) => {
-        //         console.log("REGISTRATION OUTPUT2", output);
-        //     });
-        postForm("/api/register", formData).then((output) => {
-            console.log("REGISTRATION OUTPUT", output);
-            switch (output.status) {
-                case 200:
-                    navigate("/home");
-                    break;
-                case 418:
-                    //TODO: error here
-                    break;
-                default:
-                    // navigate("/login");
-                    break;
-            }
+
+        postForm("/api/register", convertInputToFormData(e), () => {
+            navigate("/home");
         });
     }
     return (
@@ -53,20 +41,34 @@ export default function Register() {
                 >
                     <p className="logo--large" />
                     <h4>Register</h4>
-                    <InputText name="username" />
-                    <InputText name="email" type="email" />
-                    <InputText name="password" type="password" />
+                    <InputText
+                        name="username"
+                        pattern="^[ -~]{2,32}$"
+                        title="Username must be between 2 and 32 characters"
+                        required
+                    />
+                    <InputText name="email" type="email" required />
+                    <InputText
+                        name="password"
+                        pattern="^[ -~]{8,100}$"
+                        title="Password must be between 8 and 100 characters"
+                        type="password"
+                        onKeyUp={handlePwChange}
+                        required
+                    />
                     <InputText
                         name="passwordConfirm"
                         type="password"
                         label="password confirmation"
+                        title="Password must match"
+                        required
                     />
                     <InputCheckbox name={"isPrivate"} label="private?" />
 
                     <p>
                         Go back to <Link to={"/login"}>Login</Link> page
                     </p>
-                    <button className="btn-white" type="submit">
+                    <button className="btn-primary" type="submit">
                         Register
                     </button>
                 </form>

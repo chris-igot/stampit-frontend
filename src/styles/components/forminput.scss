@@ -2,18 +2,24 @@
 @use "sass:list";
 @use "../common/colors";
 
+$margin-top: 8px;
+$margin-bottom: 8px;
+
 .form__input {
     $field-width: 12rem;
     $field-color: colors.$clr-white;
+    $field-color-error: colors.$clr-red-9;
     $border-color: colors.$clr-gray-5;
+    $border-color-error: colors.$clr-red-5;
     $text-color: colors.$clr-black;
+    $text-color-error: colors.$clr-red-3;
     $text-label-color: colors.$clr-black;
     $text-smalllabel-color: colors.$clr-gray-5;
     $positive: colors.$clr-blue-5;
-    $negative: colors.$clr-red;
+    $negative: colors.$clr-red-5;
     $height: 2.5rem;
     $radius: calc($height/2);
-    $margin: 4px 0 0.5rem 0;
+    $margin: $margin-top 0 $margin-bottom 0;
 
     &--text {
         position: relative;
@@ -56,6 +62,16 @@
 
             &:focus + label {
                 @extend %form-input-text-smalllabel;
+            }
+
+            &.submitted:invalid {
+                outline-color: $border-color-error;
+                background-color: $field-color-error;
+                color: $text-color-error;
+
+                & + label {
+                    color: $text-color-error;
+                }
             }
 
             @extend %form-input-text-common;
@@ -190,4 +206,14 @@
             }
         }
     }
+}
+
+.p--single-line-input-container {
+    padding-top: $margin-bottom;
+    padding-bottom: $margin-top;
+}
+
+.m--single-line-input {
+    margin-top: $margin-top;
+    margin-bottom: $margin-bottom;
 }

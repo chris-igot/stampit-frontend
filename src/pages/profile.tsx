@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FollowButton from "../components/followButton";
 import EditProfile from "../components/form/editProfile";
 
 import Image from "../components/image";
-import { OutputType, PostType, ProfileType } from "../ts_types/types";
+import { PostType, ProfileType } from "../ts_types/types";
 
 import getData from "../utilities/getData";
 
 import PostNew from "../components/form/postNew";
 
 import noProfilePic from "../icons/round_account_circle_white_48dp.png";
+import {
+    AddOverlayFnType,
+    overlayContext,
+} from "../context/overlaidContentProvider";
 
 interface PropsType {
     home?: boolean;
 }
 
 export default function Profile(props: PropsType = { home: false }) {
+    const { addOverlay } = useContext(overlayContext);
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [profile, setProfile] = useState<ProfileType>({
@@ -33,57 +38,13 @@ export default function Profile(props: PropsType = { home: false }) {
         user: { id: "", username: "", email: "", roles: [] },
     });
     const [posts, setPosts] = useState<PostType[]>([]);
-
-    const [editInfo, setEditInfo] = useState(false);
-    const [uploadPic, setUploadPic] = useState(false);
     const [posts403, setPosts403] = useState(false);
 
     useEffect(() => {
-        let postsRoute = "";
-        const id = searchParams.get("id");
-        if (props.home) {
-            postsRoute = "/api/posts/self";
-        } else {
-            postsRoute = "/api/posts?id=" + id;
-        }
-
         updateProfile();
-        getData<PostType[]>(postsRoute).then((output) => {
-            switch (output.status) {
-                case 200:
-                    setPosts(
-                        output.json.sort((a, b) =>
-                            b.createdAt.localeCompare(a.createdAt)
-                        )
-                    );
-                    setPosts403(false);
-                    break;
-                case 403:
-                    setPosts403(true);
-                    break;
-                default:
-                    navigate("/login");
-                    return;
-            }
-        });
+        updatePosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        if (props.home) {
-            getData<ProfileType>("/api/profiles/home").then((output) => {
-                switch (output.status) {
-                    case 200:
-                        setProfile(output.json);
-                        break;
-                    default:
-                        navigate("/login");
-                        break;
-                }
-            });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [editInfo]);
 
     function updateProfile() {
         let profileRoute = "";
@@ -107,128 +68,133 @@ export default function Profile(props: PropsType = { home: false }) {
         });
     }
 
-    function displayInfo() {
-        const infoText = (
-            <div
-                className={
-                    props.home
-                        ? "profile_header--texts editable"
-                        : "profile_header--texts"
-                }
-                onClick={() => {
-                    if (props.home) {
-                        setEditInfo(true);
-                    }
-                }}
-            >
-                <h6 className="profile-header__title">{profile.title}</h6>
-                <p className="profile-header__bio">{profile.bio}</p>
-            </div>
-        );
-
-        const noInfo = (
-            <div
-                onClick={() => {
-                    if (props.home) {
-                        setEditInfo(true);
-                    }
-                }}
-            >
-                Add profile info
-            </div>
-        );
-
+    function updatePosts() {
+        let postsRoute = "";
+        const id = searchParams.get("id");
         if (props.home) {
-            if (profile.title === null && profile.bio === null) {
-                return noInfo;
-            } else {
-                return infoText;
-            }
+            postsRoute = "/api/posts/self";
         } else {
-            return infoText;
+            postsRoute = "/api/posts?id=" + id;
         }
+
+        getData<PostType[]>(postsRoute).then((output) => {
+            switch (output.status) {
+                case 200:
+                    setPosts(
+                        output.json.sort((a, b) =>
+                            b.createdAt.localeCompare(a.createdAt)
+                        )
+                    );
+                    setPosts403(false);
+                    break;
+                case 403:
+                    setPosts403(true);
+                    break;
+                default:
+                    navigate("/login");
+                    return;
+            }
+        });
     }
 
     return (
         <div className="page">
-            <div className="profile-header">
-                {editInfo && (
-                    <EditProfile
-                        profile={profile}
-                        enableFn={setEditInfo}
-                        onExit={() => {
-                            updateProfile();
-                        }}
-                    />
-                )}
-                {uploadPic && (
-                    <PostNew
-                        enableFn={setUploadPic}
-                        onExit={() => {
-                            updateProfile();
-                        }}
-                    />
-                )}
-                <Image
-                    className={
-                        props.home
-                            ? "image--profile editable"
-                            : "image--profile"
-                    }
-                    image={profile.image != null ? profile.image : noProfilePic}
-                    onClick={() => {
-                        if (props.home) {
-                            setEditInfo(true);
+            <div className="width--max flex flex--col pb-1">
+                <div className="flex flex--h-space-between pt-1">
+                    <Image
+                        className={"image--profile"}
+                        image={
+                            profile.image != null ? profile.image : noProfilePic
                         }
-                    }}
-                />
-                <div className="profile-header__stats">
-                    <div>
-                        <h2>{posts.length}</h2>
-                        <p>posts</p>
+                    />
+
+                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                        <h2 className="text--center text--w-700 my-1 mx-0">
+                            {posts.length}
+                        </h2>
+                        <p className="my-1 mx-0 text--w-300 text--center">
+                            posts
+                        </p>
                     </div>
-                    <div>
-                        <h2>{profile.followers}</h2>
-                        <p>followers</p>
+                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                        <h2 className="text--center text--w-700 my-1 mx-0">
+                            {profile.followers}
+                        </h2>
+                        <p className="my-1 mx-0 text--w-300 text--center">
+                            followers
+                        </p>
                     </div>
-                    <div>
-                        <h2>{profile.followed}</h2>
-                        <p>following</p>
+                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                        <h2 className="text--center text--w-700 my-1 mx-0">
+                            {profile.followed}
+                        </h2>
+                        <p className="my-1 mx-0 text--w-300 text--center">
+                            following
+                        </p>
                     </div>
                 </div>
-                <div className="profile-header__info">
-                    {!props.home && (
-                        <FollowButton
-                            profile={profile}
-                            onClick={updateProfile}
-                        />
-                    )}
-                    {props.home ? (
-                        <button
-                            className="btn-blue"
-                            onClick={() => {
-                                setUploadPic(true);
-                            }}
-                        >
-                            upload
-                        </button>
-                    ) : (
-                        ""
-                    )}
-                    <div>
-                        <span className="profile-header__name">
-                            {profile.name}
-                        </span>{" "}
-                        {profile.isPrivate ? (
-                            <span className="tag--dark">private</span>
+                <div>
+                    <div className="my-1 p-2 rounded--max bg--white">
+                        {!props.home && (
+                            <FollowButton
+                                profile={profile}
+                                onClick={updateProfile}
+                            />
+                        )}
+                        {props.home ? (
+                            <React.Fragment>
+                                <button
+                                    className="btn-primary mr-1"
+                                    onClick={() => {
+                                        // setUploadPic(true);
+                                        (addOverlay as AddOverlayFnType)(
+                                            "form",
+                                            <PostNew
+                                                onExit={() => {
+                                                    updatePosts();
+                                                }}
+                                            />
+                                        );
+                                    }}
+                                >
+                                    upload
+                                </button>
+                                <button
+                                    className="btn-secondary"
+                                    onClick={() => {
+                                        (addOverlay as AddOverlayFnType)(
+                                            "form",
+                                            <EditProfile
+                                                profile={profile}
+                                                onExit={() => {
+                                                    updateProfile();
+                                                }}
+                                            />
+                                        );
+                                    }}
+                                >
+                                    edit profile
+                                </button>
+                            </React.Fragment>
                         ) : (
                             ""
                         )}
                     </div>
-                    {displayInfo()}
+                    <div className="p-2 rounded--15 bg--white">
+                        <h4 className="m-0 flex flex--v-center">
+                            <span>{profile.name}</span>{" "}
+                            {profile.isPrivate ? (
+                                <span className="tag--dark ml-1">private</span>
+                            ) : (
+                                ""
+                            )}
+                        </h4>
+                        <h5 className="m-0">{profile.title}</h5>
+                        <p className="m-0">{profile.bio}</p>
+                    </div>
                 </div>
             </div>
-            <div className="thumbnails">
+            <div className="pt-1 flex flex--wrap width--max">
                 {posts.map((post) => (
                     <Link key={post.id} to={"/posts?postid=" + post.id}>
                         <Image

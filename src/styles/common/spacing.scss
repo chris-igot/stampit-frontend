@@ -1,4 +1,4 @@
-$sizes: 0, 1, 2;
+$sizes: 0, 1, 2, 4, 6;
 
 @mixin genspacing($attr) {
     @each $size in $sizes {

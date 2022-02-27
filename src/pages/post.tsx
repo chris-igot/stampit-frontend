@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Image from "../components/image";
 import StampList from "../components/stampList";
-import {
-    OutputType,
-    PostType,
-    ProfileType,
-    StampType,
-} from "../ts_types/types";
+import { PostType, ProfileType, StampType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 export default function Post() {
@@ -95,7 +90,11 @@ export default function Post() {
         <div className="page">
             <div className="post">
                 <div
-                    className={stampEnabled ? "post-top stamping" : "post-top"}
+                    className={
+                        stampEnabled
+                            ? "cursor--rel overflow--hidden cursor--pointer"
+                            : "cursor--rel overflow--hidden"
+                    }
                     onClick={(e) => {
                         if (stampEnabled) {
                             handleClick(e);
@@ -106,7 +105,7 @@ export default function Post() {
                     {stamps.map((stamp) => (
                         <div
                             key={stamp.id}
-                            className="stamp"
+                            className="image--stamp"
                             style={{
                                 left: `calc(${stamp.x / 100}% - 24px)`,
                                 top: `calc(${stamp.y / 100}% - 24px)`,
@@ -117,7 +116,7 @@ export default function Post() {
                     ))}
                 </div>
 
-                <div className="post-middle">
+                <div className="position--rel flex flex--h-space-between">
                     <button
                         className={stampEnabled ? "btn-red" : "btn-white"}
                         onClick={(e) => {
@@ -136,11 +135,8 @@ export default function Post() {
                         />
                     )}
 
-                    <p className="post-middle__credits">
-                        <Link
-                            className="post-middle__link"
-                            to={"/profiles?id=" + profile.id}
-                        >
+                    <p className="m-0">
+                        <Link to={"/profiles?id=" + profile.id}>
                             {profile.name}
                         </Link>
                     </p>

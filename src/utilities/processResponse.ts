@@ -1,4 +1,8 @@
-import { OutputType } from "../ts_types/types";
+interface OutputType<T> {
+    status: number;
+    json: T;
+    error?: string;
+}
 
 function processResponse<T = Object>(returnType: "status" | "json" = "status") {
     return function (response: Response): Promise<OutputType<T>> {

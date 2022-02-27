@@ -1,31 +1,47 @@
-import React from "react";
+import React, { useContext, useEffect, useRef } from "react";
+import {
+    overlayContext,
+    RemoveOverlayFnType,
+} from "../context/overlaidContentProvider";
 
 interface PropsType {
+    index: number;
+    type: string;
     message: string;
-    children?: React.ReactNode;
-    display: boolean;
-    setDisplay: (displayState: boolean) => void;
+    priority: number;
 }
 
 export default function Dialog(props: PropsType) {
+    const { removeOverlay } = useContext(overlayContext);
+    const dialogRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        (dialogRef.current as HTMLDivElement).style.zIndex = (
+            9500 + props.priority
+        ).toString();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <React.Fragment>
-            {props.display && (
+            {
                 <div className="modal">
-                    <div className="modal__dialog">
+                    <div className="modal__dialog" ref={dialogRef}>
                         <p>{props.message}</p>
-                        {props.children}
                         <button
-                            className="btn-white"
+                            className="btn-primary"
                             onClick={() => {
-                                props.setDisplay(false);
+                                (removeOverlay as RemoveOverlayFnType)(
+                                    props.type,
+                                    props.index
+                                );
                             }}
                         >
                             Ok
                         </button>
                     </div>
                 </div>
-            )}
+            }
         </React.Fragment>
     );
 }

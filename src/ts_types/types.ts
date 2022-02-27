@@ -40,8 +40,8 @@ export type UserType = {
     roles: string[];
 };
 
-export interface OutputType<T> {
-    status: number;
-    json: T;
-    error?: string;
-}
+// export interface OutputType<T> {
+//     status: number;
+//     json: T;
+//     error?: string;
+// }

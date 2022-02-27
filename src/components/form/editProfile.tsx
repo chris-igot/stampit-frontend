@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import {
+    overlayContext,
+    RemoveOverlayFnType,
+} from "../../context/overlaidContentProvider";
 import { ProfileType } from "../../ts_types/types";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
-import postForm from "../../utilities/postForm";
+import { postForm } from "../../utilities/postForm";
 import Image from "../image";
 import InputCheckbox from "./checkboxInput";
 import InputFile from "./fileInput";
@@ -10,10 +14,10 @@ import InputText from "./textInput";
 interface PropsType {
     profile: ProfileType;
     onExit?: Function;
-    enableFn: (enable: boolean) => void;
 }
 
 export default function EditProfile(props: PropsType) {
+    const { removeOverlay } = useContext(overlayContext);
     const [profileImgURL, setProfileImgURL] = useState(props.profile.image);
     const [formUpdateState, setFormUpdateState] = useState({
         image: false,
@@ -41,38 +45,25 @@ export default function EditProfile(props: PropsType) {
     }
 
     function submitProfilePic(formData: FormData) {
-        postForm("/api/profiles/home/setimage", formData).then((output) => {
-            switch (output.status) {
-                case 200:
-                    if ("onExit" in props) {
-                        (props.onExit as Function)();
-                    }
-                    break;
-                default:
-                    return;
+        postForm("/api/profiles/home/setimage", formData, () => {
+            if ("onExit" in props) {
+                (props.onExit as Function)();
             }
+            (removeOverlay as RemoveOverlayFnType)("form", 0);
         });
     }
 
     function submitInfo(formData: FormData) {
-        postForm("/api/profiles/home/edit", formData).then((output) => {
-            switch (output.status) {
-                case 200:
-                    if ("onExit" in props) {
-                        (props.onExit as Function)();
-                    }
-                    break;
-                case 418:
-                    break;
-                default:
-                    break;
+        postForm("/api/profiles/home/edit", formData, () => {
+            if ("onExit" in props) {
+                (props.onExit as Function)();
             }
+            (removeOverlay as RemoveOverlayFnType)("form", 0);
         });
     }
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        props.enableFn(false);
 
         if (formUpdateState.image) {
             let formData = convertInputToFormData(e);
@@ -87,7 +78,7 @@ export default function EditProfile(props: PropsType) {
         }
     }
     return (
-        <div className="modal">
+        <div key={"editProfile"} className="modal">
             <form
                 className="modal__form width--50"
                 action=""
@@ -125,7 +116,7 @@ export default function EditProfile(props: PropsType) {
                     <InputText
                         width="100%"
                         name={"title"}
-                        value={props.profile.title}
+                        defaultValue={props.profile.title}
                         onChange={() => {
                             formUpdateState.text = true;
                             setFormUpdateState(formUpdateState);
@@ -165,7 +156,7 @@ export default function EditProfile(props: PropsType) {
                         className="btn-secondary"
                         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                             e.preventDefault();
-                            props.enableFn(false);
+                            (removeOverlay as RemoveOverlayFnType)("form", 0);
                         }}
                     >
                         Cancel
