@@ -1,26 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputText from "../../components/form/textInput";
-import { OutputType } from "../../ts_types/types";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
-import postForm from "../../utilities/postForm";
+import { postForm } from "../../utilities/postForm";
 
 export default function AdminLogin() {
     const navigate = useNavigate();
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = convertInputToFormData(e);
-        postForm("/api/admin/login", formData).then((output) => {
-            switch (output.status) {
-                case 200:
-                    navigate("/admin/home");
-                    break;
-                case 418:
-                    //TODO: error here
-                    break;
-                default:
-                    break;
-            }
+
+        postForm("/api/admin/login", formData, () => {
+            navigate("/admin/home");
         });
     }
     return (

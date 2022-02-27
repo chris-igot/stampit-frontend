@@ -5,7 +5,7 @@ import {
 } from "../../context/overlaidContentProvider";
 import { ProfileType } from "../../ts_types/types";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
-import postForm from "../../utilities/postForm";
+import { postForm } from "../../utilities/postForm";
 import Image from "../image";
 import InputCheckbox from "./checkboxInput";
 import InputFile from "./fileInput";
@@ -45,34 +45,20 @@ export default function EditProfile(props: PropsType) {
     }
 
     function submitProfilePic(formData: FormData) {
-        postForm("/api/profiles/home/setimage", formData).then((output) => {
-            switch (output.status) {
-                case 200:
-                    if ("onExit" in props) {
-                        (props.onExit as Function)();
-                    }
-                    (removeOverlay as RemoveOverlayFnType)("form", 0);
-                    break;
-                default:
-                    return;
+        postForm("/api/profiles/home/setimage", formData, () => {
+            if ("onExit" in props) {
+                (props.onExit as Function)();
             }
+            (removeOverlay as RemoveOverlayFnType)("form", 0);
         });
     }
 
     function submitInfo(formData: FormData) {
-        postForm("/api/profiles/home/edit", formData).then((output) => {
-            switch (output.status) {
-                case 200:
-                    if ("onExit" in props) {
-                        (props.onExit as Function)();
-                    }
-                    (removeOverlay as RemoveOverlayFnType)("form", 0);
-                    break;
-                case 418:
-                    break;
-                default:
-                    break;
+        postForm("/api/profiles/home/edit", formData, () => {
+            if ("onExit" in props) {
+                (props.onExit as Function)();
             }
+            (removeOverlay as RemoveOverlayFnType)("form", 0);
         });
     }
 

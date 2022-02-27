@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
-import postForm from "../../utilities/postForm";
+import { postForm } from "../../utilities/postForm";
 import Image from "../image";
 import InputFile from "./fileInput";
 
@@ -22,18 +22,7 @@ export default function StampNew() {
         e.preventDefault();
         const formData = convertInputToFormData(e);
 
-        postForm<Object>(
-            "/api/admin/stamps/multiplenew",
-            formData,
-            "status"
-        ).then((output) => {
-            switch (output.status) {
-                case 200:
-                    break;
-                default:
-                    return;
-            }
-        });
+        postForm("/api/admin/stamps/multiplenew", formData);
     }
 
     function resetFiles() {

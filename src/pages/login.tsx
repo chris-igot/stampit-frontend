@@ -2,21 +2,15 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputText from "../components/form/textInput";
 import convertInputToFormData from "../utilities/convertInputToFormData";
-import postForm from "../utilities/postForm";
+import { postForm } from "../utilities/postForm";
 
 export default function Login() {
     const navigate = useNavigate();
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const formData = convertInputToFormData(e);
-        postForm("/api/login", formData).then((output) => {
-            switch (output.status) {
-                case 200:
-                    navigate("/home");
-                    break;
-                default:
-                    break;
-            }
+
+        postForm("/api/login", convertInputToFormData(e), () => {
+            navigate("/home");
         });
     }
     return (
