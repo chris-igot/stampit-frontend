@@ -16,7 +16,13 @@ interface PropsType {
     onKeyUp?: onKeyUpFunc;
     onChange?: onChangeFunc;
 }
-export default function InputText({ name, width, label, ...props }: PropsType) {
+export default function InputText({
+    name,
+    type,
+    width,
+    label,
+    ...props
+}: PropsType) {
     const [blank, setBlank] = useState(true);
     const [submitted, setSubmitted] = useState(false);
     const divRef = useRef<HTMLDivElement>(null);
@@ -65,6 +71,7 @@ export default function InputText({ name, width, label, ...props }: PropsType) {
                     (submitted ? "submitted" : "") +
                     ("className" in props ? " " + props.className : "")
                 }
+                type={type !== undefined ? type : "text"}
                 ref={inputRef}
                 name={name}
                 {...props}
