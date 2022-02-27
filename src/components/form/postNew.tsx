@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+    overlayContext,
+    RemoveOverlayFnType,
+} from "../../context/overlaidContentProvider";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
 import postForm from "../../utilities/postForm";
 import InputFile from "./fileInput";
 import InputText from "./textInput";
 
-type EnableFnType = (enable: boolean) => void;
 interface PropsType {
     onExit?: Function;
-    enableFn?: EnableFnType;
 }
 
 export default function PostNew(props: PropsType) {
+    const { removeOverlay } = useContext(overlayContext);
     const navigate = useNavigate();
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -19,10 +22,11 @@ export default function PostNew(props: PropsType) {
         postForm("/api/posts/new", formData).then((output) => {
             switch (output.status) {
                 case 200:
-                    (props.enableFn as (enable: boolean) => void)(false);
                     if ("onExit" in props) {
                         (props.onExit as Function)();
                     }
+                    (removeOverlay as RemoveOverlayFnType)("form", 0);
+
                     break;
                 default:
                     navigate("/home");
@@ -31,7 +35,7 @@ export default function PostNew(props: PropsType) {
         });
     }
     return (
-        <div className="page modal">
+        <div key={"postNew"} className="page modal">
             <form
                 className="modal__form"
                 action=""
@@ -53,12 +57,7 @@ export default function PostNew(props: PropsType) {
                     className="btn-secondary"
                     onClick={(e) => {
                         e.preventDefault();
-                        if ("onExit" in props) {
-                            (props.onExit as Function)();
-                        }
-                        if ("enableFn" in props) {
-                            (props.enableFn as EnableFnType)(false);
-                        }
+                        (removeOverlay as RemoveOverlayFnType)("form", 0);
                     }}
                 >
                     cancel

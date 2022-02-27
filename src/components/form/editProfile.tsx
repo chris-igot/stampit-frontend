@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import {
+    overlayContext,
+    RemoveOverlayFnType,
+} from "../../context/overlaidContentProvider";
 import { ProfileType } from "../../ts_types/types";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
 import postForm from "../../utilities/postForm";
@@ -10,10 +14,10 @@ import InputText from "./textInput";
 interface PropsType {
     profile: ProfileType;
     onExit?: Function;
-    enableFn: (enable: boolean) => void;
 }
 
 export default function EditProfile(props: PropsType) {
+    const { removeOverlay } = useContext(overlayContext);
     const [profileImgURL, setProfileImgURL] = useState(props.profile.image);
     const [formUpdateState, setFormUpdateState] = useState({
         image: false,
@@ -47,6 +51,7 @@ export default function EditProfile(props: PropsType) {
                     if ("onExit" in props) {
                         (props.onExit as Function)();
                     }
+                    (removeOverlay as RemoveOverlayFnType)("form", 0);
                     break;
                 default:
                     return;
@@ -61,6 +66,7 @@ export default function EditProfile(props: PropsType) {
                     if ("onExit" in props) {
                         (props.onExit as Function)();
                     }
+                    (removeOverlay as RemoveOverlayFnType)("form", 0);
                     break;
                 case 418:
                     break;
@@ -72,7 +78,6 @@ export default function EditProfile(props: PropsType) {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        props.enableFn(false);
 
         if (formUpdateState.image) {
             let formData = convertInputToFormData(e);
@@ -87,7 +92,7 @@ export default function EditProfile(props: PropsType) {
         }
     }
     return (
-        <div className="modal">
+        <div key={"editProfile"} className="modal">
             <form
                 className="modal__form width--50"
                 action=""
@@ -165,7 +170,7 @@ export default function EditProfile(props: PropsType) {
                         className="btn-secondary"
                         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                             e.preventDefault();
-                            props.enableFn(false);
+                            (removeOverlay as RemoveOverlayFnType)("form", 0);
                         }}
                     >
                         Cancel

@@ -11,6 +11,7 @@ import Search from "./pages/search";
 import AdminLogin from "./pages/admin/adminLogin";
 import AdminHome from "./pages/admin/adminHome";
 import Feed from "./pages/feed";
+import OverlaidContentProvider from "./context/overlaidContentProvider";
 
 function App() {
     // const loc = useLocation();
@@ -22,93 +23,95 @@ function App() {
     }, []);
     return (
         <Router>
-            {/* <Menu /> */}
-            <Routes>
-                <Route path="/admin/home" element={<AdminHome />} />
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/" element={<Profile home={true} />} />
-                <Route
-                    path="/home"
-                    element={
-                        <React.Fragment>
-                            <Menu />
-                            <Profile home={true} />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/profiles"
-                    element={
-                        <React.Fragment>
-                            <Menu />
-                            <Profile home={false} />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/search"
-                    element={
-                        <React.Fragment>
-                            <Menu />
-                            <Search />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/following"
-                    element={
-                        <React.Fragment>
-                            <Menu />
-                            <Following />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/posts"
-                    element={
-                        <React.Fragment>
-                            <Menu />
-                            <Post />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/login"
-                    element={
-                        <React.Fragment>
-                            {/* <Menu /> */}
-                            <Login />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/register"
-                    element={
-                        <React.Fragment>
-                            {/* <Menu /> */}
-                            <Register />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/public"
-                    element={
-                        <React.Fragment>
-                            <Menu />
-                            <Public />
-                        </React.Fragment>
-                    }
-                />
-                <Route
-                    path="/feed"
-                    element={
-                        <React.Fragment>
-                            <Menu />
-                            <Feed />
-                        </React.Fragment>
-                    }
-                />
-            </Routes>
+            <OverlaidContentProvider>
+                {/* <Menu /> */}
+                <Routes>
+                    <Route path="/admin/home" element={<AdminHome />} />
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/" element={<Profile home={true} />} />
+                    <Route
+                        path="/home"
+                        element={
+                            <React.Fragment>
+                                <Menu />
+                                <Profile home={true} />
+                            </React.Fragment>
+                        }
+                    />
+                    <Route
+                        path="/profiles"
+                        element={
+                            <React.Fragment>
+                                <Menu />
+                                <Profile home={false} />
+                            </React.Fragment>
+                        }
+                    />
+                    <Route
+                        path="/search"
+                        element={
+                            <React.Fragment>
+                                <Menu />
+                                <Search />
+                            </React.Fragment>
+                        }
+                    />
+                    <Route
+                        path="/following"
+                        element={
+                            <React.Fragment>
+                                <Menu />
+                                <Following />
+                            </React.Fragment>
+                        }
+                    />
+                    <Route
+                        path="/posts"
+                        element={
+                            <React.Fragment>
+                                <Menu />
+                                <Post />
+                            </React.Fragment>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <React.Fragment>
+                                {/* <Menu /> */}
+                                <Login />
+                            </React.Fragment>
+                        }
+                    />
+                    <Route
+                        path="/register"
+                        element={
+                            <React.Fragment>
+                                {/* <Menu /> */}
+                                <Register />
+                            </React.Fragment>
+                        }
+                    />
+                    <Route
+                        path="/public"
+                        element={
+                            <React.Fragment>
+                                <Menu />
+                                <Public />
+                            </React.Fragment>
+                        }
+                    />
+                    <Route
+                        path="/feed"
+                        element={
+                            <React.Fragment>
+                                <Menu />
+                                <Feed />
+                            </React.Fragment>
+                        }
+                    />
+                </Routes>
+            </OverlaidContentProvider>
         </Router>
     );
 }

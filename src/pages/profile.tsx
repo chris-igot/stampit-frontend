@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FollowButton from "../components/followButton";
 import EditProfile from "../components/form/editProfile";
 
 import Image from "../components/image";
-import { OutputType, PostType, ProfileType } from "../ts_types/types";
+import { PostType, ProfileType } from "../ts_types/types";
 
 import getData from "../utilities/getData";
 
 import PostNew from "../components/form/postNew";
 
 import noProfilePic from "../icons/round_account_circle_white_48dp.png";
+import {
+    AddOverlayFnType,
+    overlayContext,
+} from "../context/overlaidContentProvider";
 
 interface PropsType {
     home?: boolean;
 }
 
 export default function Profile(props: PropsType = { home: false }) {
+    const { addOverlay } = useContext(overlayContext);
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [profile, setProfile] = useState<ProfileType>({
@@ -33,57 +38,13 @@ export default function Profile(props: PropsType = { home: false }) {
         user: { id: "", username: "", email: "", roles: [] },
     });
     const [posts, setPosts] = useState<PostType[]>([]);
-
-    const [editInfo, setEditInfo] = useState(false);
-    const [uploadPic, setUploadPic] = useState(false);
     const [posts403, setPosts403] = useState(false);
 
     useEffect(() => {
-        let postsRoute = "";
-        const id = searchParams.get("id");
-        if (props.home) {
-            postsRoute = "/api/posts/self";
-        } else {
-            postsRoute = "/api/posts?id=" + id;
-        }
-
         updateProfile();
-        getData<PostType[]>(postsRoute).then((output) => {
-            switch (output.status) {
-                case 200:
-                    setPosts(
-                        output.json.sort((a, b) =>
-                            b.createdAt.localeCompare(a.createdAt)
-                        )
-                    );
-                    setPosts403(false);
-                    break;
-                case 403:
-                    setPosts403(true);
-                    break;
-                default:
-                    navigate("/login");
-                    return;
-            }
-        });
+        updatePosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        if (props.home) {
-            getData<ProfileType>("/api/profiles/home").then((output) => {
-                switch (output.status) {
-                    case 200:
-                        setProfile(output.json);
-                        break;
-                    default:
-                        navigate("/login");
-                        break;
-                }
-            });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [editInfo]);
 
     function updateProfile() {
         let profileRoute = "";
@@ -107,26 +68,38 @@ export default function Profile(props: PropsType = { home: false }) {
         });
     }
 
+    function updatePosts() {
+        let postsRoute = "";
+        const id = searchParams.get("id");
+        if (props.home) {
+            postsRoute = "/api/posts/self";
+        } else {
+            postsRoute = "/api/posts?id=" + id;
+        }
+
+        getData<PostType[]>(postsRoute).then((output) => {
+            switch (output.status) {
+                case 200:
+                    setPosts(
+                        output.json.sort((a, b) =>
+                            b.createdAt.localeCompare(a.createdAt)
+                        )
+                    );
+                    setPosts403(false);
+                    break;
+                case 403:
+                    setPosts403(true);
+                    break;
+                default:
+                    navigate("/login");
+                    return;
+            }
+        });
+    }
+
     return (
         <div className="page">
             <div className="width--max flex flex--col pb-1">
-                {editInfo && (
-                    <EditProfile
-                        profile={profile}
-                        enableFn={setEditInfo}
-                        onExit={() => {
-                            updateProfile();
-                        }}
-                    />
-                )}
-                {uploadPic && (
-                    <PostNew
-                        enableFn={setUploadPic}
-                        onExit={() => {
-                            updateProfile();
-                        }}
-                    />
-                )}
                 <div className="flex flex--h-space-between pt-1">
                     <Image
                         className={"image--profile"}
@@ -173,7 +146,15 @@ export default function Profile(props: PropsType = { home: false }) {
                                 <button
                                     className="btn-primary mr-1"
                                     onClick={() => {
-                                        setUploadPic(true);
+                                        // setUploadPic(true);
+                                        (addOverlay as AddOverlayFnType)(
+                                            "form",
+                                            <PostNew
+                                                onExit={() => {
+                                                    updatePosts();
+                                                }}
+                                            />
+                                        );
                                     }}
                                 >
                                     upload
@@ -181,7 +162,15 @@ export default function Profile(props: PropsType = { home: false }) {
                                 <button
                                     className="btn-secondary"
                                     onClick={() => {
-                                        setEditInfo(true);
+                                        (addOverlay as AddOverlayFnType)(
+                                            "form",
+                                            <EditProfile
+                                                profile={profile}
+                                                onExit={() => {
+                                                    updateProfile();
+                                                }}
+                                            />
+                                        );
                                     }}
                                 >
                                     edit profile
