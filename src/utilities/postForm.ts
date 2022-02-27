@@ -7,9 +7,9 @@ interface OutputType<T> {
 export function postForm<T>(
     url = "/",
     formData: FormData,
-    onSuccess?: (value: T) => void,
+    onSuccess: (value: T) => void = () => {},
     returnsData = false,
-    onFail?: (status: number) => void
+    onFail: (status: number) => void = () => {}
 ) {
     return fetch(url, {
         method: "POST",
@@ -17,7 +17,7 @@ export function postForm<T>(
     })
         .then(async (response) => {
             let dataOut: OutputType<T>;
-            console.log({ response, onSuccess });
+
             if (response.status === 200) {
                 if (returnsData) {
                     dataOut = await new Promise((resolve) => {
