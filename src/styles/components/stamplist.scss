@@ -1,20 +1,23 @@
+@use "../common/colors";
+
 .stamp-list {
     position: absolute;
     padding: 2px 4px 22px 4px;
-    outline: gray solid 1px;
+    outline: colors.$clr-gray-5 solid 1px;
     border-radius: 15px;
-    color: white;
+    color: colors.$clr-white;
+    background-color: colors.$clr-blue-7;
 
     .open {
         margin: 0;
         height: 20px;
         text-align: center;
-        color: white;
+        color: colors.$clr-white;
         cursor: pointer;
         transition-duration: 0.2s;
 
         &.expanded {
-            background-color: rgba($color: gray, $alpha: 0);
+            background-color: rgba($color: colors.$clr-gray-5, $alpha: 0);
             transform: rotate(180deg);
             transform-origin: 50% 50%;
         }
@@ -32,8 +35,10 @@
         scroll-behavior: smooth;
         scroll-snap-type: y mandatory;
         overflow-x: hidden;
-        // overflow-y: hidden;
         transition-duration: 0.2s;
+
+        background-color: colors.$clr-blue-9;
+        border-radius: 5px;
 
         .image--stamp-listing {
             margin: 0;
@@ -46,9 +51,5 @@
                 opacity: 1;
             }
         }
-    }
-
-    &__container {
-        position: relative;
     }
 }

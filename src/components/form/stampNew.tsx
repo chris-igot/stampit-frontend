@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import {
+    overlayContext,
+    RemoveOverlayFnType,
+} from "../../context/overlaidContentProvider";
 import convertInputToFormData from "../../utilities/convertInputToFormData";
 import { postForm } from "../../utilities/postForm";
 import Image from "../image";
 import InputFile from "./fileInput";
 
 export default function StampNew() {
+    const { removeOverlay } = useContext(overlayContext);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
     function updateImagePreviews(e: React.ChangeEvent<HTMLInputElement>) {
         const files = e.currentTarget.files as FileList;
@@ -23,6 +28,7 @@ export default function StampNew() {
         const formData = convertInputToFormData(e);
 
         postForm("/api/admin/stamps/multiplenew", formData);
+        (removeOverlay as RemoveOverlayFnType)("form", 0);
     }
 
     function resetFiles() {
@@ -30,20 +36,19 @@ export default function StampNew() {
         setImagePreviews([]);
     }
     return (
-        <div className="page">
+        <div className="modal">
             <form
                 action=""
-                className="form-newstamps bg-c-white rounded p-2"
+                className="modal__form bg--white rounded--15 p-2"
                 onSubmit={handleSubmit}
             >
                 <h3 className="mt-0">Add New Stamps</h3>
                 <InputFile
-                    className="btn-white mb-2"
                     name={"files"}
                     multiple={true}
                     onChange={updateImagePreviews}
                 />
-                <div className="image-previews my-2 bg-c-gray rounded">
+                <div className="flex flex--wrap my-2 rounded--15">
                     {imagePreviews.map((preview, index) => (
                         <div className="" key={index}>
                             <Image
@@ -53,17 +58,25 @@ export default function StampNew() {
                         </div>
                     ))}
                 </div>
-                <button className="btn-white mt-2" type="submit">
+                <button className="btn-primary mt-2" type="submit">
                     Submit
                 </button>
                 <button
-                    className="btn-gray ml-2"
+                    className="btn-tertiary ml-2"
                     onClick={(e) => {
                         e.preventDefault();
                         resetFiles();
                     }}
                 >
                     Reset
+                </button>
+                <button
+                    className="btn-secondary ml-2"
+                    onClick={() => {
+                        (removeOverlay as RemoveOverlayFnType)("form", 0);
+                    }}
+                >
+                    Cancel
                 </button>
             </form>
         </div>
