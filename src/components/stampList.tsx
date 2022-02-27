@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ImageFileType, OutputType } from "../ts_types/types";
+import { ImageFileType } from "../ts_types/types";
 import getData from "../utilities/getData";
 import Image from "../components/image";
 

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import InputCheckbox from "../components/form/checkboxInput";
 import InputText from "../components/form/textInput";
 import convertInputToFormData from "../utilities/convertInputToFormData";
-import postForm from "../utilities/postForm";
+import { postForm } from "../utilities/postForm";
 import { escapeRegExp } from "../utilities/regex";
 
 export default function Register() {
@@ -26,16 +26,8 @@ export default function Register() {
             x[key] = val;
         });
 
-        postForm("/api/register", formData).then((output) => {
-            console.log("REGISTRATION OUTPUT", output);
-            switch (output.status) {
-                case 200:
-                    navigate("/home");
-                    break;
-                default:
-                    // navigate("/login");
-                    break;
-            }
+        postForm("/api/register", convertInputToFormData(e), () => {
+            navigate("/home");
         });
     }
     return (

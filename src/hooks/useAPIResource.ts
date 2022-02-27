@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OutputType } from "../ts_types/types";
+interface OutputType<T> {
+    status: number;
+    json: T;
+    error?: string;
+}
 
 type PathFunctionType = (path?: string) => string;
 
@@ -27,6 +31,7 @@ export default function useAPIResource<T>(
                 navigate(-1);
             },
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
