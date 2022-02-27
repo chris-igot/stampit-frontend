@@ -25,7 +25,7 @@ export default function PostNew(props: PropsType) {
         });
     }
     return (
-        <div key={"postNew"} className="page modal">
+        <div className="page modal">
             <form
                 className="modal__form"
                 action=""

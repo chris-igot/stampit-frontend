@@ -44,8 +44,8 @@ export default function EditProfile(props: PropsType) {
         setProfileImgURL(props.profile.image);
     }
 
-    function submitProfilePic(formData: FormData) {
-        postForm("/api/profiles/home/setimage", formData, () => {
+    async function submitProfilePic(formData: FormData) {
+        await postForm("/api/profiles/home/setimage", formData, () => {
             if ("onExit" in props) {
                 (props.onExit as Function)();
             }
@@ -53,8 +53,8 @@ export default function EditProfile(props: PropsType) {
         });
     }
 
-    function submitInfo(formData: FormData) {
-        postForm("/api/profiles/home/edit", formData, () => {
+    async function submitInfo(formData: FormData) {
+        await postForm("/api/profiles/home/edit", formData, () => {
             if ("onExit" in props) {
                 (props.onExit as Function)();
             }
@@ -62,23 +62,21 @@ export default function EditProfile(props: PropsType) {
         });
     }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        console.log(formUpdateState);
+        let formData1 = convertInputToFormData(e);
 
         if (formUpdateState.image) {
-            let formData = convertInputToFormData(e);
-            formData.delete("title");
-            formData.delete("bio");
-            submitProfilePic(formData);
+            await submitProfilePic(formData1);
         }
+
         if (formUpdateState.text) {
-            let formData = convertInputToFormData(e);
-            formData.delete("file");
-            submitInfo(formData);
+            await submitInfo(formData1);
         }
     }
     return (
-        <div key={"editProfile"} className="modal">
+        <div className="modal">
             <form
                 className="modal__form width--50"
                 action=""
