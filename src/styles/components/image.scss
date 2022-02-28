@@ -12,7 +12,7 @@
 
     &:hover {
         transition-duration: 0.1s;
-        transition-timing-function: ease-in;
+        transition-timing-function: ease-out;
         transform: scale(0.95);
     }
 
@@ -36,24 +36,6 @@
         }
     }
 
-    &--listing {
-        @extend %image-sm-common;
-        margin: 0;
-        width: 40px;
-        height: 40px;
-
-        border-radius: 50%;
-
-        & > img {
-            @extend %img-common;
-            height: 100%;
-        }
-
-        &:hover {
-            border-radius: 5px;
-        }
-    }
-
     &--thumbnail {
         @extend %image-sm-common;
 
@@ -72,9 +54,36 @@
 
         border-radius: 50%;
 
+        &.blank {
+            background-color: colors.$clr-blue-9;
+            outline: colors.$clr-white solid 1px;
+        }
+
         & > img {
             @extend %img-common;
             background-color: rgba($color: #000000, $alpha: 0);
+            height: 100%;
+        }
+
+        &:hover {
+            border-radius: 5px;
+        }
+    }
+
+    &--profile-listing {
+        @extend %image-sm-common;
+        margin: 0;
+        width: 40px;
+        height: 40px;
+
+        border-radius: 50%;
+
+        &.blank {
+            background-color: colors.$clr-blue-9;
+        }
+
+        & > img {
+            @extend %img-common;
             height: 100%;
         }
 

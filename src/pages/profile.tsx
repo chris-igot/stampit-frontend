@@ -77,9 +77,13 @@ export default function Profile(props: PropsType = { home: false }) {
             <div className="width--max flex flex--col pb-1">
                 <div className="flex flex--h-space-between pt-1">
                     <Image
-                        className={"image--profile"}
+                        className={
+                            profileResource.data.image !== null
+                                ? "image--profile"
+                                : "image--profile blank"
+                        }
                         image={
-                            profileResource.data.image != null
+                            profileResource.data.image !== null
                                 ? profileResource.data.image
                                 : noProfilePic
                         }
