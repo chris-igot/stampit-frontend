@@ -23,13 +23,13 @@
     width: 100%;
     object-fit: cover;
     -o-object-fit: cover;
-
-    background-color: white;
 }
 .image {
     &--full {
         width: 100%;
         padding: 0;
+
+        background-color: white;
 
         & > img {
             @extend %img-common;
@@ -56,6 +56,8 @@
 
     &--thumbnail {
         @extend %image-sm-common;
+
+        background-color: white;
 
         & > img {
             @extend %img-common;
