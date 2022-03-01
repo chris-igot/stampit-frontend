@@ -92,8 +92,7 @@ $margin-bottom: 8px;
     }
 
     &--file {
-        display: flex;
-        align-items: center;
+        display: inline-block;
         box-sizing: border-box;
 
         color: $text-color;
@@ -104,7 +103,6 @@ $margin-bottom: 8px;
 
         label {
             display: inline-block;
-            margin-right: 0.5rem;
 
             color: $text-label-color;
         }
