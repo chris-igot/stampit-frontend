@@ -32,11 +32,7 @@ export default function StampListing({ expanded, ...props }: PropsType) {
     }, []);
 
     useEffect(() => {
-        if (stampResource.data.length === 0) {
-            return;
-        } else {
-            updateSize();
-        }
+        updateSize();
     }, [stampResource.data]);
 
     useEffect(() => {
@@ -44,17 +40,23 @@ export default function StampListing({ expanded, ...props }: PropsType) {
     }, [expanded]);
 
     function updateSize() {
-        const stampDim = firstStamp.current?.clientWidth as number;
-        const listWidth = (listDimensions.width + 0.5) * stampDim;
-        const listHeight = (expanded ? listDimensions.height : 1) * stampDim;
-        setListDimensions({ ...listDimensions, stamp: stampDim });
-        setListStyle({
-            width: listWidth,
-            height: listHeight,
-        });
+        if (stampResource.data.length === 0) {
+            return;
+        } else {
+            const stampDim = firstStamp.current?.clientWidth as number;
+            const listWidth = (listDimensions.width + 0.5) * stampDim;
+            const listHeight =
+                (expanded ? listDimensions.height : 1) * stampDim;
+            console.log({ stampDim, listWidth, listHeight });
+            setListDimensions({ ...listDimensions, stamp: stampDim });
+            setListStyle({
+                width: listWidth,
+                height: listHeight,
+            });
 
-        if ("setStampSize" in props) {
-            (props.setStampSize as setStampSizeFn)(stampDim);
+            if ("setStampSize" in props) {
+                (props.setStampSize as setStampSizeFn)(stampDim);
+            }
         }
     }
 
