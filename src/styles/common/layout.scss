@@ -1,84 +1,52 @@
 @use "colors";
 
 $thumbnail-width: 160px;
-$thumbnail-margin: 1px;
-$thumbnail-across-default: 3;
+// $thumbnail-margin: 1px;
+// $thumbnail-across-default: 3;
 
-@function width-calc($th-across) {
-    @return calc(
-        $th-across * $thumbnail-width + $th-across * 2 * $thumbnail-margin
-    );
-}
+// @function width-calc($th-across) {
+//     @return calc(
+//         $th-across * $thumbnail-width + $th-across * 2 * $thumbnail-margin
+//     );
+// }
 
-$overall-width-default: width-calc(3);
+// $overall-width-default: width-calc(3);
 
 $nav-space: 3rem;
 
-@mixin width-elements($calc-width) {
-    #root {
-        &:before {
-            position: fixed;
-            z-index: 10000;
-            top: 20rem;
-            content: "#{$calc-width}";
+// @mixin width-elements($calc-width) {
+//     #root {
+//         &:before {
+//             position: fixed;
+//             z-index: 10000;
+//             top: 20rem;
+//             content: "#{$calc-width}";
 
-            color: colors.$clr-gray-5;
-        }
-        width: $calc-width;
-        margin: auto;
-    }
+//             color: colors.$clr-gray-5;
+//         }
+//         margin: auto;
+//     }
+// }
 
-    .navigation {
-        position: fixed;
-        z-index: 9001;
-        height: $nav-space;
-        width: $calc-width;
-        @if $calc-width <= $overall-width-default {
-            // top: 0;
-            bottom: 0;
-        } @else {
-            top: 0;
-        }
-    }
+// @mixin width-elements-media($th-across) {
+//     $calc-width: width-calc($th-across);
+//     @media only screen and (min-width: $calc-width) {
+//         @include width-elements($calc-width);
+//     }
+// }
 
-    @if $calc-width <= $overall-width-default {
-        .page::after {
-            position: static;
-            display: block;
-            margin-bottom: 0.2rem;
-            content: "";
-            height: $nav-space;
-        }
-    } @else {
-        .page::before {
-            position: static;
-            display: block;
-            margin-bottom: 0.2rem;
-            content: "";
-            height: $nav-space;
-        }
-    }
+// @include width-elements($overall-width-default);
+// @include width-elements-media(1);
+// @include width-elements-media(2);
+// @include width-elements-media(3);
+// @include width-elements-media(4);
+// @include width-elements-media(5);
+// @include width-elements-media(6);
 
-    .image--thumbnail {
-        height: $thumbnail-width;
-        width: $thumbnail-width;
-    }
+#root {
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
-
-@mixin width-elements-media($th-across) {
-    $calc-width: width-calc($th-across);
-    @media only screen and (min-width: $calc-width) {
-        @include width-elements($calc-width);
-    }
-}
-
-@include width-elements($overall-width-default);
-@include width-elements-media(1);
-@include width-elements-media(2);
-@include width-elements-media(3);
-@include width-elements-media(4);
-@include width-elements-media(5);
-@include width-elements-media(6);
 
 html,
 #root,
@@ -88,8 +56,50 @@ body {
 
 .page {
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: calc(100% - $nav-space);
+    padding: 0 1rem 1rem 1rem;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.navigation {
+    position: fixed;
+    z-index: 9001;
+    display: flex;
+    height: $nav-space;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: colors.$clr-blue-5;
+}
+
+@media only screen and (min-width: 0), screen and (max-width: 600px) {
+    .navigation {
+        bottom: 0;
+    }
+
+    #root::after {
+        position: static;
+        display: block;
+        content: "";
+        height: $nav-space;
+    }
+}
+@media only screen and (min-width: 600px) {
+    .navigation {
+        top: 0;
+    }
+
+    #root::before {
+        position: static;
+        display: block;
+        content: "";
+        height: $nav-space;
+    }
 }

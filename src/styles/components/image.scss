@@ -39,6 +39,25 @@
         }
     }
 
+    @mixin img-media($min, $max, $img-x-count) {
+        $total-x-padding: 2rem;
+        $total-img-x-margin: $img-x-count * 2;
+        $view-width: 100 / $img-x-count;
+
+        @media only screen and (min-width: $min) and (max-width: $max) {
+            & {
+                height: calc(
+                    #{$view-width}vw - #{$total-x-padding} - #{$total-img-x-margin}px
+                );
+                width: calc(
+                    #{$view-width}vw - #{$total-x-padding} - #{$total-img-x-margin}px
+                );
+
+                transition-duration: 0s;
+            }
+        }
+    }
+
     &--thumbnail {
         @extend %image-sm-common;
         @extend %img-hover;
@@ -48,6 +67,22 @@
         & > img {
             @extend %img-common;
             height: 100%;
+        }
+
+        @include img-media(0, 240px, 1);
+        @include img-media(240px, 400px, 2);
+        @include img-media(400px, 560px, 3);
+        @include img-media(560px, 720px, 4);
+        @include img-media(720px, 880px, 5);
+        @include img-media(880px, 1040px, 6);
+
+        @media only screen and (min-width: 1040px) {
+            & {
+                height: 160px;
+                width: 160px;
+
+                transition-duration: 0s;
+            }
         }
     }
 
