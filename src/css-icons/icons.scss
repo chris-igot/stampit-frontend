@@ -1,0 +1,41 @@
+$transition-duration: 0.5s;
+$bar-length: 1.5rem;
+$bar-thickness: 0.3rem;
+
+.css-icon {
+    position: relative;
+    width: $bar-length;
+    height: $bar-length;
+    transition-duration: $transition-duration;
+}
+
+.bar {
+    position: absolute;
+    width: $bar-length;
+    height: $bar-thickness;
+    margin: 0;
+    padding: 0;
+
+    border-radius: 1rem;
+    background-color: black;
+}
+
+@mixin rotate($value) {
+    .rotate-#{$value} {
+        transform: rotate(#{$value}deg);
+    }
+}
+
+@mixin move($prop, $value) {
+    .#{$prop}-#{$value} {
+        #{prop}: #{$value / 10}rem;
+    }
+}
+
+@include move(top, 5);
+@include move(top, 10);
+
+@include rotate(45);
+@include rotate(90);
+@include rotate(180);
+@include rotate(360);
