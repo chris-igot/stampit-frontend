@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import StampNew from "../../components/form/stampNew";
-import StampList from "../../components/stampList";
+import StampListContainer from "../../components/stampListContainer";
 import {
     AddOverlayFnType,
     overlayContext,
@@ -36,7 +36,7 @@ export default function AdminHome() {
             </div>
 
             <div className="height--25 flex flex--h-center flex--v-bottom">
-                <StampList />
+                <StampListContainer />
             </div>
         </div>
     );
