@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
     overlayContext,
     RemoveOverlayFnType,
@@ -7,6 +7,7 @@ import convertInputToFormData from "../../utilities/convertInputToFormData";
 import { postForm } from "../../utilities/postForm";
 import InputFile from "./fileInput";
 import InputText from "./textInput";
+import Image from "../image";
 
 interface PropsType {
     onExit?: Function;
@@ -14,6 +15,15 @@ interface PropsType {
 
 export default function PostNew(props: PropsType) {
     const { removeOverlay } = useContext(overlayContext);
+    const [imgPreview, setImgPreview] = useState<string | undefined>(undefined);
+
+    function updateImagePreview(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = (e.currentTarget.files as FileList)[0];
+        let newSrc = URL.createObjectURL(file);
+
+        setImgPreview(newSrc);
+    }
+
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -27,19 +37,35 @@ export default function PostNew(props: PropsType) {
     return (
         <div className="page modal">
             <form
-                className="modal__form"
+                className="modal__form width--25"
                 action=""
                 method="post"
                 onSubmit={handleSubmit}
             >
-                <InputFile
-                    className="btn-secondary mt-1 mb-1"
-                    name={"file"}
-                    listFiles={true}
-                />
+                <div className="width--max flex flex--h-center mb-2">
+                    <InputFile
+                        className={
+                            imgPreview === undefined
+                                ? "btn-secondary mt-1 mb-1"
+                                : ""
+                        }
+                        name={"file"}
+                        label={
+                            imgPreview === undefined ? (
+                                "Select photo"
+                            ) : (
+                                <Image
+                                    className="image--thumbnail-add"
+                                    image={imgPreview}
+                                ></Image>
+                            )
+                        }
+                        onChange={updateImagePreview}
+                    />
+                </div>
+                <InputText name={"description"} width={"100%"} />
 
-                <InputText name={"description"} />
-                <button className="btn-primary mt-2 mr-1" type="submit">
+                <button className="btn-primary mt-1 mr-1" type="submit">
                     Post!
                 </button>
 

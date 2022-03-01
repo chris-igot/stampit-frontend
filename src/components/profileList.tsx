@@ -4,6 +4,7 @@ import { ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
 import FollowButton from "./followButton";
 import Image from "./image";
+import noProfilePic from "../icons/round_account_circle_white_48dp.png";
 
 interface PropsType {
     profiles: ProfileType[];
@@ -65,8 +66,16 @@ export default function ProfileList(props: PropsType) {
                     <div className="profile-list__row" key={index}>
                         <Link to={"/profiles?id=" + profile.id}>
                             <Image
-                                className="image--listing"
-                                image={profile.image}
+                                className={
+                                    profile.image !== null
+                                        ? "image--profile-listing"
+                                        : "image--profile-listing blank"
+                                }
+                                image={
+                                    profile.image !== null
+                                        ? profile.image
+                                        : noProfilePic
+                                }
                             />
                         </Link>
                         <div>

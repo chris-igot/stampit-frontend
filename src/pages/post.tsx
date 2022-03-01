@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Image from "../components/image";
-import StampList from "../components/stampList";
+import StampListContainer from "../components/stampListContainer";
 import { PostType, ProfileType, StampType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
@@ -92,8 +93,8 @@ export default function Post() {
                 <div
                     className={
                         stampEnabled
-                            ? "cursor--rel overflow--hidden cursor--pointer"
-                            : "cursor--rel overflow--hidden"
+                            ? "position--rel overflow--hidden cursor--pointer"
+                            : "position--rel overflow--hidden"
                     }
                     onClick={(e) => {
                         if (stampEnabled) {
@@ -128,7 +129,7 @@ export default function Post() {
                     </button>
 
                     {stampEnabled && (
-                        <StampList
+                        <StampListContainer
                             onClick={(stampId) => {
                                 setSelectedStamp(stampId);
                             }}

@@ -10,65 +10,112 @@
 
     overflow: hidden;
 
-    &:hover {
-        transition-duration: 0.1s;
-        transition-timing-function: ease-in;
-        transform: scale(0.95);
-    }
-
     border-radius: 5%;
     transition-duration: 0.2s;
 }
+
 %img-common {
     width: 100%;
     object-fit: cover;
     -o-object-fit: cover;
+}
 
-    background-color: white;
+%img-hover {
+    &:hover {
+        transition-duration: 0.1s;
+        transition-timing-function: ease-out;
+        transform: scale(0.95);
+    }
 }
 .image {
     &--full {
         width: 100%;
         padding: 0;
 
+        background-color: white;
+
         & > img {
             @extend %img-common;
         }
     }
 
-    &--listing {
-        @extend %image-sm-common;
-        margin: 0;
-        width: 40px;
-        height: 40px;
+    @mixin img-media($min, $max, $img-x-count) {
+        $total-x-padding: 2rem;
+        $total-img-x-margin: $img-x-count * 2;
+        $view-width: 100 / $img-x-count;
 
-        border-radius: 50%;
+        @media only screen and (min-width: $min) and (max-width: $max) {
+            & {
+                height: calc(
+                    #{$view-width}vw - #{$total-x-padding} - #{$total-img-x-margin}px
+                );
+                width: calc(
+                    #{$view-width}vw - #{$total-x-padding} - #{$total-img-x-margin}px
+                );
 
-        & > img {
-            @extend %img-common;
-            height: 100%;
-        }
-
-        &:hover {
-            border-radius: 5px;
+                transition-duration: 0s;
+            }
         }
     }
 
     &--thumbnail {
         @extend %image-sm-common;
+        @extend %img-hover;
+
+        background-color: white;
 
         & > img {
             @extend %img-common;
             height: 100%;
         }
+
+        @include img-media(0, 240px, 1);
+        @include img-media(240px, 400px, 2);
+        @include img-media(400px, 560px, 3);
+        @include img-media(560px, 720px, 4);
+        @include img-media(720px, 880px, 5);
+        @include img-media(880px, 1040px, 6);
+
+        @media only screen and (min-width: 1040px) {
+            & {
+                height: 160px;
+                width: 160px;
+
+                transition-duration: 0s;
+            }
+        }
+    }
+
+    &--thumbnail-add {
+        max-width: 100%;
+        max-height: 160px;
+        margin: 0;
+        padding: 0;
+
+        overflow: hidden;
+        background-color: white;
+        border-radius: 10px;
+
+        & > img {
+            max-width: 100%;
+            max-height: 160px;
+            // object-fit:;
+            // -o-object-fit:;
+        }
     }
 
     &--profile {
         @extend %image-sm-common;
+
         width: 100px;
         height: 100px;
 
         border-radius: 50%;
+
+        &.blank {
+            background-color: colors.$clr-blue-9;
+            outline: colors.$clr-white solid 1px;
+        }
 
         & > img {
             @extend %img-common;
@@ -81,8 +128,33 @@
         }
     }
 
+    &--profile-listing {
+        @extend %image-sm-common;
+
+        margin: 0;
+        width: 40px;
+        height: 40px;
+
+        border-radius: 50%;
+
+        &.blank {
+            background-color: colors.$clr-blue-9;
+        }
+
+        & > img {
+            @extend %img-common;
+            height: 100%;
+        }
+
+        &:hover {
+            border-radius: 5px;
+        }
+    }
+
     &--stamp {
         @extend %image-sm-common;
+        @extend %img-hover;
+
         width: 3rem;
         height: 3rem;
         position: absolute;
@@ -95,6 +167,7 @@
 
     &--stamp-listing {
         @extend %image-sm-common;
+
         width: 40px;
         height: 40px;
 
@@ -106,6 +179,7 @@
 
     &--icon {
         @extend %image-sm-common;
+
         width: 40px;
         height: 40px;
 
@@ -119,6 +193,7 @@
 
     &--icon-sm {
         @extend %image-sm-common;
+
         width: 25px;
         height: 25px;
 
@@ -132,6 +207,7 @@
 
     &--menu {
         @extend %image-sm-common;
+
         width: 30px;
         height: 30px;
 
