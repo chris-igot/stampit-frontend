@@ -8,7 +8,11 @@ import { postForm } from "../../utilities/postForm";
 import Image from "../image";
 import InputFile from "./fileInput";
 
-export default function StampNew() {
+interface PropsType {
+    onSuccess?: Function;
+}
+
+export default function StampNew(props: PropsType) {
     const { removeOverlay } = useContext(overlayContext);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
     function updateImagePreviews(e: React.ChangeEvent<HTMLInputElement>) {
@@ -27,8 +31,12 @@ export default function StampNew() {
         e.preventDefault();
         const formData = convertInputToFormData(e);
 
-        postForm("/api/admin/stamps/multiplenew", formData);
-        (removeOverlay as RemoveOverlayFnType)("form", 0);
+        postForm("/api/admin/stamps/multiplenew", formData).then(() => {
+            if ("onSuccess" in props) {
+                (props.onSuccess as Function)();
+            }
+            (removeOverlay as RemoveOverlayFnType)("form", 0);
+        });
     }
 
     function resetFiles() {

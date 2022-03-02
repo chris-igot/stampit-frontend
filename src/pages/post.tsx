@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Image from "../components/image";
 import StampListContainer from "../components/stampListContainer";
-import { PostType, ProfileType, StampType } from "../ts_types/types";
+import { PostType, StampType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 export default function Post() {
@@ -12,16 +12,10 @@ export default function Post() {
     const [post, setPost] = useState<PostType>({
         id: "",
         profile: "",
+        profileName: "",
         image: "",
         stamps: [],
         createdAt: "",
-    });
-    const [profile, setProfile] = useState({
-        id: "",
-        name: "",
-        image: "",
-        title: "",
-        bio: "",
     });
     const [stamps, setStamps] = useState<StampType[]>([]);
     const [stampEnabled, setStampEnabled] = useState(false);
@@ -33,12 +27,6 @@ export default function Post() {
             switch (output.status) {
                 case 200:
                     setPost(output.json);
-                    getData<ProfileType>(
-                        "/api/profiles?id=" + output.json.profile
-                    ).then((output2) => {
-                        console.log(output2.json);
-                        setProfile(output2.json);
-                    });
                     break;
                 case 403:
                     navigate(-1);
@@ -73,7 +61,6 @@ export default function Post() {
             form.append("stampId", selectedStamp);
 
             fetch("/api/stamps/new", {
-                // fetch("/click", {
                 method: "POST",
                 body: form,
             }).then(() => {
@@ -89,7 +76,12 @@ export default function Post() {
 
     return (
         <div className="page">
-            <div className="post">
+            <div className="bg--white rounded--20 px-1 pb-2 mt-1">
+                <p className="my-1 mx-2">
+                    <Link to={"/profiles?id=" + post.profile}>
+                        {post.profileName}
+                    </Link>
+                </p>
                 <div
                     className={
                         stampEnabled
@@ -118,29 +110,10 @@ export default function Post() {
                 </div>
 
                 <div className="position--rel flex flex--h-space-between">
-                    <button
-                        className={stampEnabled ? "btn-red" : "btn-white"}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setStampEnabled(!stampEnabled);
-                        }}
-                    >
-                        {stampEnabled ? "stop" : "start stamping"}
-                    </button>
-
-                    {stampEnabled && (
-                        <StampListContainer
-                            onClick={(stampId) => {
-                                setSelectedStamp(stampId);
-                            }}
-                        />
-                    )}
-
-                    <p className="m-0">
-                        <Link to={"/profiles?id=" + profile.id}>
-                            {profile.name}
-                        </Link>
-                    </p>
+                    <StampListContainer
+                        onClick={setSelectedStamp}
+                        captureActivation={setStampEnabled}
+                    />
                 </div>
             </div>
         </div>

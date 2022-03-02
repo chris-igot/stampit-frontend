@@ -1,6 +1,7 @@
 export type PostType = {
     id: string;
     profile: string;
+    profileName: string;
     image: string;
     stamps: StampType[];
     createdAt: string;
@@ -39,9 +40,3 @@ export type UserType = {
     email: string;
     roles: string[];
 };
-
-// export interface OutputType<T> {
-//     status: number;
-//     json: T;
-//     error?: string;
-// }

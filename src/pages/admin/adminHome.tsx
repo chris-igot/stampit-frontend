@@ -1,15 +1,27 @@
-import React, { useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import StampNew from "../../components/form/stampNew";
-import StampListContainer from "../../components/stampListContainer";
+import StampListing from "../../components/stampListing";
+import StampListingx from "../../components/stampListingx";
 import {
     AddOverlayFnType,
     overlayContext,
 } from "../../context/overlaidContentProvider";
+import useAPIResource from "../../hooks/useAPIResource";
+import { ImageFileType } from "../../ts_types/types";
 
 export default function AdminHome() {
     const { addOverlay } = useContext(overlayContext);
+    const stampResource = useAPIResource<ImageFileType[]>(
+        () => "/api/stamps/all",
+        []
+    );
     const navigate = useNavigate();
+
+    useEffect(() => {
+        stampResource.refresh();
+    }, []);
 
     return (
         <div className="height--max">
@@ -17,7 +29,10 @@ export default function AdminHome() {
                 <button
                     className="btn-secondary"
                     onClick={() => {
-                        (addOverlay as AddOverlayFnType)("form", <StampNew />);
+                        (addOverlay as AddOverlayFnType)(
+                            "form",
+                            <StampNew onSuccess={stampResource.refresh} />
+                        );
                     }}
                 >
                     Add Stamps
@@ -35,8 +50,8 @@ export default function AdminHome() {
                 </Link>
             </div>
 
-            <div className="height--25 flex flex--h-center flex--v-bottom">
-                <StampListContainer />
+            <div className="height--25 flex flex--h-center flex--v-bottom px-2 ">
+                <StampListing stampList={stampResource.data} />
             </div>
         </div>
     );
