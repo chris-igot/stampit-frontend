@@ -1,59 +1,62 @@
 @use "../common/colors";
 
 %btn-common {
-    $height: 2rem;
+    $height: 2.3rem;
 
     box-sizing: border-box;
     height: $height;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 2rem;
 
     cursor: pointer;
     border: 0;
     border-radius: calc($height / 2);
-    outline-width: 1px;
-    outline-style: solid;
     line-height: calc($height / 2);
-    transition-duration: 0.15s;
+    transition-duration: 0.1s;
 
     &.ghost {
         opacity: 0.5;
     }
+}
+
+@mixin boxShadow($color) {
+    box-shadow: 1px 1px 4px 0 $color;
+
     &:hover {
-        outline-width: 2px;
+        box-shadow: 1px 1px 7px 0 $color;
     }
     &:active {
-        outline-width: 3px;
+        box-shadow: 0 0 0 0 $color;
     }
 }
 
 .btn-primary {
     color: colors.$clr-white;
     background-color: colors.$clr-blue-5;
-    outline-color: colors.$clr-blue-7;
 
+    @include boxShadow(colors.$clr-gray-5);
     @extend %btn-common;
 }
 
 .btn-secondary {
     color: colors.$clr-black;
     background-color: colors.$clr-white;
-    outline-color: colors.$clr-gray-7;
 
+    @include boxShadow(colors.$clr-gray-5);
     @extend %btn-common;
 }
 
 .btn-tertiary {
     color: colors.$clr-white;
     background-color: colors.$clr-gray-5;
-    outline-color: colors.$clr-gray-7;
 
+    @include boxShadow(colors.$clr-gray-5);
     @extend %btn-common;
 }
 
 .btn-danger {
     color: colors.$clr-white;
     background-color: colors.$clr-red-5;
-    outline-color: colors.$clr-red-7;
 
+    @include boxShadow(colors.$clr-gray-5);
     @extend %btn-common;
 }
