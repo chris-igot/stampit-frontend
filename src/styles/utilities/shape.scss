@@ -20,7 +20,7 @@
     }
 }
 
-$sizes: 40px, 100px, 1rem, 2rem, 3rem, 6rem;
+$sizes: 1px, 40px, 100px, 1rem, 2rem, 3rem, 6rem;
 
 @mixin gensizes($attr) {
     @each $size in $sizes {

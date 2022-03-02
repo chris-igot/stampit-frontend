@@ -1,12 +1,30 @@
 @use "../common/colors";
 
+@keyframes stamp-list-animation {
+    0% {
+        visibility: hidden;
+    }
+
+    50% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: visible;
+    }
+}
+
 .stamp-list {
-    position: absolute;
+    // position: absolute;
     padding: 2px 4px 22px 4px;
     outline: colors.$clr-gray-5 solid 1px;
     border-radius: 15px;
     color: colors.$clr-white;
     background-color: colors.$clr-blue-7;
+
+    animation: stamp-list-animation 2s ease-out 2s 1 forwards;
+    // animation: name duration timing-function delay iteration-count direction
+    // fill-mode;
+    // display: none;
 
     .open {
         margin: 0;
@@ -31,10 +49,12 @@
         flex-direction: row;
         flex-wrap: wrap;
         align-items: flex-start;
+        min-height: 40px;
         overflow: scroll;
         scroll-behavior: smooth;
-        scroll-snap-type: y mandatory;
+        overflow-y: auto;
         overflow-x: hidden;
+
         transition-duration: 0.2s;
 
         background-color: colors.$clr-blue-9;
@@ -44,12 +64,18 @@
             margin: 0;
             padding: 0;
             transform: scale(0.8);
-            opacity: 0.6;
+            opacity: 0.8;
             &.selected {
                 transform: scale(1);
-                outline: white solid 1px;
+                outline: colors.$clr-blue-7 solid 1px;
+                background-color: colors.$clr-white;
                 opacity: 1;
             }
         }
+    }
+
+    &__container {
+        display: grid;
+        grid-template-columns: 50px auto 50px;
     }
 }

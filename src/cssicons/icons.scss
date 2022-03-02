@@ -1,23 +1,41 @@
-$transition-duration: 0.5s;
+@use "../styles/common/colors";
+
+$transition-duration: 0.2s;
 $bar-length: 1.5rem;
+$bar-length-short: 1rem;
 $bar-thickness: 0.3rem;
+$color: colors.$clr-gray-3;
 
 .css-icon {
     position: relative;
     width: $bar-length;
     height: $bar-length;
+    content: "";
     transition-duration: $transition-duration;
+    cursor: pointer;
 }
 
-.bar {
+%bar-common {
     position: absolute;
-    width: $bar-length;
     height: $bar-thickness;
     margin: 0;
     padding: 0;
 
     border-radius: 1rem;
-    background-color: black;
+    background-color: $color;
+    transition-duration: $transition-duration;
+}
+
+.bar {
+    @extend %bar-common;
+
+    width: $bar-length;
+}
+
+.short-bar {
+    @extend %bar-common;
+
+    width: $bar-length-short;
 }
 
 @mixin rotate($value) {
@@ -28,14 +46,20 @@ $bar-thickness: 0.3rem;
 
 @mixin move($prop, $value) {
     .#{$prop}-#{$value} {
-        #{prop}: #{$value / 10}rem;
+        #{$prop}: #{$value / 10}rem;
     }
 }
 
 @include move(top, 5);
 @include move(top, 10);
+@include move(left, 5);
 
+@include rotate(-45);
 @include rotate(45);
 @include rotate(90);
 @include rotate(180);
 @include rotate(360);
+
+.scale-50 {
+    transform: scale(0.5);
+}

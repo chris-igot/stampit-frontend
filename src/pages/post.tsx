@@ -73,7 +73,6 @@ export default function Post() {
             form.append("stampId", selectedStamp);
 
             fetch("/api/stamps/new", {
-                // fetch("/click", {
                 method: "POST",
                 body: form,
             }).then(() => {
@@ -89,7 +88,12 @@ export default function Post() {
 
     return (
         <div className="page">
-            <div className="post">
+            <div className="bg--white rounded--20 px-1 pb-2 mt-1">
+                <p className="my-1 mx-2">
+                    <Link to={"/profiles?id=" + profile.id}>
+                        {profile.name}
+                    </Link>
+                </p>
                 <div
                     className={
                         stampEnabled
@@ -118,29 +122,10 @@ export default function Post() {
                 </div>
 
                 <div className="position--rel flex flex--h-space-between">
-                    <button
-                        className={stampEnabled ? "btn-red" : "btn-white"}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setStampEnabled(!stampEnabled);
-                        }}
-                    >
-                        {stampEnabled ? "stop" : "start stamping"}
-                    </button>
-
-                    {stampEnabled && (
-                        <StampListContainer
-                            onClick={(stampId) => {
-                                setSelectedStamp(stampId);
-                            }}
-                        />
-                    )}
-
-                    <p className="m-0">
-                        <Link to={"/profiles?id=" + profile.id}>
-                            {profile.name}
-                        </Link>
-                    </p>
+                    <StampListContainer
+                        onClick={setSelectedStamp}
+                        captureActivation={setStampEnabled}
+                    />
                 </div>
             </div>
         </div>
