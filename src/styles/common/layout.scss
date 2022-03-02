@@ -1,47 +1,8 @@
 @use "colors";
 
 $thumbnail-width: 160px;
-// $thumbnail-margin: 1px;
-// $thumbnail-across-default: 3;
 
-// @function width-calc($th-across) {
-//     @return calc(
-//         $th-across * $thumbnail-width + $th-across * 2 * $thumbnail-margin
-//     );
-// }
-
-// $overall-width-default: width-calc(3);
-
-$nav-space: 3rem;
-
-// @mixin width-elements($calc-width) {
-//     #root {
-//         &:before {
-//             position: fixed;
-//             z-index: 10000;
-//             top: 20rem;
-//             content: "#{$calc-width}";
-
-//             color: colors.$clr-gray-5;
-//         }
-//         margin: auto;
-//     }
-// }
-
-// @mixin width-elements-media($th-across) {
-//     $calc-width: width-calc($th-across);
-//     @media only screen and (min-width: $calc-width) {
-//         @include width-elements($calc-width);
-//     }
-// }
-
-// @include width-elements($overall-width-default);
-// @include width-elements-media(1);
-// @include width-elements-media(2);
-// @include width-elements-media(3);
-// @include width-elements-media(4);
-// @include width-elements-media(5);
-// @include width-elements-media(6);
+$nav-space: 4rem;
 
 #root {
     overflow-y: hidden;
@@ -76,12 +37,52 @@ body {
     justify-content: space-around;
     align-items: center;
 
-    background-color: colors.$clr-blue-5;
+    box-shadow: 0 0 3px 0px rgba($color: colors.$clr-blue-5, $alpha: 0.7);
+    background-color: colors.$clr-white;
+
+    a {
+        transition-duration: 0.2s;
+    }
+
+    .picked {
+        transform: scale(1.4);
+    }
+
+    .highlighter {
+        position: absolute;
+        z-index: -1;
+
+        transition-duration: 0.2s;
+        transform: scale(1.7);
+        border-radius: 5rem;
+        background-color: colors.$clr-blue-5;
+        box-shadow: 0 0 4px 0px colors.$clr-blue-3;
+    }
+
+    .shadow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+        &::before {
+            display: inline-block;
+            position: absolute;
+            z-index: 1;
+            width: 42px;
+            height: 42px;
+
+            content: "";
+            border-radius: 5rem;
+            background-color: colors.$clr-blue-7;
+        }
+    }
 }
 
 @media only screen and (min-width: 0), screen and (max-width: 600px) {
     .navigation {
         bottom: 0;
+        border-radius: 3rem 3rem 0 0;
     }
 
     #root::after {
@@ -94,6 +95,7 @@ body {
 @media only screen and (min-width: 600px) {
     .navigation {
         top: 0;
+        border-radius: 0 0 3rem 3rem;
     }
 
     #root::before {

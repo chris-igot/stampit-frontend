@@ -1,5 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
 import Image from "./image";
 
 import world from "../icons/round_language_white_48dp.png";
@@ -13,24 +14,72 @@ interface PropsType {
 }
 function Menu(props: PropsType) {
     const navigate = useNavigate();
+    const location = useLocation();
+    const highlightRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        updateHighlighterDimensions();
+    }, []);
+
+    useEffect(() => {
+        if (location.pathname.includes("profile")) {
+            const hightlight = highlightRef.current as HTMLDivElement;
+            hightlight.style.width = "0";
+            hightlight.style.height = "0";
+            hightlight.style.left = "0";
+        } else {
+            updateHighlighterDimensions();
+        }
+    }, [location.pathname]);
+
+    function updateHighlighterDimensions() {
+        const menuElem = document.querySelector(
+            `a[href='${location.pathname}']`
+        ) as HTMLAnchorElement;
+
+        if (menuElem) {
+            const hightlight = highlightRef.current as HTMLDivElement;
+            hightlight.style.width = menuElem.clientWidth + "px";
+            hightlight.style.height = menuElem.clientHeight + "px";
+            hightlight.style.left = menuElem.offsetLeft + "px";
+        }
+    }
+
     return (
-        <nav className="navigation">
-            <Link to="/home" reloadDocument>
-                <Image className="image--menu" image={home} />
-            </Link>
-            <Link to="/search">
-                <Image className="image--menu" image={search} />
-            </Link>
-            <Link to="/feed">
-                <Image className="image--menu" image={feed} />
-            </Link>
-            <Link to="/public">
-                <Image className="image--menu" image={world} />
-            </Link>
-            <Link to="/following">
-                <Image className="image--menu" image={people} />
-            </Link>
+        <nav id="navi" className="navigation">
+            <div className="highlighter" ref={highlightRef}></div>
+            <NavLink
+                className={({ isActive }) => (isActive ? "picked" : " shadow")}
+                to="/home"
+            >
+                <Image className="image--menu z--9002" image={home} />
+            </NavLink>
+            <NavLink
+                className={({ isActive }) => (isActive ? "picked" : " shadow")}
+                to="/search"
+            >
+                <Image className="image--menu z--9002" image={search} />
+            </NavLink>
+            <NavLink
+                className={({ isActive }) => (isActive ? "picked" : " shadow")}
+                to="/feed"
+            >
+                <Image className="image--menu z--9002" image={feed} />
+            </NavLink>
+            <NavLink
+                className={({ isActive }) => (isActive ? "picked" : " shadow")}
+                to="/public"
+            >
+                <Image className="image--menu z--9002" image={world} />
+            </NavLink>
+            <NavLink
+                className={({ isActive }) => (isActive ? "picked" : " shadow")}
+                to="/following"
+            >
+                <Image className="image--menu z--9002" image={people} />
+            </NavLink>
             <Link
+                className="shadow"
                 to="/login"
                 onClick={() => {
                     fetch("/api/logout").then(() => {
@@ -38,7 +87,7 @@ function Menu(props: PropsType) {
                     });
                 }}
             >
-                <Image className="image--menu" image={logout} />
+                <Image className="image--menu z--9002" image={logout} />
             </Link>
             {props.children}
         </nav>
