@@ -102,10 +102,7 @@ export default function Post() {
                             href=""
                             onClick={(e) => {
                                 e.preventDefault();
-                                getData(
-                                    `/api/posts/${post.id}/remove`,
-                                    "status"
-                                );
+                                fetch(`/api/posts/${post.id}/remove`);
                                 navigate("/home");
                             }}
                         >
