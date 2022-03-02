@@ -75,7 +75,7 @@ export default function Profile(props: PropsType = { home: false }) {
     return (
         <div className="page">
             <div className="width--max flex flex--col pb-1">
-                <div className="flex flex--h-space-between pt-1 px-4">
+                <div className="flex flex--h-space-between flex--wrap pt-1 px-4">
                     <Image
                         className={
                             profileResource.data.image !== null
