@@ -163,7 +163,7 @@ export default function Profile(props: PropsType = { home: false }) {
                             ""
                         )}
                     </div>
-                    <div className="p-2 rounded--15 bg--white">
+                    <div className="p-2 rounded--20 bg--white">
                         <h4 className="m-0 flex flex--v-center">
                             <span>{profileResource.data.name}</span>{" "}
                             {profileResource.data.isPrivate ? (
