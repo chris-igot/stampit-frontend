@@ -56,9 +56,7 @@ export default function InputFile(props: PropsType) {
                 }
                 htmlFor={props.name}
             >
-                {"label" in props
-                    ? props.label
-                    : "Choose " + (props.multiple ? "files" : "file")}
+                {props.label || "Choose " + (props.multiple ? "files" : "file")}
             </label>
             {props.listFiles ? (
                 <div>
