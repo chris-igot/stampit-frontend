@@ -10,7 +10,7 @@ interface PropsType {
 export default function Image(props: PropsType) {
     return (
         <div
-            className={"className" in props ? props.className : ""}
+            className={props.className || ""}
             onClick={props.onClick as MouseEventHandler<HTMLDivElement>}
         >
             <img src={props.image} alt="" />

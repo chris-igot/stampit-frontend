@@ -21,9 +21,11 @@ export function postForm<T>(
             if (response.status === 200) {
                 if (returnsData) {
                     dataOut = await new Promise((resolve) => {
-                        response.json().then((v: T) => {
-                            console.log(v);
-                            resolve({ status: response.status, value: v as T });
+                        response.json().then((value: T) => {
+                            resolve({
+                                status: response.status,
+                                value: value as T,
+                            });
                         });
                     });
                     (onSuccess as (value: T) => void)(dataOut.value);

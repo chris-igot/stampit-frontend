@@ -29,13 +29,13 @@ export default function InputCheckbox(props: PropsType) {
 
     return (
         <div className={"form__input--checkbox"}>
-            <span>{"label" in props ? props.label : props.name}</span>
+            <span>{props.label || props.name}</span>
             <input
                 id={props.name}
                 ref={inputRef}
                 type={"checkbox"}
                 name={props.name}
-                defaultChecked={"checked" in props ? props.checked : false}
+                defaultChecked={props.checked || false}
                 onChange={handleChange}
             />
             <label

@@ -58,7 +58,7 @@ export default function ProfileList(props: PropsType) {
     }
     return (
         <div
-            id={"id" in props ? props.id : undefined}
+            id={props.id}
             className="display--inline-block width--max height--max flex flex--col flex--v-top vertical-align--top"
         >
             {props.profiles.length > 0 ? (

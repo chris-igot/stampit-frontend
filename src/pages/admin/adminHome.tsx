@@ -3,7 +3,6 @@ import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import StampNew from "../../components/form/stampNew";
 import StampListing from "../../components/stampListing";
-import StampListingx from "../../components/stampListingx";
 import {
     AddOverlayFnType,
     overlayContext,

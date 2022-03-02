@@ -15,13 +15,7 @@ export default function StampListing({ stampList, ...props }: PropsType) {
     const [selected, setSelected] = useState<number>(-1);
 
     return (
-        <div
-            className={
-                "className" in props
-                    ? props.className
-                    : "stamp-list__scrollable"
-            }
-        >
+        <div className={props.className || "stamp-list__scrollable"}>
             {stampList.map((stamp, index) => (
                 <span
                     ref={index === 0 ? firstStamp : null}
@@ -31,9 +25,6 @@ export default function StampListing({ stampList, ...props }: PropsType) {
                         setSelected(index);
                         if ("onClick" in props) {
                             (props.onClick as StampClickFn)(stamp.id);
-                            console.log("clicked: " + stamp.id);
-                        } else {
-                            console.log("_clicked: " + stamp.id);
                         }
                     }}
                 >

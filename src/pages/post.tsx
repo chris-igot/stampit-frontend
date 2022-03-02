@@ -37,7 +37,6 @@ export default function Post() {
                     setPost(output.json);
                     getData<ProfileType>("/api/profiles/home").then(
                         (output2) => {
-                            console.log(output2.json);
                             setViewerProfile(output2.json);
                         }
                     );
