@@ -37,7 +37,7 @@ export default function PostNew(props: PropsType) {
     return (
         <div className="page modal">
             <form
-                className="modal__form width--25"
+                className="modal__form width--50"
                 action=""
                 method="post"
                 onSubmit={handleSubmit}

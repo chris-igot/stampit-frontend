@@ -38,7 +38,7 @@ export default function InputText({
         if ("width" in props) {
             (divRef.current as HTMLDivElement).style.width = width as string;
             (inputRef.current as HTMLInputElement).style.width =
-                width as string;
+                (divRef.current as HTMLDivElement).clientWidth + "px";
         } else {
             (divRef.current as HTMLDivElement).style.width =
                 (inputRef.current as HTMLInputElement).clientWidth + "px";

@@ -15,6 +15,7 @@ export default function Post() {
         profileName: "",
         image: "",
         stamps: [],
+        description: "",
         createdAt: "",
     });
     const [viewerProfile, setViewerProfile] = useState({
@@ -140,6 +141,7 @@ export default function Post() {
                         </div>
                     ))}
                 </div>
+                <p className="m-0 p-1">{post.description}</p>
                 <div className="position--rel flex flex--h-space-between">
                     <StampListContainer
                         onClick={setSelectedStamp}
