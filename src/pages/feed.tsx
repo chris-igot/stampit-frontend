@@ -29,12 +29,16 @@ export default function Feed() {
         <div className="page">
             <div className="pt-1 flex flex--wrap width--max">
                 {posts.map((post) => (
-                    <Link key={post.id} to={"/posts?postid=" + post.id}>
-                        <Image
-                            className="image--thumbnail"
-                            image={post.image}
-                        />
-                    </Link>
+                    <div className="width--max mb-1 px-1 pb-4 rounded--20 bg--white">
+                        <p className="my-1 mx-2">
+                            <Link to={"/profiles?id=" + post.profile}>
+                                {post.profileName}
+                            </Link>
+                        </p>
+                        <Link key={post.id} to={"/posts?postid=" + post.id}>
+                            <Image className="image--full" image={post.image} />
+                        </Link>
+                    </div>
                 ))}
             </div>
         </div>
