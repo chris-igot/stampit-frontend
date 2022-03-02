@@ -86,11 +86,11 @@ pre {
 
 a {
     background-color: transparent;
-    color: colors.$clr-gray-5;
+    color: colors.$clr-gray-3;
     text-decoration: none;
 
     &:hover {
-        color: colors.$clr-gray-3;
+        color: colors.$clr-gray-5;
         text-decoration: underline;
     }
 }

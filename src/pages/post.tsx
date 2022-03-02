@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Image from "../components/image";
 import StampListContainer from "../components/stampListContainer";
-import { PostType, StampType } from "../ts_types/types";
+import { PostType, ProfileType, StampType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 export default function Post() {
@@ -17,6 +17,13 @@ export default function Post() {
         stamps: [],
         createdAt: "",
     });
+    const [viewerProfile, setViewerProfile] = useState({
+        id: "",
+        name: "",
+        image: "",
+        title: "",
+        bio: "",
+    });
     const [stamps, setStamps] = useState<StampType[]>([]);
     const [stampEnabled, setStampEnabled] = useState(false);
     const [selectedStamp, setSelectedStamp] = useState("");
@@ -27,6 +34,12 @@ export default function Post() {
             switch (output.status) {
                 case 200:
                     setPost(output.json);
+                    getData<ProfileType>("/api/profiles/home").then(
+                        (output2) => {
+                            console.log(output2.json);
+                            setViewerProfile(output2.json);
+                        }
+                    );
                     break;
                 case 403:
                     navigate(-1);
@@ -77,11 +90,30 @@ export default function Post() {
     return (
         <div className="page">
             <div className="bg--white rounded--20 px-1 pb-2 mt-1">
-                <p className="my-1 mx-2">
+                <div className="my-1 mx-2 flex flex--h-space-between">
                     <Link to={"/profiles?id=" + post.profile}>
                         {post.profileName}
                     </Link>
-                </p>
+                    {viewerProfile.id === post.profile ? (
+                        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                        <a
+                            className="text--red-5"
+                            href=""
+                            onClick={(e) => {
+                                e.preventDefault();
+                                getData(
+                                    `/api/posts/${post.id}/remove`,
+                                    "status"
+                                );
+                                navigate("/home");
+                            }}
+                        >
+                            remove
+                        </a>
+                    ) : (
+                        ""
+                    )}
+                </div>
                 <div
                     className={
                         stampEnabled
@@ -108,7 +140,6 @@ export default function Post() {
                         </div>
                     ))}
                 </div>
-
                 <div className="position--rel flex flex--h-space-between">
                     <StampListContainer
                         onClick={setSelectedStamp}
