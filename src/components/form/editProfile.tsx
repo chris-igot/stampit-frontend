@@ -64,7 +64,6 @@ export default function EditProfile(props: PropsType) {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(formUpdateState);
         let formData1 = convertInputToFormData(e);
 
         if (formUpdateState.image) {

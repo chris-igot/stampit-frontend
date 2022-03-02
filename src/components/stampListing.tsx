@@ -31,9 +31,6 @@ export default function StampListing({ stampList, ...props }: PropsType) {
                         setSelected(index);
                         if ("onClick" in props) {
                             (props.onClick as StampClickFn)(stamp.id);
-                            console.log("clicked: " + stamp.id);
-                        } else {
-                            console.log("_clicked: " + stamp.id);
                         }
                     }}
                 >

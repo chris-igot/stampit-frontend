@@ -14,7 +14,6 @@
 }
 
 .stamp-list {
-    // position: absolute;
     padding: 2px 4px 22px 4px;
     outline: colors.$clr-gray-5 solid 1px;
     border-radius: 15px;
@@ -22,9 +21,6 @@
     background-color: colors.$clr-blue-7;
 
     animation: stamp-list-animation 2s ease-out 2s 1 forwards;
-    // animation: name duration timing-function delay iteration-count direction
-    // fill-mode;
-    // display: none;
 
     .open {
         margin: 0;

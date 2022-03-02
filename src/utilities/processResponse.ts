@@ -6,7 +6,6 @@ interface OutputType<T> {
 
 function processResponse<T = Object>(returnType: "status" | "json" = "status") {
     return function (response: Response): Promise<OutputType<T>> {
-        // console.trace("response", response.url);
         let output: Promise<OutputType<T>>;
         if (response.status >= 400) {
             switch (response.status) {
@@ -18,9 +17,6 @@ function processResponse<T = Object>(returnType: "status" | "json" = "status") {
                     break;
                 default:
                     break;
-                // throw new Error(
-                //     response.status + ": " + response.statusText
-                // );
             }
             output = new Promise<OutputType<T>>((resolve, reject) => {
                 resolve({

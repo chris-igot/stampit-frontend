@@ -133,7 +133,6 @@ export default function Profile(props: PropsType = { home: false }) {
                                 <button
                                     className="btn-primary mr-1"
                                     onClick={() => {
-                                        // setUploadPic(true);
                                         (addOverlay as AddOverlayFnType)(
                                             "form",
                                             <PostNew
