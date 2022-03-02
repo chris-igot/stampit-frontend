@@ -54,6 +54,12 @@ export default function Profile(props: PropsType = { home: false }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        updateProfile();
+        updatePosts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.home]);
+
     function updateProfile() {
         const id = searchParams.get("id");
         if (props.home) {

@@ -1,4 +1,3 @@
-@use "common/theme.scss";
 @use "common/normalize";
 @use "common/layout";
 @use "common/colors";
@@ -7,7 +6,7 @@
 @use "utilities/effects";
 @use "utilities/text";
 @use "utilities/shape";
-@use "components/logotext.scss";
+@use "components/logotext";
 @use "components/buttons";
 @use "components/forminput";
 @use "components/modal";

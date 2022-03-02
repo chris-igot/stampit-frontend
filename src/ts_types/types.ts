@@ -4,6 +4,7 @@ export type PostType = {
     profileName: string;
     image: string;
     stamps: StampType[];
+    description: string;
     createdAt: string;
 };
 

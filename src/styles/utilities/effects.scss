@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-$z: 0, 1, 2, 3, 4, 9000, 9001;
+$z: 0, 1, 2, 3, 4, 9000, 9001, 9002;
 
 @mixin gen-z-index {
     @each $index in $z {
