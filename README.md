@@ -1,3 +1,3 @@
-# stmps
+# stampIt
 
 stampit frontend
