@@ -27,11 +27,12 @@ function Menu(props: PropsType) {
     }, []);
 
     useEffect(() => {
-        if (location.pathname.includes("profile")) {
+        if (
+            location.pathname.includes("profile") ||
+            location.pathname.includes("posts")
+        ) {
             const hightlight = highlightRef.current as HTMLDivElement;
-            hightlight.style.width = "0";
-            hightlight.style.height = "0";
-            hightlight.style.left = "0";
+            hightlight.style.visibility = "hidden";
         } else {
             updateHighlighterDimensions();
         }
@@ -47,6 +48,7 @@ function Menu(props: PropsType) {
             const pos = END_SPACE + menuElem.tabIndex * MIDDLE_SPACE;
             const hightlight = highlightRef.current as HTMLDivElement;
 
+            hightlight.style.visibility = "visible";
             hightlight.style.width = menuElem.clientWidth + "px";
             hightlight.style.height = menuElem.clientHeight + "px";
             hightlight.style.left = `calc(${pos}% - ${width}px)`;
@@ -54,7 +56,7 @@ function Menu(props: PropsType) {
     }
 
     return (
-        <nav id="navi" className="navigation">
+        <nav className="navigation">
             <div className="highlighter" ref={highlightRef}></div>
             <NavLink
                 className={({ isActive }) => (isActive ? "picked" : " shadow")}

@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1px;
 
     overflow: hidden;
 
@@ -45,7 +44,6 @@
         $thumb-width-base: 100 / $img-x-count; // in vw
 
         @media only screen and (min-width: $min) and (max-width: $max) {
-            // #{$view-width}vw - #{$total-x-padding} - #{$total-img-x-margin}px
             & {
                 height: calc(
                     #{$thumb-width-base}vw - #{$x-margin-correction}px - #{$x-padding-correction}rem
@@ -56,12 +54,20 @@
 
                 transition-duration: 0s;
             }
+
+            @for $i from 1 through $img-x-count {
+                &:nth-child(#{$i}) {
+                    margin-top: 0;
+                }
+            }
         }
     }
 
     &--thumbnail {
         @extend %image-sm-common;
         @extend %img-hover;
+
+        margin: 1px;
 
         background-color: white;
 
