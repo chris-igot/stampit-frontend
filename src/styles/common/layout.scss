@@ -21,7 +21,8 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: calc(100% - $nav-space);
+    // height: calc(100% - $nav-space);
+    height: 100%;
     padding: 0 1rem 1rem 1rem;
 
     overflow-y: auto;
@@ -85,11 +86,8 @@ body {
         border-radius: 3rem 3rem 0 0;
     }
 
-    #root::after {
-        position: static;
-        display: block;
-        content: "";
-        height: $nav-space;
+    .page {
+        padding-bottom: calc($nav-space);
     }
 }
 @media only screen and (min-width: 600px) {
@@ -98,10 +96,7 @@ body {
         border-radius: 0 0 3rem 3rem;
     }
 
-    #root::before {
-        position: static;
-        display: block;
-        content: "";
-        height: $nav-space;
+    .page {
+        padding-top: calc($nav-space);
     }
 }
