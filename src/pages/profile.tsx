@@ -40,6 +40,9 @@ export default function Profile(props: PropsType = { home: false }) {
         (arg = "") => "/api/posts" + arg,
         [],
         {
+            200: () => {
+                setPosts403(false);
+            },
             403: () => {
                 setPosts403(true);
             },
