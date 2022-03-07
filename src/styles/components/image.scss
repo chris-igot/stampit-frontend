@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1px;
 
     overflow: hidden;
 
@@ -40,20 +39,26 @@
     }
 
     @mixin img-media($min, $max, $img-x-count) {
-        $total-x-padding: 2rem;
-        $total-img-x-margin: $img-x-count * 2;
-        $view-width: 100 / $img-x-count;
+        $x-padding-correction: 2 / $img-x-count; // in rem
+        $x-margin-correction: 2; // in px
+        $thumb-width-base: 100 / $img-x-count; // in vw
 
         @media only screen and (min-width: $min) and (max-width: $max) {
             & {
                 height: calc(
-                    #{$view-width}vw - #{$total-x-padding} - #{$total-img-x-margin}px
+                    #{$thumb-width-base}vw - #{$x-margin-correction}px - #{$x-padding-correction}rem
                 );
                 width: calc(
-                    #{$view-width}vw - #{$total-x-padding} - #{$total-img-x-margin}px
+                    #{$thumb-width-base}vw - #{$x-margin-correction}px - #{$x-padding-correction}rem
                 );
 
                 transition-duration: 0s;
+            }
+
+            @for $i from 1 through $img-x-count {
+                &:nth-child(#{$i}) {
+                    margin-top: 0;
+                }
             }
         }
     }
@@ -61,6 +66,8 @@
     &--thumbnail {
         @extend %image-sm-common;
         @extend %img-hover;
+
+        margin: 1px;
 
         background-color: white;
 
@@ -153,8 +160,8 @@
         @extend %image-sm-common;
         @extend %img-hover;
 
-        width: 3rem;
-        height: 3rem;
+        width: 6vw;
+        height: 6vw;
         position: absolute;
 
         & > img {

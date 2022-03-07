@@ -29,14 +29,12 @@ export default function Search() {
                 action=""
                 onSubmit={handleSearch}
             >
-                <InputText name="search" type="text" />
-
-                <button
-                    className="btn-primary m--single-line-input"
-                    type="submit"
-                >
-                    Search
-                </button>
+                <InputText
+                    name="search"
+                    type="text"
+                    width="100%"
+                    label="profile search"
+                />
             </form>
             <ProfileList profiles={results} />
         </div>

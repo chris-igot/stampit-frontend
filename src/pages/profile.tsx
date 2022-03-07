@@ -40,6 +40,9 @@ export default function Profile(props: PropsType = { home: false }) {
         (arg = "") => "/api/posts" + arg,
         [],
         {
+            200: () => {
+                setPosts403(false);
+            },
             403: () => {
                 setPosts403(true);
             },
@@ -80,13 +83,13 @@ export default function Profile(props: PropsType = { home: false }) {
 
     return (
         <div className="page">
-            <div className="width--max flex flex--col pb-1">
+            <div className="width--max flex flex--col">
                 <div className="flex flex--h-space-between flex--wrap pt-1 px-4">
                     <Image
                         className={
                             profileResource.data.image !== null
-                                ? "image--profile"
-                                : "image--profile blank"
+                                ? "image--profile m-1"
+                                : "image--profile m-1 blank"
                         }
                         image={
                             profileResource.data.image !== null
@@ -95,7 +98,7 @@ export default function Profile(props: PropsType = { home: false }) {
                         }
                     />
 
-                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                    <div className="flex flex--col flex--h-center width--100px m-1 height--100px rounded--max bg--white">
                         <h2 className="text--center text--w-700 my-1 mx-0">
                             {postsResource.data.length}
                         </h2>
@@ -103,7 +106,7 @@ export default function Profile(props: PropsType = { home: false }) {
                             posts
                         </p>
                     </div>
-                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                    <div className="flex flex--col flex--h-center width--100px m-1 height--100px rounded--max bg--white">
                         <h2 className="text--center text--w-700 my-1 mx-0">
                             {profileResource.data.followers}
                         </h2>
@@ -111,7 +114,7 @@ export default function Profile(props: PropsType = { home: false }) {
                             followers
                         </p>
                     </div>
-                    <div className="flex flex--col flex--h-center width--100px height--100px rounded--max bg--white">
+                    <div className="flex flex--col flex--h-center width--100px m-1 height--100px rounded--max bg--white">
                         <h2 className="text--center text--w-700 my-1 mx-0">
                             {profileResource.data.followed}
                         </h2>
@@ -170,9 +173,11 @@ export default function Profile(props: PropsType = { home: false }) {
                     </div>
                     <div className="p-2 rounded--20 bg--white">
                         <h4 className="m-0 flex flex--v-center">
-                            <span>{profileResource.data.name}</span>{" "}
+                            <span className="mr-1">
+                                {profileResource.data.name}
+                            </span>{" "}
                             {profileResource.data.isPrivate ? (
-                                <span className="tag--dark ml-1">private</span>
+                                <span className="tag--dark">private</span>
                             ) : (
                                 ""
                             )}

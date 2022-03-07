@@ -15,6 +15,7 @@
     width: 100%;
 
     background-color: rgba($color: colors.$clr-white, $alpha: 0.5);
+    backdrop-filter: blur(3px);
 
     %modal-common {
         padding: 1rem;

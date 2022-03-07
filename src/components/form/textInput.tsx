@@ -35,16 +35,22 @@ export default function InputText({
             setBlank(false);
         }
 
-        if ("width" in props) {
+        if (width) {
             (divRef.current as HTMLDivElement).style.width = width as string;
             (inputRef.current as HTMLInputElement).style.width =
                 (divRef.current as HTMLDivElement).clientWidth + "px";
+            console.log("width!");
         } else {
             (divRef.current as HTMLDivElement).style.width =
                 (inputRef.current as HTMLInputElement).clientWidth + "px";
         }
         (divRef.current as HTMLDivElement).style.height =
             (inputRef.current as HTMLInputElement).clientHeight + "px";
+
+        console.table({
+            height: (inputRef.current as HTMLInputElement).clientHeight + "px",
+            divWidth: (divRef.current as HTMLDivElement).clientWidth + "px",
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

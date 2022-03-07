@@ -89,7 +89,7 @@ export default function Post() {
 
     return (
         <div className="page">
-            <div className="bg--white rounded--20 px-1 pb-2 mt-1">
+            <div className="width--max px-1 pb-2 mt-1 bg--white rounded--20">
                 <div className="my-1 mx-2 flex flex--h-space-between">
                     <Link to={"/profiles?id=" + post.profile}>
                         {post.profileName}
@@ -129,15 +129,19 @@ export default function Post() {
                             key={stamp.id}
                             className="image--stamp"
                             style={{
-                                left: `calc(${stamp.x / 100}% - 24px)`,
-                                top: `calc(${stamp.y / 100}% - 24px)`,
+                                left: `calc(${stamp.x / 100}% - 3vw)`,
+                                top: `calc(${stamp.y / 100}% - 3vw)`,
                             }}
                         >
                             <img src={stamp.image} alt="" />
                         </div>
                     ))}
                 </div>
-                <p className="m-0 p-1">{post.description}</p>
+                {post.description !== "" ? (
+                    <p className="m-0 p-1">{post.description}</p>
+                ) : (
+                    ""
+                )}
                 <div className="position--rel flex flex--h-space-between">
                     <StampListContainer
                         onClick={setSelectedStamp}
