@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileList from "../components/profileList";
 import { ProfileType } from "../ts_types/types";
 import getData from "../utilities/getData";
 
 export default function Following() {
+    const navigate = useNavigate();
     const [followed, setFollowed] = useState<ProfileType[]>([]);
     const [followers, setFollowers] = useState<ProfileType[]>([]);
     const [requested, setRequested] = useState<ProfileType[]>([]);
+
     useEffect(() => {
         getRequested();
         getFollowed();
@@ -21,6 +25,7 @@ export default function Following() {
                         setFollowed(output.json);
                         break;
                     default:
+                        navigate("/login");
                         break;
                 }
             }
@@ -35,6 +40,7 @@ export default function Following() {
                         setFollowers(output.json);
                         break;
                     default:
+                        navigate("/login");
                         break;
                 }
             }
@@ -49,6 +55,7 @@ export default function Following() {
                         setRequested(output.json);
                         break;
                     default:
+                        navigate("/login");
                         break;
                 }
             }

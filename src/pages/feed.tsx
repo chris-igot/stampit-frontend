@@ -12,11 +12,7 @@ export default function Feed() {
         getData<PostType[]>("/api/posts/followed").then((output) => {
             switch (output.status) {
                 case 200:
-                    setPosts(
-                        (output.json as PostType[]).sort((a, b) =>
-                            b.createdAt.localeCompare(a.createdAt)
-                        )
-                    );
+                    setPosts(output.json as PostType[]);
                     break;
                 default:
                     navigate("/login");

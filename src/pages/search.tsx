@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import InputText from "../components/form/textInput";
 import ProfileList from "../components/profileList";
 import { ProfileType } from "../ts_types/types";
@@ -7,7 +7,7 @@ import { postForm } from "../utilities/postForm";
 
 export default function Search() {
     const [results, setResults] = useState<ProfileType[]>([]);
-    useEffect(() => {}, []);
+    const formRef = useRef<HTMLFormElement>(null);
 
     function handleSearch(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -22,12 +22,17 @@ export default function Search() {
         );
     }
 
+    function resubmitSearch() {
+        (formRef.current as HTMLFormElement).requestSubmit();
+    }
+
     return (
         <div className="page">
             <form
                 className="width--max box-sizing--border flex flex--v-center flex--h-space-between mt-1 px-2 p--single-line-input-container bg--white rounded--max"
                 action=""
                 onSubmit={handleSearch}
+                ref={formRef}
             >
                 <InputText
                     name="search"
@@ -36,7 +41,8 @@ export default function Search() {
                     label="profile search"
                 />
             </form>
-            <ProfileList profiles={results} />
+
+            <ProfileList profiles={results} updateFn={resubmitSearch} />
         </div>
     );
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { ProfileType } from "../ts_types/types";
-import getData from "../utilities/getData";
 
 interface PropsType {
     profile: ProfileType;
@@ -8,11 +7,10 @@ interface PropsType {
 }
 export default function FollowButton(props: PropsType) {
     function handleClick(follow: string) {
-        getData(
-            `/api/profiles/${follow}?id=` + props.profile.id,
-            "status"
-        ).then(() => {
-            (props.onClick as Function)();
+        fetch(`/api/profiles/${follow}?id=` + props.profile.id).then(() => {
+            if ("onClick" in props) {
+                (props.onClick as Function)();
+            }
         });
     }
 

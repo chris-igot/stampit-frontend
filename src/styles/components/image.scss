@@ -54,12 +54,6 @@
 
                 transition-duration: 0s;
             }
-
-            @for $i from 1 through $img-x-count {
-                &:nth-child(#{$i}) {
-                    margin-top: 0;
-                }
-            }
         }
     }
 

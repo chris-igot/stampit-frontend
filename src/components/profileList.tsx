@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ProfileType } from "../ts_types/types";
-import getData from "../utilities/getData";
 import FollowButton from "./followButton";
 import Image from "./image";
 import noProfilePic from "../icons/round_account_circle_white_48dp.png";
@@ -15,11 +14,9 @@ interface PropsType {
 
 export default function ProfileList(props: PropsType) {
     function handleRequestClick(follow: string, profile: ProfileType) {
-        getData(`/api/profiles/${follow}?id=` + profile.id, "status").then(
-            () => {
-                (props.updateFn as Function)();
-            }
-        );
+        fetch(`/api/profiles/${follow}?id=` + profile.id).then(() => {
+            (props.updateFn as Function)();
+        });
     }
 
     function setButton(profile: ProfileType) {
@@ -32,6 +29,9 @@ export default function ProfileList(props: PropsType) {
                             className="btn-primary"
                             onClick={() => {
                                 handleRequestClick("accept", profile);
+                                if ("updateFn" in props) {
+                                    (props.updateFn as () => void)();
+                                }
                             }}
                         >
                             accept
@@ -40,6 +40,9 @@ export default function ProfileList(props: PropsType) {
                             className="btn-danger ml-1"
                             onClick={() => {
                                 handleRequestClick("reject", profile);
+                                if ("updateFn" in props) {
+                                    (props.updateFn as () => void)();
+                                }
                             }}
                         >
                             reject
