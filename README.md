@@ -2,4 +2,4 @@
 
 This is the stampIt frontend
 
-(https://github.com/cigot/stampit-backend)[click here] for the backend.
+[click here](https://github.com/cigot/stampit-backend) for the backend.
