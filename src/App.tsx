@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Menu from "./components/menu";
 import Login from "./pages/login";
@@ -14,6 +14,10 @@ import Feed from "./pages/feed";
 import OverlaidContentProvider from "./context/overlaidContentProvider";
 
 function App() {
+    useEffect(() => {
+        document.title = "stampIt!";
+    }, []);
+
     return (
         <Router>
             <OverlaidContentProvider>
