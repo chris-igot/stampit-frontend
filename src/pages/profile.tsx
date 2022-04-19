@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FollowButton from "../components/followButton";
 import EditProfile from "../components/form/editProfile";
 import Image from "../components/image";
@@ -32,9 +32,15 @@ const defaultProfile = {
 
 export default function Profile(props: PropsType = { home: false }) {
     const { addOverlay } = useContext(overlayContext);
+    const navigate = useNavigate();
     const profileResource = useAPIResource<ProfileType>(
         (arg = "") => "/api/profiles" + arg,
-        defaultProfile
+        defaultProfile,
+        {
+            500: () => {
+                navigate("/login");
+            },
+        }
     );
     const postsResource = useAPIResource<PostType[]>(
         (arg = "") => "/api/posts" + arg,
